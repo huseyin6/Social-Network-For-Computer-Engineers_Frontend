@@ -13,8 +13,11 @@
   padding: 0;
 }
 
+
+
+
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family:monospace;
   font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;
@@ -36,12 +39,12 @@ img {
 
 /* Utilities */
 .container {
-  max-width: 1100px;
-  margin: auto;
+  max-width:100%;
+  margin:0%;
   overflow: hidden;
-  padding: 0 2rem;
-  margin-top: 6rem;
-  margin-bottom: 3rem;
+  padding:0%;
+  margin-top:0%;
+  margin-bottom:0%;
 }
 
 /* Text Styles*/
@@ -227,7 +230,7 @@ img {
 /* Overlay */
 .dark-overlay {
   background-color: rgba(0, 0, 0, 0.7);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -317,7 +320,7 @@ button {
 }
 
 .navbar a {
-  color: #fff;
+  color: rgb(164, 221, 156);
   padding: 0.45rem;
   margin: 0 0.25rem;
 }
@@ -333,12 +336,12 @@ button {
 /* Landing Page */
 .landing {
   position: relative;
-  background: url('./img/showcase.jpg') no-repeat center center/cover;
-  height: 100vh;
+  background: url('./img/wp2700093.jpg') ;
+  height: 200vh;
 }
 
 .landing-inner {
-  color: #fff;
+  color: rgb(206, 248, 217);
   height: 100%;
   width: 80%;
   margin: auto;
