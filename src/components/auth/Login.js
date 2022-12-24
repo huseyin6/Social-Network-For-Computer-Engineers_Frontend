@@ -1,8 +1,10 @@
 import React, { Fragment, useState } from 'react';
-import axios from '../../axios';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
+import { Link, Navigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -15,25 +17,12 @@ const Login = () => {
 
   const clickSubmit = async (e) => {
     e.preventDefault();
-    const user = {
-      email,
-      password,
-    };
-
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-      const body = JSON.stringify(user);
-      const response = await axios.post('/auth', body, config);
-      console.log(response);
-    } catch (error) {
-      console.log('Login olamadı');
-      console.error(error.response.data.status);
-    }
+    login(email, password);
   };
+
+  if (isAuthenticated) {
+    return <Navigate to='/dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -72,4 +61,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);
