@@ -45,7 +45,7 @@ const CreateProfile = ({createProfile}) => {
 
 return (
     <Fragment>
-        <h1 class="large text-primary">
+        <h1 className="large text-primary">
         Create Your Profile
       </h1>
       <p className="lead">
