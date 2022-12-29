@@ -18,6 +18,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import setAuthToken from './utils/setAuthToken';
 
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -38,11 +39,11 @@ const App = () => {
               <Route path='/' element={<Landing />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
-              <Route exact path='/dashboard' element={<PrivateRoute Component={Dashboard} />} />  
-              <Route exact path='/create-profile' element={<PrivateRoute Component={CreateProfile} />} /> 
-              <Route exact path='/edit-profile' element={<PrivateRoute Component={EditProfile} />} />   
-              <Route exact path='/add-experience' element={<PrivateRoute Component={AddExperience} />} />  
-              <Route exact path='/add-education' element={<PrivateRoute Component={AddEducation} />} />  
+              <Route exact path='/dashboard' element={<PrivateRoute component={Dashboard} />} />  
+              <Route exact path='/create-profile' element={<PrivateRoute component={CreateProfile} />} /> 
+              <Route exact path='/edit-profile' element={<PrivateRoute component={EditProfile} />} />   
+              <Route exact path='/add-experience' element={<PrivateRoute component={AddExperience} />} />  
+              <Route exact path='/add-education' element={<PrivateRoute component={AddEducation} />} />  
             </Routes>
           </section>
         </Fragment>
