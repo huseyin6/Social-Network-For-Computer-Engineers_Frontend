@@ -1,7 +1,7 @@
 /* Global Styles */
 :root {
-  --primary-color: #17a2b8;
-  --dark-color: #343a40;
+  --primary-color: rgb(19, 156, 190);
+  --dark-color: #0b1014;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
@@ -39,12 +39,13 @@ img {
 
 /* Utilities */
 .container {
-  max-width:100%;
+  max-width:70%;
   margin:0%;
   overflow: hidden;
   padding:0%;
-  margin-top:0%;
+  margin-top:5%;
   margin-bottom:0%;
+  margin-left: 15%;
 }
 
 /* Text Styles*/
@@ -312,7 +313,7 @@ button {
   width: 100%;
   top: 0;
   border-bottom: solid 1px var(--primary-color);
-  opacity: 0.9;
+  opacity: 1.0;
 }
 
 .navbar ul {
@@ -320,7 +321,7 @@ button {
 }
 
 .navbar a {
-  color: rgb(164, 221, 156);
+  color: rgb(19, 156, 190);
   padding: 0.45rem;
   margin: 0 0.25rem;
 }
@@ -336,8 +337,9 @@ button {
 /* Landing Page */
 .landing {
   position: relative;
-  background: url('./img/wp2700093.jpg') ;
-  height: 200vh;
+  background: url('./img/wp2700093.jpeg') ;
+  height: 130vh;
+  max-width: 100%;
 }
 
 .landing-inner {
