@@ -1,46 +1,44 @@
 import axios from '../axios';
-import {setAlert} from './alert';
+import { setAlert } from './alert';
 
 import {
-    GET_PROFILE,
-    PROFILE_ERROR,
-    UPDATE_PROFILE,
-    CLEAR_PROFILE,
-    ACCOUNT_DELETED
+  GET_PROFILE,
+  PROFILE_ERROR,
+  UPDATE_PROFILE,
+  CLEAR_PROFILE,
+  ACCOUNT_DELETED,
 } from './types';
 
-export const getCurrentProfile = () => async dispatch => {
-    try {
-        const res = await axios.get('/profile/me');
-        dispatch({
-            type: GET_PROFILE,
-            payload: res.data
-        });
-    }
-    catch(err) {
-        dispatch({
-            type: GET_PROFILE,
-            payload: {msg : err.response.statusText, status: err.response.status}
-        })
-    }
-
-}
+export const getCurrentProfile = () => async (dispatch) => {
+  try {
+    const res = await axios.get('/profile/me');
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 
 export const createProfile =
   (formData, navigate, edit = false) =>
   async (dispatch) => {
     try {
-        const config ={
-            headers: {
-                'Content-Type': 'application/json' 
-            }
-        }
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
 
       const res = await axios.post('/profile', formData);
 
       dispatch({
         type: GET_PROFILE,
-        payload: res.data
+        payload: res.data,
       });
 
       dispatch(
@@ -59,31 +57,29 @@ export const createProfile =
 
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
+        payload: { msg: err.response.statusText, status: err.response.status },
       });
     }
   };
 
-  export const addExperience =
+export const addExperience =
   (formData, navigate, edit = false) =>
   async (dispatch) => {
     try {
-        const config ={
-            headers: {
-                'Content-Type': 'application/json' 
-            }
-        }
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
 
       const res = await axios.put('/profile/experience', formData);
 
       dispatch({
         type: UPDATE_PROFILE,
-        payload: res.data
+        payload: res.data,
       });
 
-      dispatch(
-        setAlert('Experience added', 'success')
-      );
+      dispatch(setAlert('Experience added', 'success'));
 
       if (!edit) {
         navigate('/dashboard');
@@ -97,31 +93,29 @@ export const createProfile =
 
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
+        payload: { msg: err.response.statusText, status: err.response.status },
       });
     }
   };
 
-  export const addEducation =
+export const addEducation =
   (formData, navigate, edit = false) =>
   async (dispatch) => {
     try {
-        const config ={
-            headers: {
-                'Content-Type': 'application/json' 
-            }
-        }
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
 
       const res = await axios.put('/profile/education', formData);
 
       dispatch({
         type: UPDATE_PROFILE,
-        payload: res.data
+        payload: res.data,
       });
 
-      dispatch(
-        setAlert('Education added', 'success')
-      );
+      dispatch(setAlert('Education added', 'success'));
 
       if (!edit) {
         navigate('/dashboard');
@@ -135,65 +129,65 @@ export const createProfile =
 
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
-      });
-    }
-  };  
-
-  export const deleteExperience = (id) => async (dispatch) => {
-    try {
-      const res = await axios.delete(`/profile/experience/${id}`);
-  
-      dispatch({
-        type: UPDATE_PROFILE,
-        payload: res.data
-      });
-  
-      dispatch(setAlert('Experience Removed', 'success'));
-    } catch (err) {
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
+        payload: { msg: err.response.statusText, status: err.response.status },
       });
     }
   };
 
-  export const deleteEducation = (id) => async (dispatch) => {
-    try {
-      const res = await axios.delete(`/profile/education/${id}`);
-  
-      dispatch({
-        type: UPDATE_PROFILE,
-        payload: res.data
-      });
-  
-      dispatch(setAlert('Education Removed', 'success'));
-    } catch (err) {
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
-      });
-    }
-  };
+export const deleteExperience = (id) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/profile/experience/${id}`);
 
-  export const deleteAccount = (id) => async (dispatch) => {
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
 
-    if (window.confirm('Are you sure? This can NOT be undone!')) {
+    dispatch(setAlert('Experience Removed', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const deleteEducation = (id) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/profile/education/${id}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Education Removed', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const deleteAccount = (id) => async (dispatch) => {
+  if (window.confirm('Are you sure? This can NOT be undone!')) {
     try {
       const res = await axios.delete(`/profile`);
-  
+
       dispatch({
         type: CLEAR_PROFILE,
       });
       dispatch({
         type: ACCOUNT_DELETED,
       });
-  
+
       dispatch(setAlert('Account deleted'));
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
+        payload: { msg: err.response.statusText, status: err.response.status },
       });
-    }}
-  };
+    }
+  }
+};
