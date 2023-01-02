@@ -34,7 +34,6 @@ const App = () => {
       <BrowserRouter>
         <Fragment>
           <Navbar />
-          <Alert />
           <Routes>
             <Route path='/' element={<Landing />} />
             <Route path='/login' element={<Login />} />

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 import { Link, Navigate } from 'react-router-dom';
-
+import Alert from '../layout/Alert';
 const Login = ({ login, isAuthenticated }) => {
   const [data, setData] = useState({
     email: '',
@@ -58,6 +58,7 @@ const Login = ({ login, isAuthenticated }) => {
       <p className='my-1'>
         Don't have an account? <Link to='/register'>Sign Up</Link>
       </p>
+      <Alert />
       </div>
     </section>
   );

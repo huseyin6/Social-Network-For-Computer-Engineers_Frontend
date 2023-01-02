@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { addExperience } from '../../actions/profile';
+import Alert from '../layout/Alert';
+
 const AddExperience = ({ addExperience }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -24,11 +26,8 @@ const AddExperience = ({ addExperience }) => {
 
   return (
     <section className='container'>
+      <Alert/>
       <h1 className='large text-primary'>Add An Experience</h1>
-      <p className='lead'>
-        <i className='fas fa-code-branch'></i> Add any developer/programming
-        positions that you have had in the past
-      </p>
       <small>* = required field</small>
       <form
         className='form'

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { addEducation } from '../../actions/profile';
-
+import Alert from '../layout/Alert';
 const AddEducation = ({ addEducation }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -27,10 +27,9 @@ const AddEducation = ({ addEducation }) => {
 
   return (
     <section className='container'>
+      <Alert/>
       <h1 className='large text-primary'>Add Education</h1>
-      <p className='lead'>
-        <i className='fas fa-code-branch'></i> Add the schools you attended
-      </p>
+
       <small>* = required field</small>
       <form
         className='form'

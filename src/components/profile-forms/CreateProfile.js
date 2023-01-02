@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 import { Link, Navigate , useNavigate } from 'react-router-dom';
 import { createProfile } from '../../actions/profile';
+import Alert from '../layout/Alert';
 const CreateProfile = ({createProfile}) => {
   const [formData, setFormData] = useState({
     company: '',
@@ -44,9 +45,10 @@ const CreateProfile = ({createProfile}) => {
   }
 
 return (
-    <Fragment>
-        <h1 className="large text-primary">
-        Create Your Profile
+  <section className='container'>
+      <Alert/>
+      <h1 className="large text-primary">
+      Create Your Profile
       </h1>
       <p className="lead">
         <i className="fas fa-user"></i> Let's get some information to make your
@@ -151,7 +153,7 @@ return (
         <input type="submit" className="btn btn-primary my-1" />
         <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
       </form>
-    </Fragment>
+    </section>
 );
 
 };

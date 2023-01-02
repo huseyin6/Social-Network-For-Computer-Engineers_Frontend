@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
-
+import Alert from '../layout/Alert';
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [data, setData] = useState({
     name: '',
@@ -87,7 +87,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       <p className='my-1'>
         Already have an account? <Link to='/login'>Sign In</Link>
       </p>
+      <Alert />
       </div>
+
     </section>
   );
 };
