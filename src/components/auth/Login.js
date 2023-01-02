@@ -25,7 +25,8 @@ const Login = ({ login, isAuthenticated }) => {
   }
 
   return (
-    <section className='container'>
+    <section className='landing'>
+      <div className='form-container'>
       <h1 className='large text-primary'>Sign In</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Sign Into Your Account
@@ -57,6 +58,7 @@ const Login = ({ login, isAuthenticated }) => {
       <p className='my-1'>
         Don't have an account? <Link to='/register'>Sign Up</Link>
       </p>
+      </div>
     </section>
   );
 };

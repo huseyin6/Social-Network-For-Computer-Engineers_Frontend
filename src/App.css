@@ -13,9 +13,6 @@
   padding: 0;
 }
 
-
-
-
 body {
   font-family:monospace;
   font-size: 1rem;
@@ -37,6 +34,17 @@ img {
   width: 100%;
 }
 
+.form-container {
+  max-width:40%;
+  height: 100%;
+  overflow: hidden;
+  padding-top: 9%;
+  padding-bottom:  3%;
+  background-color: #fff;
+  text-align: center;
+  margin-left:60%;
+  align-items: center;
+}
 /* Utilities */
 .container {
   max-width:70%;
@@ -61,8 +69,20 @@ img {
   margin-bottom: 1rem;
 }
 
-.lead {
+.larger {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+
+}
+.medium {
   font-size: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.lead {
+  font-size: 1.2rem;
   margin-bottom: 1rem;
 }
 
@@ -141,6 +161,7 @@ img {
   margin-right: 0.5rem;
   transition: opacity 0.2s ease-in;
   outline: none;
+  border-radius: 10px;
 }
 
 .badge {
@@ -255,8 +276,8 @@ img {
 .form input[type='date'],
 .form select,
 .form textarea {
-  display: block;
-  width: 100%;
+
+  width: 70%;
   padding: 0.4rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;
@@ -292,6 +313,23 @@ button {
   color: #0077b5;
 }
 
+.profile-top .icons i.fa-twitter {
+  color: #38a1f3;
+}
+.profile-top .icons i.fa-facebook {
+  color: #3b5998;
+}
+.profile-top .icons  i.fa-instagram {
+  color: #3f729b;
+}
+.profile-top .icons  i.fa-youtube {
+  color: #c4302b;
+}
+.profile-top .icons  i.fa-linkedin {
+  color: #0077b5;
+}
+
+
 .table th,
 .table td {
   padding: 1rem;
@@ -312,8 +350,7 @@ button {
   z-index: 1;
   width: 100%;
   top: 0;
-  border-bottom: solid 1px var(--primary-color);
-  opacity: 1.0;
+  border-bottom: solid 2px var(--primary-color);
 }
 
 .navbar ul {
@@ -343,21 +380,21 @@ button {
 }
 
 .landing-inner {
-  color: rgb(206, 248, 217);
+  color: rgb(255, 255, 255);
   height: 100%;
   width: 80%;
   margin: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: right;
   justify-content: center;
-  text-align: center;
+  text-align: right;
 }
 
 /* Profiles Page */
 .profile {
   display: grid;
-  grid-template-columns: 2fr 4fr 2fr;
+  grid-template-columns: 2fr 8fr 2fr;
   align-items: center;
   grid-gap: 2rem;
   padding: 1rem;
@@ -380,13 +417,13 @@ button {
   grid-area: top;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   justify-content: center;
-  text-align: center;
+  text-align: left;
 }
 
 .profile-top img {
-  width: 250px;
+  width: 200px;
 }
 
 .profile-top .icons a {
@@ -400,14 +437,14 @@ button {
 
 .profile-about {
   grid-area: about;
-  text-align: center;
+  text-align: left;
 }
 
 .profile-about .skills {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  align-items: left;
+  justify-content: left;
+  text-align: left;
 }
 
 .profile-exp {

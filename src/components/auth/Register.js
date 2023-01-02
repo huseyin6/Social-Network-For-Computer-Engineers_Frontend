@@ -32,7 +32,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   }
 
   return (
-    <section className='container'>
+    <section className='landing'>
+      <div className='form-container'>
       <h1 className='large text-primary'>Sign Up</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Create Your Account
@@ -57,10 +58,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             onChange={(el) => onChange(el)}
             required
           />
-          <small className='form-text'>
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
-          </small>
+
         </div>
         <div className='form-group'>
           <input
@@ -89,6 +87,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       <p className='my-1'>
         Already have an account? <Link to='/login'>Sign In</Link>
       </p>
+      </div>
     </section>
   );
 };
