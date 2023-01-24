@@ -27,8 +27,8 @@ const AddExperience = ({ addExperience }) => {
   return (
     <section className='container'>
       <Alert/>
-      <h1 className='large text-primary'>Add An Experience</h1>
-      <small>* = required field</small>
+      <h1 className='large text-primary'>Add Experience</h1>
+      <small>* Required field</small>
       <form
         className='form'
         onSubmit={(e) => {
@@ -66,7 +66,7 @@ const AddExperience = ({ addExperience }) => {
           />
         </div>
         <div className='form-group'>
-          <h4>From Date</h4>
+          <h4>Start Date</h4>
           <input
             type='date'
             name='from'
@@ -90,7 +90,7 @@ const AddExperience = ({ addExperience }) => {
           </p>
         </div>
         <div className='form-group'>
-          <h4>To Date</h4>
+          <h4>End Date</h4>
           <input
             type='date'
             name='to'
@@ -104,7 +104,7 @@ const AddExperience = ({ addExperience }) => {
             name='description'
             cols='30'
             rows='5'
-            placeholder='Job Description'
+            placeholder='Description'
             value={description}
             onChange={(e) => onChange(e)}
           ></textarea>

@@ -22,18 +22,22 @@ const Dashboard = ({
     <section className='container'>
       <Alert/>
       <h1 className='large text-primary'>Dashboard</h1>
-      <p className='lead'>
-        <i className='fas fa-user' /> Welcome {user && user.name}
-      </p>
+      <h2 className='my-1 '>
+       {user && user.name}
+      </h2>
       {profile !== null ? (
         <>
-          <DashboardActions />
+          <DashboardActions /><br/>
+          <p className='medium my-1'>Experience <Link to="/add-experience" className="btn btn-light">
+         <i className='fas fa-plus text-primary'></i  ></Link></p>
           <Experience experience={profile.experience} />
+          <p className='medium my-1'>Education <Link to="/add-education" className="btn btn-light">
+         <i className='fas fa-plus text-primary'></i  ></Link></p>
           <Education education={profile.education} />
 
           <div className='my-2'>
             <button className='btn btn-danger' onClick={() => deleteAccount()}>
-              <i className='fas fa-user-minus' /> Delete My Account
+             Delete My Account
             </button>
           </div>
         </>

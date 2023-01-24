@@ -30,7 +30,7 @@ const AddEducation = ({ addEducation }) => {
       <Alert/>
       <h1 className='large text-primary'>Add Education</h1>
 
-      <small>* = required field</small>
+      <small>* Required field</small>
       <form
         className='form'
         onSubmit={(e) => {
@@ -61,14 +61,14 @@ const AddEducation = ({ addEducation }) => {
         <div className='form-group'>
           <input
             type='text'
-            placeholder='Field'
+            placeholder='* Field of study'
             name='fieldofstudy'
             value={fieldofstudy}
             onChange={(e) => onChange(e)}
           />
         </div>
         <div className='form-group'>
-          <h4>From Date</h4>
+          <h4>* Start Date</h4>
           <input
             type='date'
             name='from'
@@ -92,7 +92,7 @@ const AddEducation = ({ addEducation }) => {
           </p>
         </div>
         <div className='form-group'>
-          <h4>To Date</h4>
+          <h4>End Date</h4>
           <input
             type='date'
             name='to'
@@ -106,7 +106,7 @@ const AddEducation = ({ addEducation }) => {
             name='description'
             cols='30'
             rows='5'
-            placeholder='Job Description'
+            placeholder='Description'
             value={description}
             onChange={(e) => onChange(e)}
           ></textarea>

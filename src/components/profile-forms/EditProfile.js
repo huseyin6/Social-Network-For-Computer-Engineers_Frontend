@@ -73,8 +73,8 @@ const EditProfile = ({
   return (
     <section className='container'>
       <Alert/>
-      <h1 className='large text-primary'>Edit Your Profile</h1>
-      <small>* = required field</small>
+      <h1 className='large text-primary'>Edit Profile</h1>
+      <small>* Required field</small>
       <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <select name='status' value={status} onChange={(e) => onChange(e)}>
@@ -88,9 +88,6 @@ const EditProfile = ({
             <option value='Intern'>Intern</option>
             <option value='Other'>Other</option>
           </select>
-          <small className='form-text'>
-            Give us an idea of where you are at in your career
-          </small>
         </div>
         <div className='form-group'>
           <input
@@ -100,9 +97,6 @@ const EditProfile = ({
             value={company}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            Could be your own company or one you work for
-          </small>
         </div>
         <div className='form-group'>
           <input
@@ -112,9 +106,7 @@ const EditProfile = ({
             value={website}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            Could be your own or a company website
-          </small>
+
         </div>
         <div className='form-group'>
           <input
@@ -125,7 +117,7 @@ const EditProfile = ({
             onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
-            City & state suggested (eg. Boston, MA)
+            City/state 
           </small>
         </div>
         <div className='form-group'>
@@ -137,7 +129,7 @@ const EditProfile = ({
             onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
-            Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
+            Please seperate them with comma (eg. Java, HTML)
           </small>
         </div>
         <div className='form-group'>
@@ -148,10 +140,6 @@ const EditProfile = ({
             value={githubusername}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            If you want your latest repos and a Github link, include your
-            username
-          </small>
         </div>
         <div className='form-group'>
           <textarea
@@ -160,10 +148,9 @@ const EditProfile = ({
             value={bio}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>Tell us a little about yourself</small>
         </div>
 
-        <div className='my-2'>
+        <div className='my-1'>
           <button
             onClick={() => toggleSocialInputs(!displaySocialInputs)}
             type='button'
@@ -171,7 +158,6 @@ const EditProfile = ({
           >
             Add Social Network Links
           </button>
-          <span>Optional</span>
         </div>
 
         {displaySocialInputs && (

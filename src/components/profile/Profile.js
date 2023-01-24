@@ -16,7 +16,7 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
     getProfileById(id);
   }, [getProfileById, id]);
   return (
-    <section className='container'>
+    <section className='container2'>
       {profile === null ? (
         <Spinner />
       ) : (
@@ -31,7 +31,7 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
           <div className='profile-grid my-1'>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
-            <div className='profile-exp bg-light p-2'>
+            <div className='profile-exp bg-white p-2'>
               <h2 className='text-primary'>Experience</h2>
               {profile.experience.length > 0 ? (
                 <Fragment>
@@ -47,7 +47,7 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
               )}
             </div>
 
-            <div className='profile-edu bg-light p-2'>
+            <div className='profile-edu bg-white p-2'>
               <h2 className='text-primary'>Education</h2>
               {profile.education.length > 0 ? (
                 <Fragment>

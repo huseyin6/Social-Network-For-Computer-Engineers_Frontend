@@ -17,7 +17,7 @@ body {
   font-family:monospace;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #fff;
+  background-color: #f4f4f4;
   color: #333;
 }
 
@@ -47,43 +47,55 @@ img {
 }
 /* Utilities */
 .container {
-  max-width:70%;
+  max-width:60%;
   margin:0%;
   overflow: hidden;
-  padding:0%;
-  margin-top:5%;
+  padding-top:15px;
+  padding-left:20px;
+  margin-top:6%;
   margin-bottom:0%;
-  margin-left: 15%;
+  background-color: #fff;
+  margin-left: 20%;
+  border-radius:5px;
+  border: 1px solid #d3d3d3;
+}
+.container2 {
+  max-width:60%;
+  margin:0%;
+  overflow: hidden;
+  margin-top:6%;
+  margin-bottom:0%;
+  margin-left: 20%;
+  border-radius:5px;
 }
 
 /* Text Styles*/
 .x-large {
-  font-size: 4rem;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-}
-
-.large {
   font-size: 3rem;
   line-height: 1.2;
   margin-bottom: 1rem;
 }
 
+.large {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
 .larger {
-  font-size: 2rem;
+  font-size: 1.8rem;
   line-height: 1.2;
   margin-bottom: 1rem;
 
 }
 .medium {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 1.2;
   margin-bottom: 1rem;
 }
 
 .lead {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-size: 1.1rem;
 }
 
 .text-center {
@@ -97,10 +109,20 @@ img {
 .text-dark {
   color: var(--dark-color);
 }
+.text-black {
+  color: #303030
+}
+.text-danger {
+  color: var(--danger-color);
+}
 
 /* Padding */
 .p {
   padding: 0.5rem;
+}
+.pr1 {
+  padding-right: 1rem;
+
 }
 .p-1 {
   padding: 1rem;
@@ -141,7 +163,7 @@ img {
   margin: 0.5rem 0;
 }
 .my-1 {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 }
 .my-2 {
   margin: 2rem 0;
@@ -278,9 +300,10 @@ img {
 .form textarea {
 
   width: 70%;
-  padding: 0.4rem;
-  font-size: 1.2rem;
+  padding: 0.5rem;
+  font-size: 1rem;
   border: 1px solid #ccc;
+  border-radius:5px;
 }
 
 .form input[type='submit'],
@@ -337,7 +360,7 @@ button {
 }
 
 .table th {
-  background: var(--light-color);
+  background: #fff;
 }
 
 /* Navbar */
@@ -350,7 +373,7 @@ button {
   z-index: 1;
   width: 100%;
   top: 0;
-  border-bottom: solid 2px var(--primary-color);
+
 }
 
 .navbar ul {
@@ -394,7 +417,7 @@ button {
 /* Profiles Page */
 .profile {
   display: grid;
-  grid-template-columns: 2fr 8fr 2fr;
+  grid-template-columns: 2fr 12fr 2fr;
   align-items: center;
   grid-gap: 2rem;
   padding: 1rem;
@@ -420,10 +443,11 @@ button {
   align-items: left;
   justify-content: center;
   text-align: left;
+  border-radius: 5px;
 }
 
 .profile-top img {
-  width: 200px;
+  width: 150px;
 }
 
 .profile-top .icons a {
@@ -438,6 +462,7 @@ button {
 .profile-about {
   grid-area: about;
   text-align: left;
+  border-radius: 5px;
 }
 
 .profile-about .skills {
@@ -445,14 +470,17 @@ button {
   align-items: left;
   justify-content: left;
   text-align: left;
+  border-radius: 5px;
 }
 
 .profile-exp {
   grid-area: exp;
+  border-radius: 5px;
 }
 
 .profile-edu {
   grid-area: edu;
+  border-radius: 5px;
 }
 
 .profile-exp h2,
@@ -483,6 +511,7 @@ button {
 
 .profile-github .repo {
   display: flex;
+  border-radius: 5px;
 }
 
 .profile-github .repo > div:first-child {
