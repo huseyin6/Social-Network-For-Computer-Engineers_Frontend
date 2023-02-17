@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
@@ -27,38 +27,38 @@ const Login = ({ login, isAuthenticated }) => {
   return (
     <section className='landing'>
       <div className='form-container'>
-      <h1 className='x-large text-primary'>Sign In</h1>
-      <p className='lead'>
-        <i className='fas fa-user'></i> Sign Into Your Account
-      </p>
-      <form className='form' onSubmit={(e) => clickSubmit(e)}>
-        <div className='form-group'>
-          <input
-            type='email'
-            placeholder='Email Address'
-            name='email'
-            value={email}
-            onChange={(el) => onChange(el)}
-            required
-          />
-        </div>
-        <div className='form-group'>
-          <input
-            type='password'
-            placeholder='Password'
-            name='password'
-            minLength='6'
-            value={password}
-            onChange={(el) => onChange(el)}
-            required
-          />
-        </div>
-        <input type='submit' className='btn btn-primary' value='Login' />
-      </form>
-      <p className='my-1'>
-        Don't have an account? <Link to='/register'>Sign Up</Link>
-      </p>
-      <Alert />
+        <h1 className='x-large text-primary'>Sign In</h1>
+        <p className='lead'>
+          <i className='fas fa-user'></i> Sign Into Your Account
+        </p>
+        <form className='form' onSubmit={(e) => clickSubmit(e)}>
+          <div className='form-group'>
+            <input
+              type='email'
+              placeholder='Email Address'
+              name='email'
+              value={email}
+              onChange={(el) => onChange(el)}
+              required
+            />
+          </div>
+          <div className='form-group'>
+            <input
+              type='password'
+              placeholder='Password'
+              name='password'
+              minLength='6'
+              value={password}
+              onChange={(el) => onChange(el)}
+              required
+            />
+          </div>
+          <input type='submit' className='btn btn-primary' value='Login' />
+        </form>
+        <p className='my-1'>
+          Don't have an account? <Link to='/register'>Sign Up</Link>
+        </p>
+        <Alert />
       </div>
     </section>
   );

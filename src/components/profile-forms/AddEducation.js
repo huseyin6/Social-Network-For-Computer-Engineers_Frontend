@@ -1,8 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../../actions/auth';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { addEducation } from '../../actions/profile';
 import Alert from '../layout/Alert';
 const AddEducation = ({ addEducation }) => {
@@ -27,7 +26,7 @@ const AddEducation = ({ addEducation }) => {
 
   return (
     <section className='container'>
-      <Alert/>
+      <Alert />
       <h1 className='large text-primary'>Add Education</h1>
 
       <small>* Required field</small>

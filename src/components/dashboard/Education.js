@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Moment } from 'react-moment';
+// import { Moment } from 'react-moment';
 import { deleteEducation } from '../../actions/profile';
 import formatDate from '../../utils/formatDate';
 const Education = ({ education, deleteEducation }) => {
@@ -18,14 +18,13 @@ const Education = ({ education, deleteEducation }) => {
           onClick={() => deleteEducation(edu._id)}
           className='btn btn-danger'
         >
-           <i className="fas fa-trash-alt text-light"></i  >
+          <i className='fas fa-trash-alt text-light'></i>
         </button>
       </td>
     </tr>
   ));
   return (
     <Fragment>
-      
       <table className='table'>
         <thead>
           <tr>
