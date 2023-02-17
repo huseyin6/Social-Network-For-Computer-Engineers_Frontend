@@ -1,7 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { addExperience } from '../../actions/profile';
 import Alert from '../layout/Alert';
 
@@ -26,7 +26,7 @@ const AddExperience = ({ addExperience }) => {
 
   return (
     <section className='container'>
-      <Alert/>
+      <Alert />
       <h1 className='large text-primary'>Add Experience</h1>
       <small>* Required field</small>
       <form

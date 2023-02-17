@@ -9,11 +9,13 @@ import CreateProfile from './components/profile-forms/CreateProfile';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
 import AddExperience from './components/profile-forms/AddExperience';
+import Posts from './components/posts/Posts';
+import Post from './components/post/Post';
 import AddEducation from './components/profile-forms/AddEducation';
 import EditProfile from './components/profile-forms/EditProfile';
 import PrivateRoute from './components/routing/PrivateRoute';
 import './App.css';
-import Alert from './components/layout/Alert';
+// import Alert from './components/layout/Alert';
 import { loadUser } from './actions/auth';
 //Redux
 import { Provider } from 'react-redux';
@@ -64,6 +66,15 @@ const App = () => {
               exact
               path='/add-education'
               element={<PrivateRoute component={AddEducation} />}
+            />
+            <Route
+              exact
+              path='/posts'
+              element={<PrivateRoute component={Posts} />}
+            />
+            <Route
+              path='posts/:id'
+              element={<PrivateRoute component={Post} />}
             />
           </Routes>
         </Fragment>
