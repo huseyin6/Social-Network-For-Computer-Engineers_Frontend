@@ -4,6 +4,7 @@ import {
   GET_POSTS,
   POST_ERROR,
   UPDATE_LIKES,
+  UPDATE_DISLIKES,
   DELETE_POST,
   ADD_POST,
   GET_POST,
@@ -46,13 +47,13 @@ export const addLike = (id) => async (dispatch) => {
   }
 };
 
-// Remove like
-export const removeLike = (id) => async (dispatch) => {
+//Add dislike
+export const addDislike = (id) => async (dispatch) => {
   try {
     const res = await axios.put(`/posts/unlike/${id}`);
     dispatch({
-      type: UPDATE_LIKES,
-      payload: { id, likes: res.data },
+      type: UPDATE_DISLIKES,
+      payload: { id, dislikes: res.data },
     });
   } catch (err) {
     dispatch({
