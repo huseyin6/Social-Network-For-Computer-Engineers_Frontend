@@ -8,6 +8,8 @@ import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
+import Questions from './components/questions/Questions';
+import Question from './components/question/Question';
 import AddExperience from './components/profile-forms/AddExperience';
 import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
@@ -75,6 +77,15 @@ const App = () => {
             <Route
               path='posts/:id'
               element={<PrivateRoute component={Post} />}
+            />
+            <Route
+              exact
+              path='/questions'
+              element={<PrivateRoute component={Questions} />}
+            />
+            <Route
+              path='questions/:id'
+              element={<PrivateRoute component={Question} />}
             />
           </Routes>
         </Fragment>

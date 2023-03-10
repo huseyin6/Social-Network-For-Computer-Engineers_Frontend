@@ -1,50 +1,52 @@
 import {
-  GET_POSTS,
-  POST_ERROR,
+  GET_QUESTIONS,
+  QUESTION_ERROR,
   UPDATE_LIKES,
-  DELETE_POST,
-  ADD_POST,
-  GET_POST,
+  DELETE_QUESTION,
+  ADD_QUESTION,
+  GET_QUESTION,
   ADD_COMMENT,
   REMOVE_COMMENT,
 } from '../actions/types';
 
 const initialState = {
-  posts: [],
-  post: null,
+  questions: [],
+  question: null,
   loading: true,
   error: {},
 };
 
-function postReducer(state = initialState, action) {
+function questionReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_POSTS:
+    case GET_QUESTIONS:
       return {
         ...state,
-        posts: payload,
+        questions: payload,
         loading: false,
       };
-    case GET_POST:
+    case GET_QUESTION:
       return {
         ...state,
-        post: payload,
+        question: payload,
         loading: false,
       };
-    case ADD_POST:
+    case ADD_QUESTION:
       return {
         ...state,
-        posts: [payload, ...state.posts],
+        questions: [payload, ...state.questions],
         loading: false,
       };
-    case DELETE_POST:
+    case DELETE_QUESTION:
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== payload),
+        questions: state.questions.filter(
+          (question) => question._id !== payload
+        ),
         loading: false,
       };
-    case POST_ERROR:
+    case QUESTION_ERROR:
       return {
         ...state,
         error: payload,
@@ -53,23 +55,25 @@ function postReducer(state = initialState, action) {
     case UPDATE_LIKES:
       return {
         ...state,
-        posts: state.posts.map((post) =>
-          post._id === payload.id ? { ...post, likes: payload.likes } : post
+        questions: state.questions.map((question) =>
+          question._id === payload.id
+            ? { ...question, likes: payload.likes }
+            : question
         ),
         loading: false,
       };
     case ADD_COMMENT:
       return {
         ...state,
-        post: { ...state.post, comments: payload },
+        question: { ...state.question, comments: payload },
         loading: false,
       };
     case REMOVE_COMMENT:
       return {
         ...state,
-        post: {
-          ...state.post,
-          comments: state.post.comments.filter(
+        question: {
+          ...state.question,
+          comments: state.question.comments.filter(
             (comment) => comment._id !== payload
           ),
         },
@@ -80,4 +84,4 @@ function postReducer(state = initialState, action) {
   }
 }
 
-export default postReducer;
+export default questionReducer;

@@ -535,6 +535,7 @@ button {
   grid-template-columns: 1fr 4fr;
   grid-gap: 2rem;
   align-items: center;
+  white-space: pre-line;
 }
 
 .post > div:first-child {
