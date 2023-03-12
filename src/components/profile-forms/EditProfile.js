@@ -92,7 +92,7 @@ const EditProfile = ({
         <div className='form-group'>
           <input
             type='text'
-            placeholder='Company'
+            placeholder='Company/School'
             name='company'
             value={company}
             onChange={(e) => onChange(e)}
