@@ -8,6 +8,13 @@ import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
+<<<<<<< Updated upstream
+=======
+import Questions from './components/questions/Questions';
+import Question from './components/question/Question';
+import Events from './components/events/Events';
+import Event from './components/event/Event';
+>>>>>>> Stashed changes
 import AddExperience from './components/profile-forms/AddExperience';
 import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
@@ -76,6 +83,26 @@ const App = () => {
               path='posts/:id'
               element={<PrivateRoute component={Post} />}
             />
+<<<<<<< Updated upstream
+=======
+            <Route
+              exact
+              path='/questions'
+              element={<PrivateRoute component={Questions} />}
+            />
+            <Route
+              path='questions/:id'
+              element={<PrivateRoute component={Question} />}
+            />
+            <Route
+              path='events'
+              element={<PrivateRoute component={Events} />}
+            />
+            <Route
+              path='events/:id'
+              element={<PrivateRoute component={Event} />}
+            />
+>>>>>>> Stashed changes
           </Routes>
         </Fragment>
       </BrowserRouter>
