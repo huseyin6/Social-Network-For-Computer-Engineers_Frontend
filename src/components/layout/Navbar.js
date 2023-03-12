@@ -14,15 +14,13 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         <Link to='/posts'>Posts</Link>
       </li>
       <li>
-<<<<<<< Updated upstream
-=======
         <Link to='/questions'>Q&A</Link>
       </li>
       <li>
         <Link to='/events'>Events</Link>
       </li>
       <li>
->>>>>>> Stashed changes
+
         <Link to='/dashboard'>
           <i className='fas fa-user' />
           <span className='hide-sm'> Dashboard</span>
