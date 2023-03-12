@@ -1,0 +1,1 @@
+//backend bağlantısı olamdığı için action yazmadım
