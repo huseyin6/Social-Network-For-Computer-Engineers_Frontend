@@ -4,46 +4,46 @@ import { connect } from 'react-redux';
 import { deleteExperience } from '../../actions/profile';
 import formatDate from '../../utils/formatDate';
 
-const Experience = ({ experience, deleteExperience }) => {
-  const experiences = experience.map((exp) => (
-    <tr key={exp._id}>
-      <td>{exp.company}</td>
-      <td className='hide-sm'>{exp.title}</td>
-      <td>
-        {formatDate(exp.from)} - {exp.to ? formatDate(exp.to) : 'Now'}
-      </td>
-      <td>
-        <button
-          onClick={() => deleteExperience(exp._id)}
-          className='btn btn-danger'
-        >
-          <i className="fas fa-trash-alt text-light"></i  >
-        </button>
-        
-      </td>
-    </tr>
-  ));
-
+const Experience = ({ experience, deleteExperience, auth,
+  profile: { profile }, }) => {
   return (
     <Fragment>
-      <table className='table'>
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th className='hide-sm'>Title</th>
-            <th className='hide-sm'>Years</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>{experiences}</tbody>
-      </table>
-    </Fragment>
+      <h3 className='text-dark'>{experience.company} 
+        {auth.isAuthenticated &&
+        auth.loading === false &&
+        auth.user._id === profile.user._id && ( 
+        <button onClick={() => deleteExperience(experience._id)} style = {{float: 'right'}}
+        className='btn btn-danger'><i className="fas fa-trash-alt text-light"></i ></button>
+        )}  
+        </h3>
+      <p>
+        {formatDate(experience.from)} - {experience.to ? formatDate(experience.to) : 'Now'}
+      </p>
+      <p>
+        <strong>Position: </strong> {experience.title}
+      </p>
+      {experience.location && (
+        <p>
+        <strong>Location: </strong> {experience.location}
+        </p>)}
+      {experience.description && (
+        <p>
+        <strong>Description: </strong> {experience.description}
+        </p>)}
+      <br/>
+  </Fragment>
   );
 };
 
 Experience.propTypes = {
-  experience: PropTypes.array.isRequired,
+  experience: PropTypes.object.isRequired,
   deleteExperience: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
 };
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  profile: state.profile,
+});
 
-export default connect(null, { deleteExperience })(Experience);
+export default connect(mapStateToProps, { deleteExperience })(Experience);

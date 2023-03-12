@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,11 +7,16 @@ import Experience from './Experience';
 import Education from './Education';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import Alert from '../layout/Alert';
+import ProfileTop from '../profile/ProfileTop';
+import ProfileAbout from '../profile/ProfileAbout';
+import ProfileExperience from '../profile/ProfileExperience';
+import ProfileEducation from '../profile/ProfileEducation';
+import ProfileGithub from '../profile/ProfileGithub';
 
 const Dashboard = ({
   getCurrentProfile,
   deleteAccount,
-  auth: { user },
+  auth,
   profile: { profile },
 }) => {
   useEffect(() => {
@@ -19,15 +24,78 @@ const Dashboard = ({
   }, [getCurrentProfile]);
 
   return (
-    <section className='container'>
+    <section className='container2'>
       <Alert/>
-      <h1 className='large text-primary'>Dashboard</h1>
-      <h2 className='my-1 '>
-       {user && user.name}
-      </h2>
       {profile !== null ? (
-        <>
-          <DashboardActions /><br/>
+      <Fragment>
+         {auth.isAuthenticated &&
+          auth.loading === false &&
+          auth.user._id === profile.user._id && (
+            <Link to='/edit-profile' className='btn btn-white'>
+             <i className='fas fa-edit text-primary'></i > Edit Profile
+            </Link>
+          )}
+        <div className='profile-grid my-1'>
+          <ProfileTop profile={profile} />
+          <ProfileAbout profile={profile} />
+          <div className='profile-exp bg-white p-2'>
+            <h2 className='text-primary'>Experience {''}
+              {auth.isAuthenticated &&
+              auth.loading === false &&
+              auth.user._id === profile.user._id && ( 
+              <Link to="/add-experience" className="btn btn-light">
+              <i className='fas fa-plus text-primary'></i  ></Link>
+              )}
+            </h2>
+            {profile.experience.length > 0 ? (
+              <Fragment>
+                {profile.experience.map((experience) => (
+                  <Experience
+                    key={experience._id}
+                    experience={experience}
+                  />
+                ))}
+              </Fragment>
+            ) : (
+              <h4>No experience credentials</h4>
+            )}
+          </div>
+
+          <div className='profile-edu bg-white p-2'>
+            <h2 className='text-primary'>Education {''}
+              {auth.isAuthenticated &&
+              auth.loading === false &&
+              auth.user._id === profile.user._id && ( 
+              <Link to="/add-education" className="btn btn-light">
+              <i className='fas fa-plus text-primary'></i  ></Link>
+              )}
+            </h2>
+            {profile.education.length > 0 ? (
+              <Fragment>
+                {profile.education.map((education) => (
+                  <Education
+                    key={education._id}
+                    education={education}
+                  />
+                ))}
+              </Fragment>
+            ) : (
+              <h4>No education credentials</h4>
+            )}
+          </div>
+
+          {profile.githubusername && (
+            <ProfileGithub username={profile.githubusername} />
+          )}
+        </div>
+        <div className='my-2'>
+            <button onClick={() => deleteAccount()} className='btn btn-danger'>
+              <i className="fas fa-trash-alt text-light"></i > Delete Account</button>
+          </div>
+      </Fragment>
+    )
+       
+          /*<DashboardActions /><br/>
           <p className='medium my-1'>Experience <Link to="/add-experience" className="btn btn-light">
          <i className='fas fa-plus text-primary'></i  ></Link></p>
           <Experience experience={profile.experience} />
@@ -35,13 +103,9 @@ const Dashboard = ({
          <i className='fas fa-plus text-primary'></i  ></Link></p>
           <Education education={profile.education} />
 
-          <div className='my-2'>
-            <button className='btn btn-danger' onClick={() => deleteAccount()}>
-             Delete My Account
-            </button>
-          </div>
-        </>
-      ) : (
+          
+        
+      )*/ : (
         <>
           <p>You have not yet setup a profile, please add some info</p>
           <Link to='/create-profile' className='btn btn-primary my-1'>
