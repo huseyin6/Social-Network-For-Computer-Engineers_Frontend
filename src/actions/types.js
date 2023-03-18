@@ -29,3 +29,9 @@ export const GET_QUESTION = 'GET_QUESTION';
 export const QUESTION_ERROR = 'QUESTIONS_ERROR';
 export const DELETE_QUESTION = 'DELETE_QUESTION';
 export const ADD_QUESTION = 'ADD_QUESTION';
+
+
+export const GET_EVENTS = 'GET_EVENTS';
+export const EVENT_ERROR = 'EVENT_ERROR';
+export const UPDATE_ATTENDANCY = 'UPDATE_ATTENDANCY';
+export const GET_EVENT = 'GET_EVENT';
