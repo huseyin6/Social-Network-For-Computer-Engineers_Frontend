@@ -155,6 +155,7 @@ export const addEducation =
   };
 
 export const deleteExperience = (id) => async (dispatch) => {
+  if (window.confirm('Are you sure you want to delete this experience')) {
   try {
     const res = await axios.delete(`/profile/experience/${id}`);
 
@@ -170,9 +171,11 @@ export const deleteExperience = (id) => async (dispatch) => {
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
+}
 };
 
 export const deleteEducation = (id) => async (dispatch) => {
+  if (window.confirm('Are you sure you want to delete this education?')) {
   try {
     const res = await axios.delete(`/profile/education/${id}`);
 
@@ -188,10 +191,11 @@ export const deleteEducation = (id) => async (dispatch) => {
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
+}
 };
 
 export const deleteAccount = (id) => async (dispatch) => {
-  if (window.confirm('Are you sure? This can NOT be undone!')) {
+  if (window.confirm('Are you sure you want to delete your account? This can not be undone!')) {
     try {
       await axios.delete(`/profile`);
 

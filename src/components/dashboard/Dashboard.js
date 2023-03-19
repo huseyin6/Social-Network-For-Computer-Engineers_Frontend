@@ -83,10 +83,6 @@ const Dashboard = ({
               <h4>No education credentials</h4>
             )}
           </div>
-
-          {profile.githubusername && (
-            <ProfileGithub username={profile.githubusername} />
-          )}
         </div>
         <div className='my-2'>
             <button onClick={() => deleteAccount()} className='btn btn-danger'>

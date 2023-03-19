@@ -64,6 +64,7 @@ export const removeLike = (id) => async (dispatch) => {
 
 // Delete post
 export const deletePost = (id) => async (dispatch) => {
+  if (window.confirm('Are you sure you want to delete this post?')) {
   try {
     await axios.delete(`/posts/${id}`);
 
@@ -79,6 +80,7 @@ export const deletePost = (id) => async (dispatch) => {
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
+}
 };
 
 // Add post
@@ -138,6 +140,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
 
 // Delete comment
 export const deleteComment = (postId, commentId) => async (dispatch) => {
+  if (window.confirm('Are you sure you want to delete this comment?')) {
   try {
     await axios.delete(`/posts/comment/${postId}/${commentId}`);
 
@@ -153,4 +156,5 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
+}
 };

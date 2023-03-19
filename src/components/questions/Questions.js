@@ -13,9 +13,6 @@ const Questions = ({ getQuestions, question: { questions } }) => {
   return (
     <section className='container'>
       <h1 className='large text-primary'>Q&A</h1>
-      <p className='lead'>
-        <i className='fas fa-user' /> Welcome to the Q&A Page
-      </p>
       <QuestionForm />
       <div className='posts'>
         {questions.map((question) => (

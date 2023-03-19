@@ -15,9 +15,6 @@ const QuestionForm = ({ addQuestion }) => {
 
   return (
     <div className='post-form'>
-      <div className='bg-primary p'>
-        <h3>Ask a Question...</h3>
-      </div>
       <form
         className='form my-1'
         onSubmit={(e) => {
@@ -77,7 +74,9 @@ const QuestionForm = ({ addQuestion }) => {
           value={code}
           onChange={(e) => setCode(e.target.value)}
         />
-        <input type='submit' className='btn btn-dark my-1' value='Submit' />
+        <div>
+        <input type='submit' className='btn btn-primary my-1' value='Submit' />
+        </div>
       </form>
     </div>
   );
