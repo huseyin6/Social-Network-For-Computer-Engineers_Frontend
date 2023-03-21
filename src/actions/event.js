@@ -18,21 +18,22 @@ export const getEvents = () => async (dispatch) => {
     } catch (err) {
       dispatch({
         type: EVENT_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status },//Look this part later
+        payload: { msg: err.response.statusText, status: err.response.status },
       });
     }
   };
   
   // Attend Event
-  export const attendEvent = (id,userID) => async (dispatch) => {//Şu anki userın İD sini nasıl çekerim anlamadım
-    console.log('Attend');
+  export const attendEvent = (id) => async (dispatch) => {//Şu anki userın İD sini nasıl çekerim anlamadım
+    console.log('het');
     try {
-      const res = await axios.put(`/events/${id}/${userID}`);//Bu fonksiyon backenddeki events in attended bölümüne user ın id sini koyacak
+      const res = await axios.put(`/events/attend/${id}`);//Bu fonksiyon backenddeki events in attend bölümüne user ın id sini koyacak
   
       dispatch({
         type: UPDATE_ATTENDANCY,
-        payload: { userID, attendances: res.data },//attendances içine bu payload ile id yi koyacak
+        payload: { id, attendees: res.data },//attendees içine id yi koyacak
       });
+      dispatch(setAlert('Question Removed', 'success'));
     } catch (err) {
       dispatch({
         type: EVENT_ERROR,

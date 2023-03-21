@@ -39,7 +39,7 @@ import {
           ...state,
           events: state.events.map((event) =>
             event._id === payload.id
-              ? { ...event, attendances: payload.attendances }
+              ? { ...event, attendees: payload.attendees }
               : event
           ),
           loading: false,
