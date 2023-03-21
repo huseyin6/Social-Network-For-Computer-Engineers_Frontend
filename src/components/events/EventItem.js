@@ -20,24 +20,29 @@ const EventItem = ({
   },
 }) => (
   <div className='post2 bg-white p-1 my-1'>
-    <div>
-    
-      
-        <img className='round-img' src={image} alt='' />
+        <div>
         <h4>{title}</h4>
+        </div>
+        <div class="container3">
+        <img className='img' src={image} alt='' />
+        <div class="imgtext">
+        <h5>{date}</h5>
+        </div>
+        <div class="imgtext">
+        <h5>{location}</h5>
+        </div>
+        </div>
         <button
         type='button'
-        className='btn2 btn-light' width='%50'
+        className='btn3 btn-light' width='%50'
         >
         <i className='fas fa-question' />{' '}
-      
         </button>
-        <a href="#" class="btn2 btn2-white btn2-animate small text-primary" /*onClick={attendEvent(id,userID)}*/>Attend</a>
+        <a href="#" class="btn2 btn2-white btn2-animate small text-primary" onClick={attendEvent(_id)}>Attend</a>
     
       
       
     </div>
-  </div>
 );
 
 EventItem.propTypes = {
