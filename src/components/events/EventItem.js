@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { attendEvent } from '../../actions/event';
 
 const EventItem = ({
-  auth,
   attendEvent,
   event: {
     _id,
@@ -14,7 +13,8 @@ const EventItem = ({
     date,
     location,
     attendees,
-  },
+  
+  }
 }) => (
   <div className='post2 bg-white p-1 my-1'>
 
@@ -50,7 +50,7 @@ const EventItem = ({
         <i className='fas fa-question' />{' '}
         </button>
         
-        <a href="#" class="btn2 btn2-white btn2-animate small text-primary" onClick={attendEvent(_id)}>Attend</a>
+        <button class="btn2 btn2-white btn2-animate small text-primary" onClick={attendEvent(_id)}>Attend</button>
     </div>
 );
 
