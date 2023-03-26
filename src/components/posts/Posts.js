@@ -1,18 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
-import { getPosts } from '../../actions/post';
+import { getPosts, searchPost } from '../../actions/post';
 
-const Posts = ({ getPosts, post: { posts } }) => {
+const Posts = ({ getPosts, searchPost, post: { posts } }) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
 
+  const [search, setSearch] = useState('');
   return (
     <section className="container">
-      <h1 className="large text-primary">Posts</h1>
+      <h1 className="large text-primary">Posts</h1> 
+      <form onSubmit={(e) => {
+          e.preventDefault();
+          searchPost({ search });
+          setSearch('');
+        }}>
+        <input
+          type='text'
+          value={search}
+          placeholder='Search'
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <input type='submit' className='btn btn-primary my-1' value='Submit' />
+        </form> 
       <PostForm />
       <div className="posts">
         {posts.map((post) => (
@@ -25,11 +39,12 @@ const Posts = ({ getPosts, post: { posts } }) => {
 
 Posts.propTypes = {
   getPosts: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  searchPost: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   post: state.post
 });
 
-export default connect(mapStateToProps, { getPosts })(Posts);
+export default connect(mapStateToProps, { getPosts, searchPost })(Posts);

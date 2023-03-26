@@ -18,9 +18,6 @@ const Question = ({ getQuestion, question: { question, loading } }) => {
     <Spinner />
   ) : (
     <section className='container'>
-      <Link to='/questions' className='btn'>
-        Back To Q&A
-      </Link>
       <QuestionItem question={question} showActions={false} />
       <CommentForm questionId={question._id} />
       <div className='comments'>

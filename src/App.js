@@ -9,6 +9,7 @@ import CreateProfile from './components/profile-forms/CreateProfile';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
 import Questions from './components/questions/Questions';
+import QuestionSearch from './components/questions/QuestionSearch';
 import Question from './components/question/Question';
 import Events from './components/events/Events'
 import AddExperience from './components/profile-forms/AddExperience';
@@ -45,6 +46,7 @@ const App = () => {
             <Route path='/register' element={<Register />} />
             <Route path='/profile/:id' element={<Profile />} />
             <Route path='/profiles' element={<Profiles />} />
+            <Route path='/questions/search/:key' element={<QuestionSearch/>} />
             <Route
               exact
               path='/dashboard'

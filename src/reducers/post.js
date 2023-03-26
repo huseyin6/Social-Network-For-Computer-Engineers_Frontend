@@ -5,12 +5,14 @@ import {
   DELETE_POST,
   ADD_POST,
   GET_POST,
+  SEARCH_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
 } from '../actions/types';
 
 const initialState = {
   posts: [],
+  searchposts: [],
   post: null,
   loading: true,
   error: {},
@@ -20,6 +22,12 @@ function postReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case SEARCH_POST:
+      return {
+        ...state,
+        searchposts: payload,
+        loading: false,
+      };
     case GET_POSTS:
       return {
         ...state,

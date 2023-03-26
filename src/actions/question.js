@@ -9,6 +9,8 @@ import {
   GET_QUESTION,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  SEARCH_QA,
+  POST_ERROR
 } from './types';
 
 // Get questions
@@ -44,7 +46,23 @@ export const addLike = (id) => async (dispatch) => {
     });
   }
 };
-
+export const searchQA = (key) => async (dispatch) => {
+  try {
+    console.log(key);
+    const res = await axios.get(`/questions/search/${key}`);
+    console.log(res.data);
+    dispatch({
+      type: SEARCH_QA,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: QUESTION_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 // Delete question
 export const deleteQuestion = (id) => async (dispatch) => {
   if (window.confirm('Are you sure you want to delete this question?')) {

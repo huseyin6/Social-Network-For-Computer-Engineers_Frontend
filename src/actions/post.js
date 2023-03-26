@@ -7,6 +7,7 @@ import {
   DELETE_POST,
   ADD_POST,
   GET_POST,
+  SEARCH_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
 } from './types';
@@ -86,6 +87,7 @@ export const deletePost = (id) => async (dispatch) => {
 // Add post
 export const addPost = (formData) => async (dispatch) => {
   try {
+    console.log(formData);
     const res = await axios.post('/posts', formData);
 
     dispatch({
@@ -109,6 +111,23 @@ export const getPost = (id) => async (dispatch) => {
 
     dispatch({
       type: GET_POST,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const searchPost = (key) => async (dispatch) => {
+  try {
+    console.log(key);
+    const res = await axios.get(`/questions/search/${key}`);
+    console.log(res.data);
+    dispatch({
+      type: SEARCH_POST,
       payload: res.data,
     });
   } catch (err) {

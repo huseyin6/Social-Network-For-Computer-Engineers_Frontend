@@ -7,6 +7,7 @@ import {
   GET_QUESTION,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  SEARCH_QA
 } from '../actions/types';
 
 const initialState = {
@@ -14,12 +15,19 @@ const initialState = {
   question: null,
   loading: true,
   error: {},
+  searchqa : [],
 };
 
 function questionReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case SEARCH_QA:
+      return {
+        ...state,
+        searchqa: payload,
+        loading: false,
+      };  
     case GET_QUESTIONS:
       return {
         ...state,

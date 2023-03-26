@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import QuestionItem from './QuestionItem';
 import QuestionForm from './QuestionForm';
-import { getQuestions,searchQA } from '../../actions/question';
-import { Link, Navigate , useNavigate } from 'react-router-dom';
+import { Link, Navigate , useNavigate, useParams } from 'react-router-dom';
+import { searchQA } from '../../actions/question';
 
-const Questions = ({ getQuestions, searchQA, question: { questions } }) => {
+const QuestionSearch = ({ searchQA, question : {searchqa} }) => {
+  const { key } = useParams();
   useEffect(() => {
-    getQuestions();
-  }, [getQuestions]);
+    searchQA(key);
+  }, [searchQA, key]);
+  console.log(searchqa);
   const [text, setText] = useState('');
   const navigate = useNavigate();
   return (
@@ -30,7 +32,7 @@ const Questions = ({ getQuestions, searchQA, question: { questions } }) => {
         </form> 
       <QuestionForm />
       <div className='posts'>
-        {questions.map((question) => (
+        {searchqa.map((question) => (
           <QuestionItem key={question._id} question={question} />
         ))}
       </div>
@@ -38,8 +40,7 @@ const Questions = ({ getQuestions, searchQA, question: { questions } }) => {
   );
 };
 
-Questions.propTypes = {
-  getQuestions: PropTypes.func.isRequired,
+QuestionSearch.propTypes = {
   question: PropTypes.object.isRequired,
   searchQA : PropTypes.func.isRequired,
 };
@@ -48,4 +49,4 @@ const mapStateToProps = (state) => ({
   question: state.question,
 });
 
-export default connect(mapStateToProps, { getQuestions, searchQA })(Questions);
+export default connect(mapStateToProps, { searchQA })(QuestionSearch);
