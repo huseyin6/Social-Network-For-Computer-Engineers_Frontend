@@ -24,10 +24,12 @@ export const getEvents = () => async (dispatch) => {
   };
   
   // Attend Event
-  export const attendEvent = (id) => async (dispatch) => {//Şu anki userın İD sini nasıl çekerim anlamadım
+  export const attendEvent = (id) => async (dispatch,getState) => {//Şu anki userın İD sini nasıl çekerim anlamadım
     console.log('het');
     try {
-      const res = await axios.put(`/events/attend/${id}`);//Bu fonksiyon backenddeki events in attend bölümüne user ın id sini koyacak
+
+      const userId = getState().auth.user.id;
+      const res = await axios.put(`/events/attend/${id}`, { userId });//Bu fonksiyon backenddeki events in attend bölümüne user ın id sini koyacak
   
       dispatch({
         type: UPDATE_ATTENDANCY,

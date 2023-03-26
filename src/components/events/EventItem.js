@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import formatDate from '../../utils/formatDate';
 import { connect } from 'react-redux';
-import { CopyBlock } from 'react-code-blocks';
 import { attendEvent } from '../../actions/event';
 
 const EventItem = ({
@@ -20,6 +17,7 @@ const EventItem = ({
   },
 }) => (
   <div className='post2 bg-white p-1 my-1'>
+
         <div>
         <h4>{title}</h4>
         </div>
@@ -32,16 +30,27 @@ const EventItem = ({
         <h5>{location}</h5>
         </div>
         </div>
+        
+        <div className='popup'>
+          <div className='popup-content'>
+            <span className='close' onClick={() => {
+              document.querySelector('.popup').style.display = 'none';
+            }}>&times;</span>
+              <p>{description}</p>
+          </div>
+        </div>
+
         <button
         type='button'
         className='btn3 btn-light' width='%50'
+        onClick={() => {
+          document.querySelector('.popup').style.display = 'block';
+        }}
         >
         <i className='fas fa-question' />{' '}
         </button>
+        
         <a href="#" class="btn2 btn2-white btn2-animate small text-primary" onClick={attendEvent(_id)}>Attend</a>
-    
-      
-      
     </div>
 );
 
