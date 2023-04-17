@@ -2,16 +2,12 @@ import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import DashboardActions from './DashboardActions';
-import Experience from './Experience';
-import Education from './Education';
+import Experience from '../profile/Experience';
+import Education from '../profile/Education';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import Alert from '../layout/Alert';
 import ProfileTop from '../profile/ProfileTop';
 import ProfileAbout from '../profile/ProfileAbout';
-import ProfileExperience from '../profile/ProfileExperience';
-import ProfileEducation from '../profile/ProfileEducation';
-import ProfileGithub from '../profile/ProfileGithub';
 
 const Dashboard = ({
   getCurrentProfile,
@@ -90,18 +86,7 @@ const Dashboard = ({
           </div>
       </Fragment>
     )
-       
-          /*<DashboardActions /><br/>
-          <p className='medium my-1'>Experience <Link to="/add-experience" className="btn btn-light">
-         <i className='fas fa-plus text-primary'></i  ></Link></p>
-          <Experience experience={profile.experience} />
-          <p className='medium my-1'>Education <Link to="/add-education" className="btn btn-light">
-         <i className='fas fa-plus text-primary'></i  ></Link></p>
-          <Education education={profile.education} />
-
-          
-        
-      )*/ : (
+ : (
         <>
           <p>You have not yet setup a profile, please add some info</p>
           <Link to='/create-profile' className='btn btn-primary my-1'>

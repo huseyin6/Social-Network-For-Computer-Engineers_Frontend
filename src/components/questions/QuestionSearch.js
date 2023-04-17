@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import QuestionItem from './QuestionItem';
@@ -12,7 +12,7 @@ const QuestionSearch = ({ searchQA, question : {searchqa} }) => {
     searchQA(key);
   }, [searchQA, key]);
   console.log(searchqa);
-  const [text, setText] = useState('');
+  const [text, setText] = useState(key);
   const navigate = useNavigate();
   return (
     <section className='container'>
@@ -32,9 +32,14 @@ const QuestionSearch = ({ searchQA, question : {searchqa} }) => {
         </form> 
       <QuestionForm />
       <div className='posts'>
+        {searchqa.length > 0 ? (
+          <Fragment>
         {searchqa.map((question) => (
           <QuestionItem key={question._id} question={question} />
         ))}
+        </Fragment>) : (
+          <div>No results found</div>
+        )}
       </div>
     </section>
   );

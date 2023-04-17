@@ -9,6 +9,7 @@ import {
   ACCOUNT_DELETED,
   GET_PROFILES,
   GET_REPOS,
+  GET_SCORE
 } from './types';
 
 export const getCurrentProfile = () => async (dispatch) => {
@@ -86,6 +87,7 @@ export const getProfileById = (id) => async (dispatch) => {
       type: GET_PROFILE,
       payload: res.data,
     });
+
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -93,6 +95,31 @@ export const getProfileById = (id) => async (dispatch) => {
     });
   }
 };
+export const getEngineerScore = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/profile/score/${id}`);
+    console.log(res.data);
+    dispatch({
+      type: GET_SCORE,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err.response.statusText);
+    }
+};
+
+export const scoreEngineer = (id,score) => async (dispatch) => {
+    console.log(id);
+    console.log(score);
+    try { 
+      const res = await axios.put(`/profile/score/${id}`, score);
+    console.log(res.data);
+    console.log(score);
+  } catch (err) {
+    console.log(err.response.statusText);
+    }
+};
+
 
 export const addExperience =
   (formData, navigate, edit = false) =>

@@ -1,20 +1,28 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import { getProfileById } from '../../actions/profile';
+import { getProfileById, scoreEngineer, getEngineerScore } from '../../actions/profile';
 import { Link, useParams } from 'react-router-dom';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
-import ProfileExperience from './ProfileExperience';
-import ProfileEducation from './ProfileEducation';
-import ProfileGithub from './ProfileGithub';
+import Experience from './Experience';
+import Education from './Education';
+import ReactStars from "react-rating-stars-component";
 
-const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
+const Profile = ({ getProfileById, getEngineerScore, scoreEngineer, profile: { profile, loading, engineerScore}, auth }) => {
   const { id } = useParams();
   useEffect(() => {
     getProfileById(id);
-  }, [getProfileById, id]);
+    getEngineerScore(id);
+    }, [getProfileById, id]);
+  console.log(profile);
+  const [score, setScore] = useState(5);
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
+    setScore(newRating);
+    scoreEngineer(profile._id, {score});
+  }
   return (
     <section className='container2'>
       {profile === null ? (
@@ -28,6 +36,27 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
                 Edit Profile
               </Link>
             )}
+          {auth.isAuthenticated &&
+          auth.loading === false &&
+          auth.user._id !== profile.user._id && (
+            <div class="rating" >
+            <ReactStars
+            count={5}
+            size={28}
+            activeColor="#ffd700"
+            onChange={ratingChanged}
+            />
+            </div>
+          )}
+          
+           {profile.scores.length > 0 ? (
+            <Fragment>
+                <p>Score: {engineerScore.score.toFixed(2)} </p> 
+                <p>{profile.scores.length} people voted </p>
+            </Fragment>
+            ) : (
+                <p>No votes yet</p>
+            )}
           <div className='profile-grid my-1'>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
@@ -36,7 +65,7 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
               {profile.experience.length > 0 ? (
                 <Fragment>
                   {profile.experience.map((experience) => (
-                    <ProfileExperience
+                    <Experience
                       key={experience._id}
                       experience={experience}
                     />
@@ -46,13 +75,12 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
                 <h4>No experience credentials</h4>
               )}
             </div>
-
             <div className='profile-edu bg-white p-2'>
               <h2 className='text-primary'>Education</h2>
               {profile.education.length > 0 ? (
                 <Fragment>
                   {profile.education.map((education) => (
-                    <ProfileEducation
+                    <Education
                       key={education._id}
                       education={education}
                     />
@@ -73,6 +101,8 @@ Profile.propTypes = {
   getProfileById: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  scoreEngineer: PropTypes.func.isRequired,
+  getEngineerScore: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -80,4 +110,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default connect(mapStateToProps, { getProfileById,  scoreEngineer, getEngineerScore })(Profile);
