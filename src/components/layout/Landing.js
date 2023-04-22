@@ -2,9 +2,14 @@ import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+/*import axios from 'axios';*/
 
 const Landing = ({ isAuthenticated }) => {
   if (isAuthenticated) {
+     /*const response = axios.get('/auth');
+    if(response.data === "company")
+    return <Navigate to='/dashboardCompany' />;
+    if(response.data === "user")*/
     return <Navigate to='/dashboard' />;
   }
   return (

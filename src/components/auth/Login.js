@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 import { Link, Navigate } from 'react-router-dom';
 import Alert from '../layout/Alert';
+/*import axios from 'axios';*/
 const Login = ({ login, isAuthenticated }) => {
   const [data, setData] = useState({
     email: '',
@@ -21,6 +22,10 @@ const Login = ({ login, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
+    /*const response = axios.get('/auth');
+    if(response.data === "company")
+    return <Navigate to='/dashboardCompany' />;
+    if(response.data === "user")*/
     return <Navigate to='/dashboard' />;
   }
 
