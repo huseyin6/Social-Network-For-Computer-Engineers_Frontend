@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import RegisterComp from './components/auth/RegisterComp';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import Profiles from './components/profiles/Profiles';
@@ -35,6 +36,9 @@ const App = () => {
     store.dispatch(loadUser());
   }, []);
 
+/*   <Route exact path='/dashboardCompany' element={<PrivateRoute component={DashboardComp} />} />     Bu com. silinebilir */ 
+
+
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -44,6 +48,7 @@ const App = () => {
             <Route path='/' element={<Landing />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/registerComp' element={<RegisterComp />} />
             <Route path='/profile/:id' element={<Profile />} />
             <Route path='/profiles' element={<Profiles />} />
             <Route path='/questions/search/:key' element={<QuestionSearch/>} />

@@ -23,6 +23,9 @@ const Landing = ({ isAuthenticated }) => {
             <Link to='/register' className='btn btn-primary'>
               Sign Up
             </Link>
+            <Link to='/registerComp' className='btn btn-primary'>
+              Sign Up For Company
+            </Link>
           </div>
         </div>
 

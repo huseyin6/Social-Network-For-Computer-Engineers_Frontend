@@ -86,6 +86,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <p className='my-1'>
           Already have an account? <Link to='/login'>Sign In</Link>
         </p>
+        <p className='my-1'>
+          You are a company? <Link to='/registerComp'>Register Company</Link>
+        </p>
         <Alert />
       </div>
     </section>

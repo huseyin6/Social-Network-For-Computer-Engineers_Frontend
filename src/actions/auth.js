@@ -105,6 +105,46 @@ export const register =
     }
   };
 
+
+export const registerComp =
+  ({ name, email, password }) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const newComp = {
+      name,
+      email,
+      password,
+    };
+
+    const body = JSON.stringify(newComp);
+
+    try {
+      const response = await axios.post('/users/company', body, config);
+      console.log(response);
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: response.data,
+      });
+      dispatch(loadUser());
+    } catch (error) {
+      const errors = error.response.data.errors;
+
+      if (errors) {
+        errors.forEach((element) => {
+          dispatch(setAlert(element.msg, 'danger'));
+        });
+      }
+      dispatch({
+        type: REGISTER_FAIL,
+      });
+    }
+  };
+
 export const logout = () => (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
