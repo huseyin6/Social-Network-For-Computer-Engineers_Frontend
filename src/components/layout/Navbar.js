@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({ auth: { isAuthenticated, loading, role }, logout }) => {
   const authLinks = (
     <ul>
       <li>
@@ -36,6 +36,33 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       </li>
     </ul>
   );
+
+  const companyLinks = (
+    <ul>
+      <li>
+        <Link to='/company-profiles'>Companies</Link>
+      </li>
+      <li>
+        <Link to='/profiles'>Engineers</Link>
+      </li>
+      <li>
+        <Link to='/events'>Events</Link>
+      </li>
+      <li>
+        <Link to='/companyDashboard'>
+          <i className='fas fa-user' />
+          <span className='hide-sm'> Dashboard</span>
+        </Link>
+      </li>
+      <li>
+        <a onClick={logout} href='#!'>
+          <i className='fas fa-sign-out-alt' />
+          <span className='hide-sm'> Logout</span>
+        </a>
+      </li>
+    </ul>
+  );
+
   const guestsLinks = (
     <ul>
       <li>
@@ -58,7 +85,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         <Link to='/'>C^3</Link>
       </h1>
       {!loading && (
-        <Fragment>{isAuthenticated ? authLinks : guestsLinks}</Fragment>
+        <Fragment>
+          {isAuthenticated && role === 'engineer' && authLinks}
+          {isAuthenticated && role === 'company' && companyLinks}
+          {!isAuthenticated && guestsLinks}
+        </Fragment>
       )}
     </nav>
   );
