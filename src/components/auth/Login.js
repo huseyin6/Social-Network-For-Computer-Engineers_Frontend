@@ -5,7 +5,7 @@ import { login } from '../../actions/auth';
 import { Link, Navigate } from 'react-router-dom';
 import Alert from '../layout/Alert';
 /*import axios from 'axios';*/
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, isAuthenticated, role }) => {
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -21,12 +21,14 @@ const Login = ({ login, isAuthenticated }) => {
     login(email, password);
   };
 
-  if (isAuthenticated) {
-    /*const response = axios.get('/auth');
-    if(response.data === "company")
-    return <Navigate to='/dashboardCompany' />;
-    if(response.data === "user")*/
+  if (isAuthenticated && role === 'engineer') {
+    // console.log('LOG: Role:', role);
     return <Navigate to='/dashboard' />;
+  }
+
+  if (isAuthenticated && role === 'company') {
+    // console.log('LOG: Role:', role);
+    return <Navigate to='/dashboardCompany' />;
   }
 
   return (
@@ -72,10 +74,12 @@ const Login = ({ login, isAuthenticated }) => {
 Login.propTypes = {
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
+  role: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  role: state.auth.role,
 });
 
 export default connect(mapStateToProps, { login })(Login);

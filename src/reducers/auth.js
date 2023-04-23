@@ -6,7 +6,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
-  ACCOUNT_DELETED
+  ACCOUNT_DELETED,
 } from '../actions/types';
 
 const initalState = {
@@ -14,6 +14,7 @@ const initalState = {
   isAuthenticated: null,
   loading: true,
   user: null,
+  role: '',
 };
 
 export default function (state = initalState, action) {
@@ -28,6 +29,7 @@ export default function (state = initalState, action) {
         ...payload,
         isAuthenticated: true,
         loading: false,
+        role: payload.role,
       };
     case REGISTER_FAIL:
     case AUTH_ERROR:
@@ -40,6 +42,7 @@ export default function (state = initalState, action) {
         token: null,
         isAuthenticated: false,
         loading: false,
+        role: '',
       };
 
     case USER_LOADED:

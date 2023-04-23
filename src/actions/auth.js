@@ -7,7 +7,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
@@ -44,7 +44,7 @@ export const login = (email, password) => async (dispatch) => {
 
   try {
     const response = await axios.post('/auth', body, config);
-    console.log(response);
+    // console.log('LOGIN RES:', response.data);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: response.data,
@@ -104,7 +104,6 @@ export const register =
       });
     }
   };
-
 
 export const registerComp =
   ({ name, email, password }) =>
