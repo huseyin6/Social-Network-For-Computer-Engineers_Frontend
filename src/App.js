@@ -8,11 +8,13 @@ import RegisterComp from './components/auth/RegisterComp';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import Profiles from './components/profiles/Profiles';
+import CompanyProfiles from './components/company-profiles/CompaniesProfiles';
 import Profile from './components/profile/Profile';
+// import CompanyProfile from './components/company-profile/Profile';
 import Questions from './components/questions/Questions';
 import QuestionSearch from './components/questions/QuestionSearch';
 import Question from './components/question/Question';
-import Events from './components/events/Events'
+import Events from './components/events/Events';
 import AddExperience from './components/profile-forms/AddExperience';
 import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
@@ -36,8 +38,7 @@ const App = () => {
     store.dispatch(loadUser());
   }, []);
 
-/*   <Route exact path='/dashboardCompany' element={<PrivateRoute component={DashboardComp} />} />     Bu com. silinebilir */ 
-
+  /*   <Route exact path='/dashboardCompany' element={<PrivateRoute component={DashboardComp} />} />     Bu com. silinebilir */
 
   return (
     <Provider store={store}>
@@ -51,7 +52,9 @@ const App = () => {
             <Route path='/registerComp' element={<RegisterComp />} />
             <Route path='/profile/:id' element={<Profile />} />
             <Route path='/profiles' element={<Profiles />} />
-            <Route path='/questions/search/:key' element={<QuestionSearch/>} />
+            {/* <Route path='/company-profile/:id' element={<CompanyProfile />} /> */}
+            <Route path='/company-profiles' element={<CompanyProfiles />} />
+            <Route path='/questions/search/:key' element={<QuestionSearch />} />
             <Route
               exact
               path='/dashboard'

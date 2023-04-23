@@ -5,6 +5,7 @@ import profile from './profile';
 import post from './post';
 import question from './question';
 import event from './event';
+import companyProfile from './companyProfile';
 export default combineReducers({
   alert,
   auth,
@@ -12,4 +13,5 @@ export default combineReducers({
   post,
   question,
   event,
+  companyProfile,
 });
