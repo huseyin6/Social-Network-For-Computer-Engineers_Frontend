@@ -6,11 +6,13 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import RegisterComp from './components/auth/RegisterComp';
 import Dashboard from './components/dashboard/Dashboard';
+import DashboardCompany from './components/dashboard/DashboardCompany';
 import CreateProfile from './components/profile-forms/CreateProfile';
+import CreateCompanyProfile from './components/profile-forms/CreateCompanyProfile';
 import Profiles from './components/profiles/Profiles';
 import CompanyProfiles from './components/company-profiles/CompaniesProfiles';
 import Profile from './components/profile/Profile';
-// import CompanyProfile from './components/company-profile/Profile';
+import CompanyProfile from './components/profile/CompanyProfile';
 import Questions from './components/questions/Questions';
 import QuestionSearch from './components/questions/QuestionSearch';
 import Question from './components/question/Question';
@@ -52,18 +54,28 @@ const App = () => {
             <Route path='/registerComp' element={<RegisterComp />} />
             <Route path='/profile/:id' element={<Profile />} />
             <Route path='/profiles' element={<Profiles />} />
-            {/* <Route path='/company-profile/:id' element={<CompanyProfile />} /> */}
+            <Route path='/company-profile/:id' element={<CompanyProfile />} />
             <Route path='/company-profiles' element={<CompanyProfiles />} />
             <Route path='/questions/search/:key' element={<QuestionSearch />} />
             <Route
               exact
+              path='/dashboardCompany'
+              element={<PrivateRoute component={DashboardCompany} />}
+            />
+            <Route
+              exact
               path='/dashboard'
               element={<PrivateRoute component={Dashboard} />}
-            />
+            />  
             <Route
               exact
               path='/create-profile'
               element={<PrivateRoute component={CreateProfile} />}
+            />
+            <Route
+              exact
+              path='/create-company-profile'
+              element={<PrivateRoute component={CreateCompanyProfile} />}
             />
             <Route
               exact
