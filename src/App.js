@@ -30,10 +30,14 @@ import { loadUser } from './actions/auth';
 import { Provider } from 'react-redux';
 import store from './store';
 import setAuthToken from './utils/setAuthToken';
+import './Animatiions.css';
+import AnimatedSwitch from './AnimatedSwitch';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
+
+
 
 const App = () => {
   useEffect(() => {
@@ -47,6 +51,7 @@ const App = () => {
       <BrowserRouter>
         <Fragment>
           <Navbar />
+          <AnimatedSwitch>
           <Routes>
             <Route path='/' element={<Landing />} />
             <Route path='/login' element={<Login />} />
@@ -117,6 +122,7 @@ const App = () => {
               element={<PrivateRoute component={Events} />}
             />
           </Routes>
+          </AnimatedSwitch>
         </Fragment>
       </BrowserRouter>
     </Provider>
