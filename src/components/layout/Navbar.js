@@ -23,6 +23,10 @@ const Navbar = ({ auth: { isAuthenticated, loading, role }, logout }) => {
         <Link to='/events'>Events</Link>
       </li>
       <li>
+      <Link to="/videos">Videos</Link>
+      </li>
+      
+      <li>
         <Link to='/dashboard'>
           <i className='fas fa-user' />
           <span className='hide-sm'> Dashboard</span>

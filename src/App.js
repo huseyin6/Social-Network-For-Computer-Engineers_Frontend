@@ -20,6 +20,7 @@ import Events from './components/events/Events';
 import AddExperience from './components/profile-forms/AddExperience';
 import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
+import Videos from './components/videos/Videos';
 import AddEducation from './components/profile-forms/AddEducation';
 import EditProfile from './components/profile-forms/EditProfile';
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -66,6 +67,11 @@ const App = () => {
               exact
               path='/dashboardCompany'
               element={<PrivateRoute component={DashboardCompany} />}
+            />
+            <Route 
+              exact 
+              path='/videos' 
+              element={<PrivateRoute component={Videos} /> }
             />
             <Route
               exact
