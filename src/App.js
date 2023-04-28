@@ -27,6 +27,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import './App.css';
 // import Alert from './components/layout/Alert';
 import { loadUser } from './actions/auth';
+import Alert from './components/layout/Alert';
 //Redux
 import { Provider } from 'react-redux';
 import store from './store';
@@ -48,10 +49,12 @@ const App = () => {
   /*   <Route exact path='/dashboardCompany' element={<PrivateRoute component={DashboardComp} />} />     Bu com. silinebilir */
 
   return (
+    
     <Provider store={store}>
       <BrowserRouter>
         <Fragment>
           <Navbar />
+          <Alert />
           <AnimatedSwitch>
           <Routes>
             <Route path='/' element={<Landing />} />

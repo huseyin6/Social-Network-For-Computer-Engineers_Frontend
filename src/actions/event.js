@@ -37,6 +37,13 @@ export const attendEvent = (id) => async (dispatch) => {
     dispatch(setAlert('Attended Event', 'success'));
   } catch (err) {
     console.error('Error:', err.response);
+    // Check the error message and dispatch the setAlert action accordingly
+    if (err.response.data.msg === 'You Have Already Attended This Event') {
+      dispatch(setAlert('You Have Already Attended This Event', 'danger'));
+    } else if (err.response.data.msg === 'Event Is Full') {
+      dispatch(setAlert('Event Is Full', 'danger'));
+    }
+
     dispatch({
       type: EVENT_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
