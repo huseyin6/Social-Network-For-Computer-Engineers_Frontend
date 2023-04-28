@@ -1,5 +1,5 @@
 // components/Videos.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { YOUTUBE_API_KEY } from '../../urlconfig';
 import styles from './Videos.module.css';
 import { InView } from 'react-intersection-observer';
@@ -15,20 +15,38 @@ const Videos = () => {
     'designing cs project from scratch',
   ];
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const debounce = (func, wait) => {
+    let timeout;
+    return (...args) => {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  };
+
+  const debouncedFetchData = useCallback(
+    debounce(async () => {
+      setLoading(true);
       const response = await fetch(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${encodeURIComponent(
           videoType + ' ' + search,
         )}&key=${YOUTUBE_API_KEY}`,
       );
       const data = await response.json();
-      console.log(data);
       setVideos(data.items);
       setLoading(false);
-    };
-    fetchData();
-  }, [search, videoType]);
+    }, 1000),
+    [search, videoType],
+  );
+
+  useEffect(() => {
+    if (search) {
+      debouncedFetchData();
+    }
+  }, [search, debouncedFetchData]);
 
   return (
     <div className={styles.container}>
