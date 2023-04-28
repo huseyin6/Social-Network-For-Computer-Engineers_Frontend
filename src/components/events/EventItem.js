@@ -50,7 +50,7 @@ const EventItem = ({
         <i className='fas fa-question' />{' '}
         </button>
         
-        <button class="btn2 btn2-white btn2-animate small text-primary" onClick={attendEvent(_id)}>Attend</button>
+        <button class="btn2 btn2-white btn2-animate small text-primary" onClick={() => attendEvent(_id)}>Attend</button>
     </div>
 );
 
