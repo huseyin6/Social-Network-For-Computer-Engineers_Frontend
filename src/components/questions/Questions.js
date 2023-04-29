@@ -23,10 +23,10 @@ const Questions = ({ getQuestions, searchQA, question: { questions } }) => {
         <input
           type='text'
           value={text}
-          placeholder='Search'
+          placeholder='Search for a question'
           onChange={(e) => setText(e.target.value)}
         />
-        <input type='submit' className='btn btn-primary my-1' value='Submit' />
+        <input type='submit' className='btn2 btn-primary my-1' value='Search' />
         </form> 
       <QuestionForm />
       <div className='posts'>

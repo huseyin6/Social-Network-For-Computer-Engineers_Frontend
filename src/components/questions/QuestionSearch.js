@@ -28,7 +28,7 @@ const QuestionSearch = ({ searchQA, question : {searchqa} }) => {
           placeholder='Search'
           onChange={(e) => setText(e.target.value)}
         />
-        <input type='submit' className='btn btn-primary my-1' value='Submit' />
+        <input type='submit' className='btn2 btn-primary my-1' value='Submit' />
         </form> 
       <QuestionForm />
       <div className='posts'>

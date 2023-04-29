@@ -22,10 +22,10 @@ const Posts = ({ getPosts, searchPost, post: { posts } }) => {
         <input
           type='text'
           value={search}
-          placeholder='Search'
+          placeholder='Search for a post'
           onChange={(e) => setSearch(e.target.value)}
         />
-        <input type='submit' className='btn btn-primary my-1' value='Submit' />
+        <input type='submit' className='btn3 btn-primary my-2' value='Search' />
         </form> 
       <PostForm />
       <div className="posts">
