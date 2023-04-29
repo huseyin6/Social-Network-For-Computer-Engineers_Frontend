@@ -9,6 +9,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import DashboardCompany from './components/dashboard/DashboardCompany';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import CreateCompanyProfile from './components/profile-forms/CreateCompanyProfile';
+import EditCompanyProfile from './components/profile-forms/EditCompanyProfile';
 import Profiles from './components/profiles/Profiles';
 import CompanyProfiles from './components/company-profiles/CompaniesProfiles';
 import Profile from './components/profile/Profile';
@@ -95,6 +96,11 @@ const App = () => {
               exact
               path='/edit-profile'
               element={<PrivateRoute component={EditProfile} />}
+            />
+            <Route
+              exact
+              path='/edit-company-profile'
+              element={<PrivateRoute component={EditCompanyProfile} />}
             />
             <Route
               exact

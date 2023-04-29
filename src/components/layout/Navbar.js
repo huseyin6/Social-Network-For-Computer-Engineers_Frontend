@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
 const Navbar = ({ auth: { isAuthenticated, loading, role }, logout }) => {
-  const authLinks = (
+  const engineerLinks = (
     <ul>
       <li>
         <Link to='/company-profiles'>Companies</Link>
@@ -90,7 +90,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, role }, logout }) => {
       </h1>
       {!loading && (
         <Fragment>
-          {isAuthenticated && role === 'engineer' && authLinks}
+          {isAuthenticated && role === 'engineer' && engineerLinks}
           {isAuthenticated && role === 'company' && companyLinks}
           {!isAuthenticated && guestsLinks}
         </Fragment>
