@@ -5,6 +5,7 @@ import { attendEvent } from '../../actions/event';
 import 'animate.css';
 
 const EventItem = ({
+  role,
   attendEvent,
   event: {
     _id,
@@ -77,17 +78,22 @@ const EventItem = ({
         )
       }
 
-       <button
-        class="btn2 btn2-white btn2-animate small text-primary"
-        onClick={() =>
-          attendEvent(_id, () => {
-            setShowPopup(true);
-            setTimeout(() => setShowPopup(false), 3000);
-          })
-        }
-      >
-        Attend
-      </button>
+      {
+        // Add a condition here to render the "Attend" button only for engineers
+        role === 'engineer' && (
+          <button
+            class="btn2 btn2-white btn2-animate small text-primary"
+            onClick={() =>
+              attendEvent(_id, () => {
+                setShowPopup(true);
+                setTimeout(() => setShowPopup(false), 3000);
+              })
+            }
+          >
+            Attend
+          </button>
+        )
+      }
 
       <div
         className={`alert-dialog animate__animated ${
@@ -104,10 +110,12 @@ EventItem.propTypes = {
   event: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   attendEvent: PropTypes.func.isRequired,
+  role: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  role: state.auth.role,
 });
 
 export default connect(mapStateToProps, { attendEvent })(EventItem);
