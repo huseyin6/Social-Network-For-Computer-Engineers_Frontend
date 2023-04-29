@@ -18,6 +18,7 @@ const EventItem = ({
   },
 }) => {
   const [alert, setAlert] = useState({ show: false, msg: '' });
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     if (alert.show) {
@@ -67,12 +68,23 @@ const EventItem = ({
         <i className='fas fa-question' />{' '}
       </button>
 
-      <button
-        className='btn2 btn2-white btn2-animate small text-primary'
-        onClick={async () => {
-          const result = await attendEvent(_id);
-          setAlert({ show: true, msg: result });
-        }}
+
+      {
+        showPopup && (
+          <div className="attended-popup animate__animated animate__fadeIn">
+            Attended Event
+          </div>
+        )
+      }
+
+       <button
+        class="btn2 btn2-white btn2-animate small text-primary"
+        onClick={() =>
+          attendEvent(_id, () => {
+            setShowPopup(true);
+            setTimeout(() => setShowPopup(false), 3000);
+          })
+        }
       >
         Attend
       </button>

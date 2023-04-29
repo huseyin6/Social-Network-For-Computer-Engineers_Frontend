@@ -498,13 +498,19 @@ p img {
 }
 
 .alert {
-  padding: 0.8rem;
-  margin: 1rem 0;
-  opacity: 0.9;
-  background: var(--light-color);
-  color: #333;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  width: 80%;
+  max-width: 500px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
-
 .btn-primary,
 .bg-primary,
 .badge-primary,
@@ -555,6 +561,29 @@ p img {
   border-radius: 5px;
   z-index: 1000;
   opacity: 0;
+}
+
+.attended-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: rgba(0, 128, 0, 0.9);
+  padding: 20px 30px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .animate__fadeOut {
