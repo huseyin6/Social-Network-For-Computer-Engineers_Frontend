@@ -51,6 +51,7 @@ export default function (state = initalState, action) {
         isAuthenticated: true,
         loading: false,
         user: payload,
+        role: payload.role,
       };
 
     default:
