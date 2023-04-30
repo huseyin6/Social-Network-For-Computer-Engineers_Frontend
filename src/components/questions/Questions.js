@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import QuestionItem from './QuestionItem';
 import QuestionForm from './QuestionForm';
-import { getQuestions,searchQA } from '../../actions/question';
-import { Link, Navigate , useNavigate } from 'react-router-dom';
+import { getQuestions, searchQA } from '../../actions/question';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 const Questions = ({ getQuestions, searchQA, question: { questions } }) => {
   useEffect(() => {
@@ -15,19 +15,25 @@ const Questions = ({ getQuestions, searchQA, question: { questions } }) => {
   return (
     <section className='container'>
       <h1 className='large text-primary'>Q&A</h1>
-      <form onSubmit={(e) => {
+      <form
+        onSubmit={(e) => {
           e.preventDefault();
           navigate(`/questions/search/${text}`);
           setText('');
-        }}>
+        }}
+      >
         <input
+          className='my-input'
           type='text'
           value={text}
-          placeholder='Search for a question'
+          placeholder='Search Question'
           onChange={(e) => setText(e.target.value)}
         />
-        <input type='submit' className='btn2 btn-primary my-1' value='Search' />
-        </form> 
+        <input type='submit' className='btn btn-primary my-1' value='Search' />
+      </form>
+      <br />
+      <hr />
+      <br />
       <QuestionForm />
       <div className='posts'>
         {questions.map((question) => (
@@ -41,7 +47,7 @@ const Questions = ({ getQuestions, searchQA, question: { questions } }) => {
 Questions.propTypes = {
   getQuestions: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired,
-  searchQA : PropTypes.func.isRequired,
+  searchQA: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
