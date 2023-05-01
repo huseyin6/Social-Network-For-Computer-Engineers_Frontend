@@ -25,6 +25,8 @@ import Videos from './components/videos/Videos';
 import AddEducation from './components/profile-forms/AddEducation';
 import EditProfile from './components/profile-forms/EditProfile';
 import PrivateRoute from './components/routing/PrivateRoute';
+import AdvertiseJob from './components/job/AdvertiseJob';
+import MyAdvertisements from './components/job/MyAdvertisements';
 import './App.css';
 // import Alert from './components/layout/Alert';
 import { loadUser } from './actions/auth';
@@ -101,6 +103,16 @@ const App = () => {
               exact
               path='/edit-company-profile'
               element={<PrivateRoute component={EditCompanyProfile} />}
+            />
+            <Route
+              exact
+              path='/advertise-job'
+              element={<PrivateRoute component={AdvertiseJob} />}
+            />
+            <Route
+              exact
+              path='/my-ads'
+              element={<PrivateRoute component={MyAdvertisements} />}
             />
             <Route
               exact

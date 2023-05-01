@@ -31,7 +31,7 @@ const QuestionSearch = ({ searchQA, question: { searchqa } }) => {
           placeholder='Search Question'
           onChange={(e) => setText(e.target.value)}
         />
-        <input type='submit' className='btn btn-primary my-1' value='Search' />
+        <button type='submit' className='btn btn-primary my-1' ><i class="fa fa-search" aria-hidden="true"></i></button>
       </form>
       <br />
       <hr />
