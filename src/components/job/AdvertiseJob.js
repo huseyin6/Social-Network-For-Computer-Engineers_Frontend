@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {advertiseJob} from '../../actions/job';
 import Alert from '../layout/Alert';
 
@@ -24,12 +25,25 @@ const AdvertiseJob = ({advertiseJob}) => {
         <input type="text" placeholder='* Title' name='title' value={title} onChange={(e) => onChange(e)} required/>
         </div>
         <div className='form-group'>
-        <input type="text" placeholder='* Status' name='status' value={status} onChange={(e) => onChange(e)} required/>
+        <select name='status' value={status} required onChange={(e) => onChange(e)}>
+            <option>* Select Professional Status</option>
+            <option value='Developer'>Developer</option>
+            <option value='Junior Developer'>Junior Developer</option>
+            <option value='Senior Developer'>Senior Developer</option>
+            <option value='Manager'>Manager</option>
+            <option value='Student or Learning'>Student or Learning</option>
+            <option value='Instructor'>Instructor or Teacher</option>
+            <option value='Intern'>Intern</option>
+            <option value='Other'>Other</option>
+          </select>
         </div>
         <div className='form-group'>
         <textarea placeholder='* Description' name='description' value={description} cols='30' rows='5' onChange={(e) => onChange(e)} required></textarea>
         </div>
         <input type='submit' className='btn btn-primary my-1' value='Submit' />
+        <Link to='/my-ads' className='btn btn-light my-1'>
+        Go Back
+        </Link>
         </form>
         </section>
     );

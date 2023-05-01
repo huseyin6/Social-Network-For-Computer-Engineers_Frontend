@@ -1,4 +1,4 @@
-import { GET_ADS, ADVERTISE_JOB, JOB_ERROR } from "../actions/types";
+import { GET_ADS, ADVERTISE_JOB, JOB_ERROR, DELETE_JOB } from "../actions/types";
 const initialState = { jobs: [], job: null, loading: true, error: {} };
 export default function (state = initialState, action) {
     const { type, payload } = action;
@@ -21,6 +21,12 @@ export default function (state = initialState, action) {
             error: payload,
             loading: false,
         };
+        case DELETE_JOB:
+            return {
+                ...state,
+                jobs: state.jobs.filter((job) => job._id !== payload),
+                loading: false,
+            };
         default:
             return state;
     }
