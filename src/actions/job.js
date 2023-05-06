@@ -48,7 +48,7 @@ export const getRecommendedJobs = () => async (dispatch) => {
 export const applyJob = (id) => async (dispatch) => {
   console.log('Attending Job with id:', id);
   try {
-    const res = await axios.put(`/apply/${id}`);
+    const res = await axios.put(`/job/apply/${id}`);
     console.log('Received response:', res.data);
 
     dispatch({
@@ -73,7 +73,7 @@ export const applyJob = (id) => async (dispatch) => {
 // Attend Event
 export const declineJob = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(`/decline/${id}`);
+    const res = await axios.put(`/job/decline/${id}`);
     console.log('Received response:', res.data);
 
     dispatch({
