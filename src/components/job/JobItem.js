@@ -36,9 +36,6 @@ const JobItem = ({ job }) => {
         <strong>Applicants </strong>
         {applicants}
       </p>
-      <Link to={`/job/${_id}`} className='btn btn-primary'>
-        View Job Details
-      </Link>
     </div>
   );
 };
