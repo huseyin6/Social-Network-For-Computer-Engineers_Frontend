@@ -7,8 +7,10 @@ const JobItem = ({ job }) => {
     _id,
     title,
     company,
-    location,
     description,
+    date,
+    status,
+    applicants,
   } = job;
 
   return (
@@ -19,12 +21,20 @@ const JobItem = ({ job }) => {
         {company}
       </p>
       <p>
-        <strong>Location: </strong>
-        {location}
-      </p>
-      <p>
         <strong>Description: </strong>
         {description}
+      </p>
+      <p>
+        <strong>Date </strong>
+        {date}
+      </p>
+      <p>
+        <strong>Status </strong>
+        {status}
+      </p>
+      <p>
+        <strong>Applicants </strong>
+        {applicants}
       </p>
       <Link to={`/job/${_id}`} className='btn btn-primary'>
         View Job Details
