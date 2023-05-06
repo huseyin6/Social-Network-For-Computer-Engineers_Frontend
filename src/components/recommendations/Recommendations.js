@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getRecommendedJobs } from '../../actions/recommendations';
+import { getRecommendedJobs } from '../../actions/job';
 import JobItem from '../job/JobItem';
 
 const Recommendations = ({ getRecommendedJobs, recommendations }) => {

@@ -1,6 +1,7 @@
 import axios from '../axios';
 import { setAlert } from './alert';
 import { ADVERTISE_JOB, GET_ADS, JOB_ERROR, DELETE_JOB } from './types';
+import { GET_RECOMMENDED_JOBS, RECOMMENDATION_ERROR } from './types';
 export const advertiseJob = (formData) => async (dispatch) => {
     try {
         console.log(formData);
@@ -24,6 +25,24 @@ export const advertiseJob = (formData) => async (dispatch) => {
         });
     } 
 }
+
+// Get recommended jobs
+export const getRecommendedJobs = () => async (dispatch) => {
+  try {
+    const res = await axios.get('/job/recommendations');
+
+    dispatch({
+      type: GET_RECOMMENDED_JOBS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: RECOMMENDATION_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 export const getAds = () => async (dispatch) => {
     try {
         const res = await axios.get('/job/myads');
