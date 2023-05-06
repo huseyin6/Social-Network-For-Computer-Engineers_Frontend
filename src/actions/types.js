@@ -50,3 +50,6 @@ export const ADVERTISE_JOB = 'ADVERTISE_JOB';
 export const GET_ADS = 'GET_ADS';
 export const JOB_ERROR = 'JOB_ERROR';
 export const DELETE_JOB = 'DELETE_JOB';
+
+export const RECOMMENDATION_ERROR = 'RECOMMENDATION_ERROR';
+export const GET_RECOMMENDED_JOBS = 'GET_RECOMMENDED_JOBS';

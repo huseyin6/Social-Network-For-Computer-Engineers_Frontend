@@ -23,6 +23,9 @@ const Navbar = ({ auth: { isAuthenticated, loading, role }, logout }) => {
         <Link to='/events'>Events</Link>
       </li>
       <li>
+        <Link to='/recommendations'>Recommendations</Link>
+      </li>
+      <li>
       <Link to="/videos">Videos</Link>
       </li>
       

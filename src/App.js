@@ -37,6 +37,7 @@ import store from './store';
 import setAuthToken from './utils/setAuthToken';
 import './Animatiions.css';
 import AnimatedSwitch from './AnimatedSwitch';
+import Recommendations from './components/recommendations/Recommendations';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -78,6 +79,11 @@ const App = () => {
               exact 
               path='/videos' 
               element={<PrivateRoute component={Videos} /> }
+            />
+            <Route
+            exact
+            path='/recommendations'
+            element={<PrivateRoute component={Recommendations} />}
             />
             <Route
               exact
