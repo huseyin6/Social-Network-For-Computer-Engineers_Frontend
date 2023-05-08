@@ -1,5 +1,5 @@
-import { GET_ADS, ADVERTISE_JOB, JOB_ERROR, DELETE_JOB, APPLY_JOB,ATTEND_JOB_ERROR,DECLINE_JOB,DECLINE_JOB_ERROR } from "../actions/types";
-const initialState = { jobs: [], job: null, loading: true, error: {} };
+import { GET_ADS, ADVERTISE_JOB, JOB_ERROR, DELETE_JOB, APPLY_JOB,ATTEND_JOB_ERROR,DECLINE_JOB,DECLINE_JOB_ERROR, GET_APPLICANTS } from "../actions/types";
+const initialState = { jobs: [], job: null, loading: true, error: {}, applicants: [] };
 export default function (state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
@@ -13,6 +13,12 @@ export default function (state = initialState, action) {
         return {
             ...state,
             job: payload,
+            loading: false,
+        };
+        case GET_APPLICANTS:
+        return {
+            ...state,
+            applicants: payload,
             loading: false,
         };
         case APPLY_JOB:
@@ -54,6 +60,12 @@ export default function (state = initialState, action) {
                 ...state,
                 jobs: state.jobs.filter((job) => job._id !== payload),
                 loading: false,
+            };
+        case DECLINE_JOB_ERROR:
+            return {
+            ...state,
+            applicants: payload,
+            loading: false,
             };
         default:
             return state;
