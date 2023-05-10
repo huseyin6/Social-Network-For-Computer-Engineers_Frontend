@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import QuestionItem from './QuestionItem';
 import QuestionForm from './QuestionForm';
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { searchQA } from '../../actions/question';
 
 const QuestionSearch = ({ searchQA, question: { searchqa } }) => {

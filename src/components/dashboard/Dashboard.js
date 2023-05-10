@@ -8,12 +8,13 @@ import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import Alert from '../layout/Alert';
 import ProfileTop from '../profile/ProfileTop';
 import ProfileAbout from '../profile/ProfileAbout';
+import Spinner from '../layout/Spinner';
 
 const Dashboard = ({
   getCurrentProfile,
   deleteAccount,
   auth,
-  profile: { profile },
+  profile: { profile, loading},
 }) => {
   useEffect(() => {
     getCurrentProfile();
@@ -22,6 +23,10 @@ const Dashboard = ({
   return (
     <section className='container2'>
       <Alert/>
+      {loading === true ? (
+      <Spinner/>
+      ):
+      (<Fragment>
       {profile !== null ? (
       <Fragment>
          {auth.isAuthenticated &&
@@ -93,7 +98,7 @@ const Dashboard = ({
             Create Profile
           </Link>
         </>
-      )}
+      )}</Fragment>)}
     </section>
   );
 };

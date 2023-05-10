@@ -3,30 +3,31 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
-import { getPosts, searchPost } from '../../actions/post';
+import { getPosts } from '../../actions/post';
+import { useNavigate } from 'react-router-dom';
 
-const Posts = ({ getPosts, searchPost, post: { posts } }) => {
+const Posts = ({ getPosts, post: { posts } }) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
-
-  const [search, setSearch] = useState('');
+  const navigate = useNavigate();
+  const [text, setText] = useState('');
   return (
     <section className='container'>
       <h1 className='large text-primary'>Posts</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          searchPost({ search });
-          setSearch('');
+          navigate(`/posts/search/${text}`);
+          setText('');
         }}
       >
         <input
           className='my-input'
           type='text'
-          value={search}
+          value={text}
           placeholder='Search Post'
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setText(e.target.value)}
         />
         <button type='submit' className='btn btn-primary my-1' ><i class="fa fa-search" aria-hidden="true"></i></button>
       </form>
@@ -46,11 +47,10 @@ const Posts = ({ getPosts, searchPost, post: { posts } }) => {
 Posts.propTypes = {
   getPosts: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
-  searchPost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   post: state.post,
 });
 
-export default connect(mapStateToProps, { getPosts, searchPost })(Posts);
+export default connect(mapStateToProps, { getPosts })(Posts);

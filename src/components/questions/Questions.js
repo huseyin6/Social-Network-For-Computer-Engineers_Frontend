@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import QuestionItem from './QuestionItem';
 import QuestionForm from './QuestionForm';
-import { getQuestions, searchQA } from '../../actions/question';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { getQuestions } from '../../actions/question';
+import { useNavigate } from 'react-router-dom';
 
-const Questions = ({ getQuestions, searchQA, question: { questions } }) => {
+const Questions = ({ getQuestions, question: { questions } }) => {
   useEffect(() => {
     getQuestions();
   }, [getQuestions]);
@@ -47,11 +47,10 @@ const Questions = ({ getQuestions, searchQA, question: { questions } }) => {
 Questions.propTypes = {
   getQuestions: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired,
-  searchQA: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   question: state.question,
 });
 
-export default connect(mapStateToProps, { getQuestions, searchQA })(Questions);
+export default connect(mapStateToProps, { getQuestions })(Questions);

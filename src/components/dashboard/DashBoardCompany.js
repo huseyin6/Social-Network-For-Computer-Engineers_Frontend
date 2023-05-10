@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getCurrentCompany, deleteAccount } from '../../actions/companyProfile';
 import Alert from '../layout/Alert';
 import CompanyProfileTop from '../profile/CompanyProfileTop';
+import Spinner from '../layout/Spinner';
 
 const DashboardCompany = ({
   getCurrentCompany,
@@ -19,6 +20,10 @@ const DashboardCompany = ({
   return (
     <section className='container2'>
       <Alert/>
+      {loading === true ? (
+      <Spinner/>
+      ):
+      (<Fragment>
       {companyProfile !== null ? (
       <Fragment>
          {auth.isAuthenticated &&
@@ -53,7 +58,7 @@ const DashboardCompany = ({
             Create Profile
           </Link>
         </>
-      )}
+      )}</Fragment>)}
     </section>
   );
 };

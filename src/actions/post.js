@@ -124,7 +124,7 @@ export const getPost = (id) => async (dispatch) => {
 export const searchPost = (key) => async (dispatch) => {
   try {
     console.log(key);
-    const res = await axios.get(`/questions/search/${key}`);
+    const res = await axios.get(`/posts/search/${key}`);
     console.log(res.data);
     dispatch({
       type: SEARCH_POST,

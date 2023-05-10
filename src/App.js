@@ -21,6 +21,7 @@ import Events from './components/events/Events';
 import AddExperience from './components/profile-forms/AddExperience';
 import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
+import PostSearch from './components/posts/PostSearch';
 import Videos from './components/videos/Videos';
 import AddEducation from './components/profile-forms/AddEducation';
 import EditProfile from './components/profile-forms/EditProfile';
@@ -70,6 +71,7 @@ const App = () => {
             <Route path='/company-profile/:id' element={<CompanyProfile />} />
             <Route path='/company-profiles' element={<CompanyProfiles />} />
             <Route path='/questions/search/:key' element={<QuestionSearch />} />
+            <Route path='/posts/search/:key' element={<PostSearch />} />
             <Route
               exact
               path='/dashboardCompany'
