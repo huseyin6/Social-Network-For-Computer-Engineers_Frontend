@@ -30,7 +30,7 @@ const CompaniesProfiles = ({
                 />
               ))
             ) : (
-              <h4>No componies found...</h4>
+              <Spinner />
             )}
           </div>
         </Fragment>
