@@ -1,8 +1,9 @@
-// components/Videos.js
 import React, { useState, useEffect, useCallback } from 'react';
 import { YOUTUBE_API_KEY } from '../../urlconfig';
 import styles from './Videos.module.css';
 import { InView } from 'react-intersection-observer';
+import '../../App.css';
+import Spinner from '../layout/Spinner';
 
 const Videos = () => {
   const [videos, setVideos] = useState([]);
@@ -10,7 +11,7 @@ const Videos = () => {
   const [videoType, setVideoType] = useState('computer language educations');
   const [loading, setLoading] = useState(true);
   const videoTypes = [
-    'computer language educations',
+    'computer language',
     'computer science news',
     'designing cs project from scratch',
   ];
@@ -49,8 +50,8 @@ const Videos = () => {
   }, [search, debouncedFetchData]);
 
   return (
-    <div className={styles.container}>
-      <h1>Videos</h1>
+    <div className='container'>
+      <h1 className="large text-primary">Videos</h1>
       <div className={styles['controls-container']}>
         <input
           className={styles['search-bar']}
@@ -71,38 +72,37 @@ const Videos = () => {
           ))}
         </select>
       </div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
+      
         <div className={styles['videos-grid']}>
           {videos &&
             videos.map((video) => (
-              <div key={video.id.videoId} className={`${styles['video-wrapper']} ${styles['fade-in']}`}>
-                <InView triggerOnce>
-                  {({ inView, ref }) => (
-                    <div ref={ref}>
-                      {inView && (
-                        <iframe
-                          src={`https://www.youtube.com/embed/${video.id.videoId}`}
-                          title={video.snippet.title}
-                          frameBorder="0"
-                          allowFullScreen
-                        ></iframe>
-                      )}
-                      {!inView && (
-                        <img
-                          src={video.snippet.thumbnails.medium.url}
-                          alt={video.snippet.title}
-                          className={styles['video-thumbnail']}
-                        />
-                      )}
-                    </div>
-                  )}
-                </InView>
+              <div key={video.id.videoId} className='videos'>
+                <div className={styles['videos-container']}>
+                  <InView triggerOnce>
+                    {({ inView, ref }) => (
+                      <div ref={ref}>
+                        {inView && (
+                          <iframe
+                            src={`https://www.youtube.com/embed/${video.id.videoId}`}
+                            title={video.snippet.title}
+                            frameBorder="0"
+                            allowFullScreen
+                          ></iframe>
+                        )}
+                        {!inView && (
+                          <img
+                            src={video.snippet.thumbnails.medium.url}
+                            alt={video.snippet.title}
+                            className={styles['video-thumbnail']}
+                          />
+                        )}
+                      </div>
+                    )}
+                  </InView>
+                </div>
               </div>
             ))}
         </div>
-      )}
     </div>
   );
 };
