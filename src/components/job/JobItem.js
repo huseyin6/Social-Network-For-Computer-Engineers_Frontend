@@ -52,10 +52,7 @@ const JobItem = ({ job, applyJob, declineJob }) => {
         <strong>Company: </strong>
         {company}
       </p>
-      <p>
-        <strong>Company: </strong>
-        {companyName}
-      </p>
+      <p>Company: {job.company.name}</p>
       <p>
         <strong>Description: </strong>
         {description}
