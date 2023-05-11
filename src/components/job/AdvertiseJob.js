@@ -6,8 +6,8 @@ import {advertiseJob} from '../../actions/job';
 import Alert from '../layout/Alert';
 
 const AdvertiseJob = ({advertiseJob}) => {
-    const [formData, setFormData] = useState({title: '', status: '', description: ''});
-    const {title, status, description} = formData;
+    const [formData, setFormData] = useState({title: '', status: '', description: '', endDate: ''});
+    const {title, status, description, endDate} = formData;
     const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -39,6 +39,16 @@ const AdvertiseJob = ({advertiseJob}) => {
         </div>
         <div className='form-group'>
         <textarea placeholder='* Description' name='description' value={description} cols='30' rows='5' onChange={(e) => onChange(e)} required></textarea>
+        </div>
+        <div className='form-group'>
+          <h4>Closing Date</h4>
+          <input
+            type='date'
+            name='endDate'
+            value={endDate}
+            onChange={(e) => onChange(e)}
+            required
+          />
         </div>
         <input type='submit' className='btn btn-primary my-1' value='Submit' />
         <Link to='/my-ads' className='btn btn-light my-1'>
