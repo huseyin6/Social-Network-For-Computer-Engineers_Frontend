@@ -59,3 +59,4 @@ export const ATTEND_JOB_ERROR = 'ATTEND_JOB_ERROR';
 export const APPLY_JOB = 'APPLY_JOB';
 export const DECLINE_JOB = 'DECLINE_JOB';
 export const DECLINE_JOB_ERROR = 'DECLINE-JOB_ERROR';
+export const GET_JOB = 'GET_JOB';

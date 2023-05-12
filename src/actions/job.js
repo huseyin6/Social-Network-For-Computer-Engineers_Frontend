@@ -1,8 +1,9 @@
 import axios from '../axios';
 import { setAlert } from './alert';
-import { ADVERTISE_JOB, GET_ADS, JOB_ERROR, DELETE_JOB, GET_APPLICANTS } from './types';
+import { ADVERTISE_JOB, GET_ADS, JOB_ERROR, DELETE_JOB, GET_APPLICANTS, GET_JOB } from './types';
 import { GET_RECOMMENDED_JOBS, RECOMMENDATION_ERROR } from './types';
-import { APPLY_JOB,ATTEND_JOB_ERROR,DECLINE_JOB,DECLINE_JOB_ERROR } from './types';
+import { APPLY_JOB, ATTEND_JOB_ERROR, DECLINE_JOB, DECLINE_JOB_ERROR } from './types';
+
 export const advertiseJob = (formData) => async (dispatch) => {
     try {
         console.log(formData);
@@ -127,6 +128,22 @@ export const getApplicants = (id) => async (dispatch) => {
     console.log(res.data);
     dispatch({
       type: GET_APPLICANTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: JOB_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const getJob = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/job/${id}`);
+    console.log(res.data);
+    dispatch({
+      type: GET_JOB,
       payload: res.data,
     });
   } catch (err) {

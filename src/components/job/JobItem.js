@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { applyJob, declineJob } from '../../actions/job';
-import {
-  addAppliedJob,
-  addDeclinedJob,
-  isJobAppliedOrDeclined,
-} from '../../localStorageHelpers';
+import { applyJob, declineJob, getJob } from '../../actions/job';
 
-const JobItem = ({ job, applyJob, declineJob }) => {
+const JobItem = ({ job, applyJob, declineJob, getJob, auth }) => {
   const {
     _id,
     title,
@@ -21,29 +16,29 @@ const JobItem = ({ job, applyJob, declineJob }) => {
     declinedUsers,
   } = job;
 
-  const [jobStatus, setJobStatus] = useState('notApplied');
+  const userId = auth.user ? auth.user._id : null;
 
-  useEffect(() => {
-    if (isJobAppliedOrDeclined(_id)) {
-      setJobStatus('applied');
-    }
-  }, [_id]);
+  const hasUserApplied = applicants.find(applicant => applicant.user === userId);
+  const hasUserDeclined = declinedUsers.find(user => user.user === userId);
 
   const handleApply = async (id) => {
-    await applyJob(id);
-    addAppliedJob(id);
-    setJobStatus('applied');
+    if (!hasUserApplied) {
+      await applyJob(id);
+      getJob(id); // re-fetch the job
+    }
   };
 
   const handleDecline = async (id) => {
-    await declineJob(id);
-    addDeclinedJob(id);
-    setJobStatus('declined');
+    if (!hasUserDeclined) {
+      await declineJob(id);
+      getJob(id); // re-fetch the job
+    }
   };
 
-  if (jobStatus === 'declined') {
+  if (hasUserDeclined) {
     return null;
   }
+
 
   return (
     <div className='job bg-white p-2'>
@@ -52,28 +47,28 @@ const JobItem = ({ job, applyJob, declineJob }) => {
         <strong>Company: </strong>
         {company}
       </p>
-      <p>Company: {job.company.name}</p>
+      <p>Company: {companyName}</p>
       <p>
         <strong>Description: </strong>
         {description}
       </p>
       <p>
-        <strong>Date </strong>
+        <strong>Date: </strong>
         {date}
       </p>
       <p>
-        <strong>Status </strong>
+        <strong>Status: </strong>
         {status}
       </p>
       <p>
-        <strong>Applicants </strong>
-        {Array.isArray(applicants) ? applicants.length : 0}
+        <strong>Applicants: </strong>
+        {applicants.length}
       </p>
       <p>
-        <strong>Declined </strong>
-        {Array.isArray(declinedUsers) ? declinedUsers.length : 0}
+        <strong>Declined: </strong>
+        {declinedUsers.length}
       </p>
-      {jobStatus === 'notApplied' && (
+      {!hasUserApplied && (
         <>
           <button
             onClick={() => handleApply(_id)}
@@ -99,6 +94,12 @@ JobItem.propTypes = {
   job: PropTypes.object.isRequired,
   applyJob: PropTypes.func.isRequired,
   declineJob: PropTypes.func.isRequired,
+  getJob: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
-export default connect(null, { applyJob, declineJob })(JobItem);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { applyJob, declineJob, getJob })(JobItem);
