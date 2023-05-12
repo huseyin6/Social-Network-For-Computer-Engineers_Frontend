@@ -33,6 +33,7 @@ export const GET_REPOS = 'GET_REPOS';
 export const NO_REPOS = 'NO_REPOS';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
 export const COMPANY_PROFILE_ERROR = 'COMPANY_PROFILE_ERROR';
+export const GET_PROFILE_AND_SCORE='GET_PROFILE_AND_SCORE';
 
 export const SEARCH_QA = 'SEARCH_QA';
 export const GET_QUESTIONS = 'GET_QUESTIONS';

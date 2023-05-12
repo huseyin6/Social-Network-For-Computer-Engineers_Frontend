@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import { getProfileById, scoreEngineer, getEngineerScore } from '../../actions/profile';
+import { getProfileById, scoreEngineer, getEngineerScore, getProfileAndScore } from '../../actions/profile';
 import { Link, useParams } from 'react-router-dom';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
@@ -11,12 +11,11 @@ import Education from './Education';
 import ReactStars from "react-rating-stars-component";
 import AnimatedSwitch from '../../AnimatedSwitch';
 
-const Profile = ({ getProfileById, getEngineerScore, scoreEngineer, profile: { profile, loading, engineerScore}, auth }) => {
+const Profile = ({ getProfileById, getEngineerScore, getProfileAndScore, scoreEngineer, profile: { profile, loading, engineerScore}, auth }) => {
   const { id } = useParams();
   useEffect(() => {
-    getProfileById(id);
-    getEngineerScore(id);
-    }, [getProfileById, id]);
+    getProfileAndScore(id);
+    }, [getProfileAndScore, id]);
   console.log(profile);
   const [score, setScore] = useState(5);
   const ratingChanged = (newRating) => {
@@ -105,7 +104,8 @@ Profile.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   scoreEngineer: PropTypes.func.isRequired,
-  getEngineerScore: PropTypes.func.isRequired
+  getEngineerScore: PropTypes.func.isRequired,
+  getProfileAndScore: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -113,4 +113,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getProfileById,  scoreEngineer, getEngineerScore })(Profile);
+export default connect(mapStateToProps, { getProfileById,  scoreEngineer, getEngineerScore, getProfileAndScore})(Profile);

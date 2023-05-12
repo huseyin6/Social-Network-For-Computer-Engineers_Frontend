@@ -9,7 +9,8 @@ import {
   ACCOUNT_DELETED,
   GET_PROFILES,
   GET_REPOS,
-  GET_SCORE
+  GET_SCORE,
+  GET_PROFILE_AND_SCORE
 } from './types';
 
 export const getCurrentProfile = () => async (dispatch) => {
@@ -95,6 +96,23 @@ export const getProfileById = (id) => async (dispatch) => {
     });
   }
 };
+export const getProfileAndScore = (id) => async (dispatch) => {
+  try {
+    const profile = await axios.get(`/profile/user/${id}`);
+    const score = await axios.get(`/profile/score/${id}`);
+    dispatch({
+      type: GET_PROFILE_AND_SCORE,
+      payload: {profile: profile.data, score: score.data},
+    });
+
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 export const getEngineerScore = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/profile/score/${id}`);
