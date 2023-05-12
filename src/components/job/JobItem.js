@@ -47,7 +47,6 @@ const JobItem = ({ job, applyJob, declineJob, getJob, auth }) => {
         <strong>Company: </strong>
         {company}
       </p>
-      <p>Company: {companyName}</p>
       <p>
         <strong>Description: </strong>
         {description}
