@@ -5,6 +5,7 @@ import QuestionItem from './QuestionItem';
 import QuestionForm from './QuestionForm';
 import { getQuestions } from '../../actions/question';
 import { useNavigate } from 'react-router-dom';
+import AnimatedSwitch from '../../AnimatedSwitch';
 
 const Questions = ({ getQuestions, question: { questions } }) => {
   useEffect(() => {
@@ -13,6 +14,7 @@ const Questions = ({ getQuestions, question: { questions } }) => {
   const [text, setText] = useState('');
   const navigate = useNavigate();
   return (
+    <AnimatedSwitch>
     <section className='container'>
       <h1 className='large text-primary'>Q&A</h1>
       <form
@@ -41,6 +43,7 @@ const Questions = ({ getQuestions, question: { questions } }) => {
         ))}
       </div>
     </section>
+    </AnimatedSwitch>
   );
 };
 

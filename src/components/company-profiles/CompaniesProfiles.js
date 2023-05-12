@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import { getCompanyProfiles } from '../../actions/companyProfile';
 import CompanyProfileItem from './CompanyProfileItem';
+import AnimatedSwitch from '../../AnimatedSwitch';
 
 const CompaniesProfiles = ({
   getCompanyProfiles,
@@ -15,6 +16,7 @@ const CompaniesProfiles = ({
 
   // console.log('LOG: COMPANIES:', profiles);
   return (
+    <AnimatedSwitch>
     <section className='container'>
       {loading ? (
         <Spinner />
@@ -36,6 +38,7 @@ const CompaniesProfiles = ({
         </Fragment>
       )}
     </section>
+    </AnimatedSwitch>
   );
 };
 

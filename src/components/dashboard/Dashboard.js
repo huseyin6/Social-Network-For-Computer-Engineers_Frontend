@@ -9,6 +9,8 @@ import Alert from '../layout/Alert';
 import ProfileTop from '../profile/ProfileTop';
 import ProfileAbout from '../profile/ProfileAbout';
 import Spinner from '../layout/Spinner';
+import AnimatedBackground from '../../AnimatedBackground';
+import AnimatedSwitch from '../../AnimatedSwitch';
 
 const Dashboard = ({
   getCurrentProfile,
@@ -21,7 +23,9 @@ const Dashboard = ({
   }, [getCurrentProfile]);
 
   return (
+    <AnimatedSwitch>
     <section className='container2'>
+      <AnimatedBackground />
       <Alert/>
       {loading === true ? (
       <Spinner/>
@@ -100,6 +104,7 @@ const Dashboard = ({
         </>
       )}</Fragment>)}
     </section>
+    </AnimatedSwitch>
   );
 };
 

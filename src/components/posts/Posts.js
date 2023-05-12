@@ -5,6 +5,7 @@ import PostItem from './PostItem';
 import PostForm from './PostForm';
 import { getPosts } from '../../actions/post';
 import { useNavigate } from 'react-router-dom';
+import AnimatedSwitch from '../../AnimatedSwitch';
 
 const Posts = ({ getPosts, post: { posts } }) => {
   useEffect(() => {
@@ -13,6 +14,7 @@ const Posts = ({ getPosts, post: { posts } }) => {
   const navigate = useNavigate();
   const [text, setText] = useState('');
   return (
+    <AnimatedSwitch>
     <section className='container'>
       <h1 className='large text-primary'>Posts</h1>
       <form
@@ -41,6 +43,7 @@ const Posts = ({ getPosts, post: { posts } }) => {
         ))}
       </div>
     </section>
+    </AnimatedSwitch>
   );
 };
 

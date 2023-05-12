@@ -1,0 +1,18 @@
+.labyrinth-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 2px;
+    height: 100vh;
+    background-color: green;
+    animation: moveLine 5s linear infinite;
+  }
+  
+  @keyframes moveLine {
+    0% { left: 0; top: 50%; }
+    25% { left: 25%; top: 50%; }
+    50% { left: 50%; top: 50%; }
+    75% { left: 75%; top: 50%; }
+    100% { left: 100%; top: 50%; }
+  }
+  

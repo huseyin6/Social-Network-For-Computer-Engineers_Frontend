@@ -28,6 +28,7 @@ import EditProfile from './components/profile-forms/EditProfile';
 import PrivateRoute from './components/routing/PrivateRoute';
 import AdvertiseJob from './components/job/AdvertiseJob';
 import MyAdvertisements from './components/job/MyAdvertisements';
+import AnimatedBackground from './AnimatedBackground';
 import './App.css';
 // import Alert from './components/layout/Alert';
 import { loadUser } from './actions/auth';
@@ -37,7 +38,6 @@ import { Provider } from 'react-redux';
 import store from './store';
 import setAuthToken from './utils/setAuthToken';
 import './Animatiions.css';
-import AnimatedSwitch from './AnimatedSwitch';
 import Recommendations from './components/recommendations/Recommendations';
 
 if (localStorage.token) {
@@ -60,7 +60,6 @@ const App = () => {
         <Fragment>
           <Navbar />
           <Alert />
-          <AnimatedSwitch>
           <Routes>
             <Route path='/' element={<Landing />} />
             <Route path='/login' element={<Login />} />
@@ -157,7 +156,6 @@ const App = () => {
               element={<PrivateRoute component={Events} />}
             />
           </Routes>
-          </AnimatedSwitch>
         </Fragment>
       </BrowserRouter>
     </Provider>

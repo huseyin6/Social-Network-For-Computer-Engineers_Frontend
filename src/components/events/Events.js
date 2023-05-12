@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import EventItem from './EventItem';
 import { getEvents } from '../../actions/event';
+import AnimatedSwitch from '../../AnimatedSwitch';
 
 const Events = ({ getEvents, event: { events } }) => {
   useEffect(() => {
     getEvents();
   }, [getEvents]);
   return (
+    <AnimatedSwitch>
     <section className='eventcontainer'>
       <h1 className='large text-primary'>Events</h1>
       <div className='posts'>
@@ -17,6 +19,7 @@ const Events = ({ getEvents, event: { events } }) => {
         ))}
       </div>
     </section>
+    </AnimatedSwitch>
   );
 };
 

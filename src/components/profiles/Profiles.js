@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import { getProfiles } from '../../actions/profile';
 import ProfileItem from './ProfileItem';
+import AnimatedSwitch from '../../AnimatedSwitch';
 
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
   return (
+    <AnimatedSwitch>
     <section className='container'>
       {loading ? (
         <Spinner />
@@ -28,6 +30,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
         </Fragment>
       )}
     </section>
+    </AnimatedSwitch>
   );
 };
 

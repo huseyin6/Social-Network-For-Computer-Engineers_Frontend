@@ -9,7 +9,7 @@ const AnimatedSwitch = ({ children }) => {
 
   return (
     <TransitionGroup>
-      <CSSTransition key={location.key} timeout={300} classNames="fade">
+      <CSSTransition key={location.key} timeout={100} classNames="fade">
         {children}
       </CSSTransition>
     </TransitionGroup>

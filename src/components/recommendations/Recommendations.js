@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getRecommendedJobs } from '../../actions/job';
 import JobItem from '../job/JobItem';
+import AnimatedSwitch from '../../AnimatedSwitch';
 
 const Recommendations = ({ getRecommendedJobs, recommendations }) => {
   useEffect(() => {
@@ -10,6 +11,7 @@ const Recommendations = ({ getRecommendedJobs, recommendations }) => {
   }, [getRecommendedJobs]);
 
   return (
+    <AnimatedSwitch>
     <div className="container">
       <h1 className="large text-primary">Recommended Jobs</h1>
       <div className="jobs">
@@ -18,6 +20,7 @@ const Recommendations = ({ getRecommendedJobs, recommendations }) => {
         ))}
       </div>
     </div>
+    </AnimatedSwitch>
   );
 };
 

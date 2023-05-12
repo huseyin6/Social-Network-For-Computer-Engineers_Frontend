@@ -6,6 +6,8 @@ import { getCurrentCompany, deleteAccount } from '../../actions/companyProfile';
 import Alert from '../layout/Alert';
 import CompanyProfileTop from '../profile/CompanyProfileTop';
 import Spinner from '../layout/Spinner';
+import AnimatedBackground from '../../AnimatedBackground';
+import AnimatedSwitch from '../../AnimatedSwitch';
 
 const DashboardCompany = ({
   getCurrentCompany,
@@ -18,6 +20,7 @@ const DashboardCompany = ({
   }, [getCurrentCompany]);
   
   return (
+    <AnimatedSwitch>
     <section className='container2'>
       <Alert/>
       {loading === true ? (
@@ -60,6 +63,7 @@ const DashboardCompany = ({
         </>
       )}</Fragment>)}
     </section>
+    </AnimatedSwitch>
   );
 };
 

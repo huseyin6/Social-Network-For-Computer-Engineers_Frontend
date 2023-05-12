@@ -9,6 +9,7 @@ import ProfileAbout from './ProfileAbout';
 import Experience from './Experience';
 import Education from './Education';
 import ReactStars from "react-rating-stars-component";
+import AnimatedSwitch from '../../AnimatedSwitch';
 
 const Profile = ({ getProfileById, getEngineerScore, scoreEngineer, profile: { profile, loading, engineerScore}, auth }) => {
   const { id } = useParams();
@@ -24,6 +25,7 @@ const Profile = ({ getProfileById, getEngineerScore, scoreEngineer, profile: { p
     scoreEngineer(profile._id, {score});
   }
   return (
+    <AnimatedSwitch>
     <section className='container2'>
       {profile === null ? (
         <Spinner />
@@ -94,6 +96,7 @@ const Profile = ({ getProfileById, getEngineerScore, scoreEngineer, profile: { p
         </Fragment>
       )}
     </section>
+    </AnimatedSwitch>
   );
 };
 
