@@ -6,8 +6,8 @@ import { getCurrentCompany, deleteAccount } from '../../actions/companyProfile';
 import Alert from '../layout/Alert';
 import CompanyProfileTop from '../profile/CompanyProfileTop';
 import Spinner from '../layout/Spinner';
-import AnimatedBackground from '../../AnimatedBackground';
 import AnimatedSwitch from '../../AnimatedSwitch';
+import backgroundGif from '../../Background.gif';
 
 const DashboardCompany = ({
   getCurrentCompany,
