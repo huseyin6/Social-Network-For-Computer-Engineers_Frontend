@@ -15,7 +15,9 @@
 
 .popup {
   position: fixed;
-  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 100;
   left: 50%;
   top: 50%;
@@ -31,9 +33,13 @@
 }
 
 .popup-content {
-  display: flex;
+  display:flex;
   flex-direction: column;
   align-items: center;
+  height: 60vh; /* adjust as needed */
+  width: 60vw; /* adjust as needed */
+  overflow-y: auto;
+  overflow-x: auto;
 }
 
 .close {

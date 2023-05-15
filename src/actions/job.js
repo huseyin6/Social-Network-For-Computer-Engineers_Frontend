@@ -136,10 +136,10 @@ export const deleteJob = (id) => async (dispatch) => {
 export const getApplicants = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/job/applicants/${id}`);
-    console.log(res.data);
+    console.log('Received applicants:', res.data); // Add this line
     dispatch({
       type: GET_APPLICANTS,
-      payload: res.data,
+      payload: { id, applicants: res.data },
     });
   } catch (err) {
     dispatch({
@@ -148,6 +148,8 @@ export const getApplicants = (id) => async (dispatch) => {
     });
   }
 };
+
+
 
 export const getJob = (id) => async (dispatch) => {
   try {

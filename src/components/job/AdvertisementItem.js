@@ -7,7 +7,8 @@ import 'animate.css';
 import Spinner from '../layout/Spinner';
 import ProfileItem from '../profiles/ProfileItem';
 
-const AdvertisementItem = ({auth, jobitem, deleteJob, getApplicants, job: {applicants}}) => {
+const AdvertisementItem = ({auth, jobitem, deleteJob, getApplicants, job: {jobs, applicants}}) => {
+  const currentJob = jobs.find(job => job._id === jobitem._id);
     return (
     <div className="bg-white p-1 my-1">
         <div> 
@@ -26,13 +27,13 @@ const AdvertisementItem = ({auth, jobitem, deleteJob, getApplicants, job: {appli
             &times;
           </span>
           <div>
-          {applicants === null ? (
+          {currentJob && currentJob.applicants === null ? (
             <Spinner/>
-          ): 
-          (<Fragment>
-            {applicants.map((applicant) => (
+        ): 
+        (<Fragment>
+            {currentJob && currentJob.applicants.map((applicant) => (
             <ProfileItem key={applicant._id} profile={applicant} />
-          ))}</Fragment>)}
+        ))}</Fragment>)}
           </div>
          </div>
         </div>
@@ -43,7 +44,7 @@ const AdvertisementItem = ({auth, jobitem, deleteJob, getApplicants, job: {appli
         style = {{float: 'right'}}
         onClick={() => {
           getApplicants(jobitem._id);
-          document.querySelector(`.popup-${jobitem._id}`).style.display = 'block';
+          document.querySelector(`.popup-${jobitem._id}`).style.display = 'flex';
         }}
       >
        See Applicants
@@ -79,7 +80,8 @@ AdvertisementItem.propTypes = {
   
   const mapStateToProps = (state) => ({
     auth: state.auth,
-    job: state.job
-  });
+    job: state.job,
+    jobs: state.job.jobs
+});
   
   export default connect(mapStateToProps, {deleteJob, getApplicants })(AdvertisementItem);

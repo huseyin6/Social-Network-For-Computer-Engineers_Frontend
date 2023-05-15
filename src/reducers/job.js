@@ -16,11 +16,16 @@ export default function (state = initialState, action) {
             loading: false,
         };
         case GET_APPLICANTS:
-        return {
-            ...state,
-            applicants: payload,
-            loading: false,
-        };
+            console.log('Received GET_APPLICANTS action:', payload); 
+            return {
+              ...state,
+              jobs: state.jobs.map((job) =>
+                job._id === payload.id
+                  ? { ...job, applicants: payload.applicants }
+                  : job
+              ),
+              loading: false,
+            };
         case APPLY_JOB:
         return {
             ...state,
