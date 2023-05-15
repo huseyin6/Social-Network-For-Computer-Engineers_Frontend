@@ -620,6 +620,13 @@ p img {
   border-radius: 50%;
 }
 
+.round-img-c {
+  border-radius: 50%;
+  width: 100px; /* İstenilen genişliği burada belirleyebilirsiniz */
+  height: 100px; /* İstenilen yüksekliği burada belirleyebilirsiniz */
+  margin-left: auto;
+}
+
 .line {
   height: 1px;
   background: #ccc;

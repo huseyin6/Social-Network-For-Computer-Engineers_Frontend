@@ -44,8 +44,6 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-
-
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
@@ -54,7 +52,6 @@ const App = () => {
   /*   <Route exact path='/dashboardCompany' element={<PrivateRoute component={DashboardComp} />} />     Bu com. silinebilir */
 
   return (
-    
     <Provider store={store}>
       <BrowserRouter>
         <Fragment>
@@ -76,21 +73,21 @@ const App = () => {
               path='/dashboardCompany'
               element={<PrivateRoute component={DashboardCompany} />}
             />
-            <Route 
-              exact 
-              path='/videos' 
-              element={<PrivateRoute component={Videos} /> }
+            <Route
+              exact
+              path='/videos'
+              element={<PrivateRoute component={Videos} />}
             />
             <Route
-            exact
-            path='/recommendations'
-            element={<PrivateRoute component={Recommendations} />}
+              exact
+              path='/recommendations'
+              element={<PrivateRoute component={Recommendations} />}
             />
             <Route
               exact
               path='/dashboard'
               element={<PrivateRoute component={Dashboard} />}
-            />  
+            />
             <Route
               exact
               path='/create-profile'

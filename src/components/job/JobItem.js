@@ -18,8 +18,10 @@ const JobItem = ({ job, applyJob, declineJob, getJob, auth }) => {
 
   const userId = auth.user ? auth.user._id : null;
 
-  const hasUserApplied = applicants.find(applicant => applicant.user === userId);
-  const hasUserDeclined = declinedUsers.find(user => user.user === userId);
+  const hasUserApplied = applicants.find(
+    (applicant) => applicant.user === userId
+  );
+  const hasUserDeclined = declinedUsers.find((user) => user.user === userId);
 
   const handleApply = async (id) => {
     if (!hasUserApplied) {
@@ -39,13 +41,13 @@ const JobItem = ({ job, applyJob, declineJob, getJob, auth }) => {
     return null;
   }
 
-
   return (
     <div className='job bg-white p-2'>
       <h3>{title}</h3>
+      <img src={company.avatar} alt='' className='round-img-c' />
       <p>
         <strong>Company: </strong>
-        {company}
+        {company.name}
       </p>
       <p>
         <strong>Description: </strong>
@@ -101,4 +103,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { applyJob, declineJob, getJob })(JobItem);
+export default connect(mapStateToProps, { applyJob, declineJob, getJob })(
+  JobItem
+);
