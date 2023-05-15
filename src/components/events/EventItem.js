@@ -45,12 +45,12 @@ const EventItem = ({
         </div>
       </div>
 
-      <div className={`popup popup-${_id} animate__animated animate__fadeIn`}>
-        <div className='popup-content'>
+      <div className={`popup2 popup2-${_id} animate__animated animate__fadeIn`}>
+        <div className='popup2-content'>
           <span
             className='close'
             onClick={() => {
-              document.querySelector(`.popup-${_id}`).style.display = 'none';
+              document.querySelector(`.popup2-${_id}`).style.display = 'none';
             }}
           >
             &times;
@@ -67,7 +67,7 @@ const EventItem = ({
         className='btn3 btn-light'
         width='%50'
         onClick={() => {
-          document.querySelector(`.popup-${_id}`).style.display = 'block';
+          document.querySelector(`.popup2-${_id}`).style.display = 'block';
         }}
       >
         <i className='fas fa-question' />{' '}

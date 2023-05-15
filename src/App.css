@@ -42,6 +42,36 @@
   overflow-x: auto;
 }
 
+.popup2 {
+  position: fixed;
+  display: none;
+  z-index: 100;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  max-width: 500px;
+  width: 90%;
+  height: 200px; /* Adjust as needed */
+  overflow: auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.popup2-content {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80%; /* Adjust as needed */
+  width: 100%; /* Adjust as needed */
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+
+
 .close {
   position: absolute;
   right: 20px;
