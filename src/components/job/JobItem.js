@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { applyJob, declineJob, getJob } from '../../actions/job';
+import formatDate from '../../utils/formatDate';
 
 const JobItem = ({ job, applyJob, declineJob, getJob, auth }) => {
   const {
@@ -10,10 +11,10 @@ const JobItem = ({ job, applyJob, declineJob, getJob, auth }) => {
     company,
     description,
     date,
-    companyName,
     status,
     applicants,
     declinedUsers,
+    endDate,
   } = job;
 
   const userId = auth.user ? auth.user._id : null;
@@ -54,8 +55,8 @@ const JobItem = ({ job, applyJob, declineJob, getJob, auth }) => {
         {description}
       </p>
       <p>
-        <strong>Date: </strong>
-        {date}
+        <strong>Applicantion Deadline: </strong>
+        {endDate ? formatDate(endDate) : formatDate(date)}
       </p>
       <p>
         <strong>Status: </strong>
