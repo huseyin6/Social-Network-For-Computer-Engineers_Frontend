@@ -10,7 +10,6 @@ import ProfileTop from '../profile/ProfileTop';
 import ProfileAbout from '../profile/ProfileAbout';
 import Spinner from '../layout/Spinner';
 import AnimatedSwitch from '../../AnimatedSwitch';
-import backgroundGif from '../../Background.gif';
 
 const Dashboard = ({
   getCurrentProfile,
@@ -23,11 +22,7 @@ const Dashboard = ({
   }, [getCurrentProfile]);
 
   return (
-    <div style={{
-      backgroundImage: `url(${backgroundGif})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }}>
+
     <AnimatedSwitch>
       
     <section className='container2'>
@@ -113,7 +108,7 @@ const Dashboard = ({
     </section>
     
     </AnimatedSwitch>
-    </div>
+
   );
 };
 

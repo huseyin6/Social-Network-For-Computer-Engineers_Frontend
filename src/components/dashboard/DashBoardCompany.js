@@ -20,11 +20,6 @@ const DashboardCompany = ({
   }, [getCurrentCompany]);
   
   return (
-    <div style={{
-      backgroundImage: `url(${backgroundGif})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }}>
     <AnimatedSwitch>
     <section className='container2'>
       <Alert/>
@@ -69,7 +64,6 @@ const DashboardCompany = ({
       )}</Fragment>)}
     </section>
     </AnimatedSwitch>
-    </div>
   );
 };
 
