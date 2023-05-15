@@ -21,7 +21,7 @@ const Profile = ({ getProfileById, getEngineerScore, getProfileAndScore, scoreEn
   const ratingChanged = (newRating) => {
     console.log(newRating);
     setScore(newRating);
-    scoreEngineer(profile._id, {score});
+    scoreEngineer(profile._id, score);
   }
   return (
     <AnimatedSwitch>

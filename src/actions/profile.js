@@ -126,13 +126,14 @@ export const getEngineerScore = (id) => async (dispatch) => {
     }
 };
 
-export const scoreEngineer = (id,score) => async (dispatch) => {
+export const scoreEngineer = (id, sc) => async (dispatch) => {
     console.log(id);
-    console.log(score);
+    console.log(sc);
+    const formData= {score: sc};
+    console.log(formData);
     try { 
-      const res = await axios.put(`/profile/score/${id}`, score);
+      const res = await axios.put(`/profile/score/${id}`, formData);
     console.log(res.data);
-    console.log(score);
   } catch (err) {
     console.log(err.response.statusText);
     }
