@@ -2,7 +2,7 @@ import {
   CLEAR_COMPANY_PROFILE,
   COMPANY_PROFILE_ERROR,
   GET_COMPANY_PROFILES,
-  GET_COMPANY_PROFILE
+  GET_COMPANY_PROFILE,
 } from '../actions/types';
 
 const initialState = {
@@ -40,7 +40,7 @@ export default function (state = initialState, action) {
         ...state,
         companyProfile: payload,
         loading: false,
-      };  
+      };
     default:
       return state;
   }

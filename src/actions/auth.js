@@ -8,7 +8,7 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   CLEAR_PROFILE,
-  // CLEAR_COMPANY_PROFILE,
+  CLEAR_COMPANY_PROFILE,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
@@ -147,6 +147,6 @@ export const registerComp =
 
 export const logout = () => (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
-  // dispatch({ type: CLEAR_COMPANY_PROFILE });
+  dispatch({ type: CLEAR_COMPANY_PROFILE });
   dispatch({ type: LOGOUT });
 };

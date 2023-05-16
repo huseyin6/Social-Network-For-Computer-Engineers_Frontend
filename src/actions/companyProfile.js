@@ -5,7 +5,8 @@ import {
   COMPANY_PROFILE_ERROR,
   CLEAR_COMPANY_PROFILE,
   GET_COMPANY_PROFILES,
-  GET_COMPANY_PROFILE
+  GET_COMPANY_PROFILE,
+  COMPANY_ACCOUNT_DELETED,
 } from './types';
 
 export const getCompanyProfiles = () => async (dispatch) => {
@@ -26,10 +27,10 @@ export const getCompanyProfiles = () => async (dispatch) => {
   }
 };
 export const getCurrentCompany = () => async (dispatch) => {
-  console.log("profile exists");
+  console.log('profile exists');
   try {
     const res = await axios.get('/companyprofile/us');
-    console.log(res.data); 
+    console.log(res.data);
     dispatch({
       type: GET_COMPANY_PROFILE,
       payload: res.data,
@@ -78,7 +79,29 @@ export const createProfile =
   };
 
 export const deleteAccount = (id) => async (dispatch) => {
- 
+  if (
+    window.confirm(
+      'Are you sure you want to delete your account? This can not be undone!'
+    )
+  ) {
+    try {
+      await axios.delete(`/companyprofile`);
+
+      dispatch({
+        type: CLEAR_COMPANY_PROFILE,
+      });
+      dispatch({
+        type: COMPANY_ACCOUNT_DELETED,
+      });
+
+      // dispatch(setAlert('Account deleted'));
+    } catch (err) {
+      dispatch({
+        type: COMPANY_PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
+  }
 };
 export const getCompanyById = (id) => async (dispatch) => {
   try {
@@ -87,7 +110,6 @@ export const getCompanyById = (id) => async (dispatch) => {
       type: GET_COMPANY_PROFILE,
       payload: res.data,
     });
-
   } catch (err) {
     dispatch({
       type: COMPANY_PROFILE_ERROR,
@@ -95,4 +117,3 @@ export const getCompanyById = (id) => async (dispatch) => {
     });
   }
 };
-
