@@ -125,15 +125,18 @@ export const getEngineerScore = (id) => async (dispatch) => {
 };
 
 export const scoreEngineer = (id, sc) => async (dispatch) => {
-  console.log(id);
-  console.log(sc);
   const formData = { score: sc };
-  console.log(formData);
   try {
     const res = await axios.put(`/profile/score/${id}`, formData);
-    console.log(res.data);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
   } catch (err) {
-    console.log(err.response.statusText);
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
   }
 };
 

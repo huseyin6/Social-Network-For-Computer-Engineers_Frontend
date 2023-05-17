@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState} from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
@@ -10,91 +10,166 @@ import Experience from './Experience';
 import Education from './Education';
 import ReactStars from "react-rating-stars-component";
 import AnimatedSwitch from '../../AnimatedSwitch';
+import Modal from 'react-modal';
 
-const Profile = ({ getProfileById, getEngineerScore, getProfileAndScore, scoreEngineer, profile: { profile, loading, engineerScore}, auth }) => {
+Modal.setAppElement('#root'); // replace '#root' with the id of your application's root element
+
+const Profile = ({ getProfileById, getEngineerScore, getProfileAndScore, scoreEngineer, profile: { profile, loading, engineerScore }, auth }) => {
   const { id } = useParams();
+  const [hasRated, setHasRated] = useState(false);
+  const [userRating, setUserRating] = useState(0); // Add this line to keep track of user's rating
+
   useEffect(() => {
     getProfileAndScore(id);
-    }, [getProfileAndScore, id]);
-  console.log(profile);
-  const [score, setScore] = useState(5);
+  }, [getProfileAndScore, id]);
+
+  useEffect(() => {
+    if (profile && profile.scores.find(score => score.user === auth.user?._id)) {
+      setHasRated(true);
+      // When you find the score, set it to userRating state
+      const userScore = profile.scores.find(score => score.user === auth.user._id);
+      setUserRating(userScore.score);
+    }
+  }, [profile, auth]);
+
+  const [modalTimeout, setModalTimeout] = useState(null);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  
   const ratingChanged = (newRating) => {
-    console.log(newRating);
-    setScore(newRating);
-    scoreEngineer(profile._id, score);
+    if (hasRated) {
+      setModalMessage('Engineer already rated');
+      setModalIsOpen(true);
+      setTimeout(() => {
+        setModalIsOpen(false);
+      }, 2000);
+    } else {
+      scoreEngineer(profile._id, newRating)
+        .then(() => {
+          getProfileAndScore(id);
+          setHasRated(true);
+          setUserRating(newRating); // Update userRating state
+          setModalMessage('You have successfully rated this engineer!');
+          setModalIsOpen(true);
+          setTimeout(() => {
+            setModalIsOpen(false);
+          }, 2000);
+        })
+        .catch(error => {
+          console.error("Error rating engineer:", error);
+        });
+    }
   }
+  
+  const closeModal = () => {
+      clearTimeout(modalTimeout); // clear the timeout if the modal is manually closed
+      setModalIsOpen(false);
+  }
+
+  const calculateAverageScore = () => {
+    if (profile && profile.scores.length > 0) {
+      const totalScore = profile.scores.reduce((total, score) => total + score.score, 0);
+      return (totalScore / profile.scores.length).toFixed(1); // toFixed(1) ensures that the result is rounded to 1 decimal place
+    }
+    return 0; // default score
+  }
+
   return (
     <AnimatedSwitch>
-    <section className='container2'>
-      {profile === null ? (
-        <Spinner />
-      ) : (
-        <Fragment>
-          {auth.isAuthenticated &&
+      <section className='container2'>
+        {profile === null || loading ? (
+          <Spinner />
+        ) : (
+          <Fragment>
+            {auth.isAuthenticated &&
+              auth.loading === false &&
+              auth.user._id === profile.user._id && (
+                <Link to='/edit-profile' className='btn btn-dark'>
+                  Edit Profile
+                </Link>
+              )}
+            {auth.isAuthenticated &&
             auth.loading === false &&
-            auth.user._id === profile.user._id && (
-              <Link to='/edit-profile' className='btn btn-dark'>
-                Edit Profile
-              </Link>
+            auth.user._id !== profile.user._id && (
+              <div>
+                <div className="rating">
+                <ReactStars
+                  count={5}
+                  value={calculateAverageScore() / 2} // Use average score here
+                  size={28}
+                  activeColor="#ffd700"
+                  onChange={ratingChanged}
+                  edit={!hasRated}
+                  half={true} // allows half-star ratings
+                />
+                  <p>
+                    {profile.scores.length} users have rated this engineer, Average Score: {calculateAverageScore()}<br />
+                    {hasRated && `Your Score: ${userRating}`}
+                  </p>
+                </div>
+              </div>
             )}
-          {auth.isAuthenticated &&
-          auth.loading === false &&
-          auth.user._id !== profile.user._id && (
-            <div class="rating" >
-            <ReactStars
-            count={5}
-            size={28}
-            activeColor="#ffd700"
-            onChange={ratingChanged}
-            />
+
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+                style={{
+                    overlay: {
+                        backgroundColor: 'transparent'
+                    },
+                    content: {
+                        color: 'lightsteelblue',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)',
+                    }
+                }}
+            >
+                <h2>{modalMessage}</h2>
+            </Modal>
+
+            <div className='profile-grid my-1'>
+              <ProfileTop profile={profile} />
+              <ProfileAbout profile={profile} />
+              <div className='profile-exp bg-white p-2'>
+                <h2 className='text-primary'>Experience</h2>
+                {profile.experience.length > 0 ? (
+                  <Fragment>
+                    {profile.experience.map((experience) => (
+                      <Experience
+                        key={experience._id}
+                        experience={experience}
+                      />
+                    ))}
+                  </Fragment>
+                ) : (
+                  <h4>No experience credentials</h4>
+                )}
+              </div>
+              <div className='profile-edu bg-white p-2'>
+                <h2 className='text-primary'>Education</h2>
+                {profile.education.length > 0 ? (
+                  <Fragment>
+                    {profile.education.map((education) => (
+                      <Education
+                        key={education._id}
+                        education={education}
+                      />
+                    ))}
+                  </Fragment>
+                ) : (
+                  <h4>No education credentials</h4>
+                )}
+              </div>
             </div>
-          )}
-          
-           {profile.scores.length > 0 ? (
-            <Fragment>
-                <p>Score: {engineerScore.score.toFixed(2)} </p> 
-                <p>{profile.scores.length} people voted </p>
-            </Fragment>
-            ) : (
-                <p>No votes yet</p>
-            )}
-          <div className='profile-grid my-1'>
-            <ProfileTop profile={profile} />
-            <ProfileAbout profile={profile} />
-            <div className='profile-exp bg-white p-2'>
-              <h2 className='text-primary'>Experience</h2>
-              {profile.experience.length > 0 ? (
-                <Fragment>
-                  {profile.experience.map((experience) => (
-                    <Experience
-                      key={experience._id}
-                      experience={experience}
-                    />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No experience credentials</h4>
-              )}
-            </div>
-            <div className='profile-edu bg-white p-2'>
-              <h2 className='text-primary'>Education</h2>
-              {profile.education.length > 0 ? (
-                <Fragment>
-                  {profile.education.map((education) => (
-                    <Education
-                      key={education._id}
-                      education={education}
-                    />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No education credentials</h4>
-              )}
-            </div>
-          </div>
-        </Fragment>
-      )}
-    </section>
+          </Fragment>
+        )}
+      </section>
     </AnimatedSwitch>
   );
 };
