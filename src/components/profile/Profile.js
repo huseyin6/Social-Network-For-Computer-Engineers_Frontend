@@ -23,14 +23,17 @@ const Profile = ({ getProfileById, getEngineerScore, getProfileAndScore, scoreEn
     getProfileAndScore(id);
   }, [getProfileAndScore, id]);
 
-  useEffect(() => {
-    if (profile && profile.scores.find(score => score.user === auth.user?._id)) {
-      setHasRated(true);
-      // When you find the score, set it to userRating state
-      const userScore = profile.scores.find(score => score.user === auth.user._id);
-      setUserRating(userScore.score);
+useEffect(() => {
+    if (profile) {
+      const userScore = profile.scores.find(score => score.user === auth.user?._id);
+      if(userScore){
+        setHasRated(true);
+        setUserRating(userScore.score);
+      }
     }
-  }, [profile, auth]);
+}, [profile, auth]);
+
+
 
   const [modalTimeout, setModalTimeout] = useState(null);
 
@@ -46,8 +49,8 @@ const Profile = ({ getProfileById, getEngineerScore, getProfileAndScore, scoreEn
       }, 2000);
     } else {
       scoreEngineer(profile._id, newRating)
+        .then(() => getProfileAndScore(id))
         .then(() => {
-          getProfileAndScore(id);
           setHasRated(true);
           setUserRating(newRating); // Update userRating state
           setModalMessage('You have successfully rated this engineer!');
@@ -96,7 +99,7 @@ const Profile = ({ getProfileById, getEngineerScore, getProfileAndScore, scoreEn
                 <div className="rating">
                 <ReactStars
                   count={5}
-                  value={calculateAverageScore() / 2} // Use average score here
+                  value={userRating} // Use average score here
                   size={28}
                   activeColor="#ffd700"
                   onChange={ratingChanged}
