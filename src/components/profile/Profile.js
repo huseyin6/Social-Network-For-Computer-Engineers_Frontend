@@ -23,15 +23,20 @@ const Profile = ({ getProfileById, getEngineerScore, getProfileAndScore, scoreEn
     getProfileAndScore(id);
   }, [getProfileAndScore, id]);
 
-useEffect(() => {
+  useEffect(() => {
+    console.log('Profile:', profile);  // Debug line
+    console.log('Auth User ID:', auth.user?._id);  // Debug line
     if (profile) {
       const userScore = profile.scores.find(score => score.user === auth.user?._id);
+      console.log('User Score:', userScore);  // Debug line
       if(userScore){
         setHasRated(true);
+        console.log('User Score Value:', userScore.score);  // Debug line
         setUserRating(userScore.score);
       }
     }
 }, [profile, auth]);
+
 
 
 
@@ -49,19 +54,20 @@ useEffect(() => {
       }, 2000);
     } else {
       scoreEngineer(profile._id, newRating)
-        .then(() => getProfileAndScore(id))
-        .then(() => {
-          setHasRated(true);
-          setUserRating(newRating); // Update userRating state
-          setModalMessage('You have successfully rated this engineer!');
-          setModalIsOpen(true);
-          setTimeout(() => {
-            setModalIsOpen(false);
-          }, 2000);
-        })
-        .catch(error => {
-          console.error("Error rating engineer:", error);
-        });
+      .then(() => getProfileAndScore(id))
+      .then(() => {
+        setHasRated(true);
+        setUserRating(newRating); // Update userRating state
+        setModalMessage('You have successfully rated this engineer!');
+        setModalIsOpen(true);
+        setTimeout(() => {
+          setModalIsOpen(false);
+        }, 2000);
+      })
+      .catch(error => {
+        console.error("Error rating engineer:", error);
+      });
+    
     }
   }
   
@@ -88,7 +94,7 @@ useEffect(() => {
             {auth.isAuthenticated &&
               auth.loading === false &&
               auth.user._id === profile.user._id && (
-                <Link to='/edit-profile' className='btn btn-dark'>
+                <Link to='/edit-profile' className='btn2 btn-dark'>
                   Edit Profile
                 </Link>
               )}
@@ -97,6 +103,7 @@ useEffect(() => {
             auth.user._id !== profile.user._id && (
               <div>
                 <div className="rating">
+                {console.log(userRating)}
                 <ReactStars
                   count={5}
                   value={userRating} // Use average score here
@@ -107,7 +114,8 @@ useEffect(() => {
                   half={true} // allows half-star ratings
                 />
                   <p>
-                    {profile.scores.length} users have rated this engineer, Average Score: {calculateAverageScore()}<br />
+                    {profile.scores.length} rated <br />
+                    Average Score: {calculateAverageScore()}<br />
                     {hasRated && `Your Score: ${userRating}`}
                   </p>
                 </div>
@@ -122,7 +130,7 @@ useEffect(() => {
                         backgroundColor: 'transparent'
                     },
                     content: {
-                        color: 'lightsteelblue',
+                        color: 'black',
                         position: 'absolute',
                         top: '50%',
                         left: '50%',
