@@ -6,7 +6,7 @@ import {
   GET_PROFILES,
   GET_REPOS,
   GET_SCORE,
-  GET_PROFILE_AND_SCORE
+  GET_PROFILE_AND_SCORE,
 } from '../actions/types';
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
   repos: [],
   loading: true,
   error: {},
-  engineerScore: null
+  engineerScore: null,
 };
 export default function (state = initialState, action) {
   const { type, payload } = action;
@@ -34,18 +34,19 @@ export default function (state = initialState, action) {
         profiles: payload,
         loading: false,
       };
-      case GET_SCORE:
-        return {
-          ...state, 
-          engineerScore: payload,
-          profile: null
-        }
-      case GET_PROFILE_AND_SCORE:
-        return {
-          ...state, 
-          engineerScore: payload.score,
-          profile: payload.profile
-        }
+    case GET_SCORE:
+      return {
+        ...state,
+        engineerScore: payload,
+        profile: null,
+      };
+    case GET_PROFILE_AND_SCORE:
+      return {
+        ...state,
+        engineerScore: payload.score,
+        profile: payload.profile,
+        loading: false,
+      };
     case PROFILE_ERROR:
       return {
         ...state,

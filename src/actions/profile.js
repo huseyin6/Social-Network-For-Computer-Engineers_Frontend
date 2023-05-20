@@ -128,10 +128,14 @@ export const scoreEngineer = (id, sc) => async (dispatch) => {
   const formData = { score: sc };
   try {
     const res = await axios.put(`/profile/score/${id}`, formData);
-    dispatch({
-      type: UPDATE_PROFILE,
-      payload: res.data,
-    });
+    getProfileAndScore(id);
+
+    // const profile = await axios.get(`/profile/user/${id}`);
+    // const score = await axios.get(`/profile/score/${id}`);
+    // dispatch({
+    //   type: GET_PROFILE_AND_SCORE,
+    //   payload: { profile: profile.data, score: score.data },
+    // });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
