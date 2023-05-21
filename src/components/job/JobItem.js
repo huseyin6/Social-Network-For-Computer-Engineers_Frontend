@@ -70,7 +70,7 @@ const JobItem = ({ job, applyJob, declineJob, getJob, auth }) => {
         <strong>Declined: </strong>
         {declinedUsers.length}
       </p>
-      {!hasUserApplied && (
+      {!hasUserApplied ? (
         <>
           <button
             onClick={() => handleApply(_id)}
@@ -87,6 +87,9 @@ const JobItem = ({ job, applyJob, declineJob, getJob, auth }) => {
             Decline
           </button>
         </>
+      ) : (
+        <p className="applied-tag">✔️ Applied</p>
+
       )}
     </div>
   );
