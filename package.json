@@ -20,6 +20,7 @@
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
     "react-spring": "^9.7.1",
+    "react-star-ratings": "^2.3.0",
     "react-transition-group": "^4.4.5",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",

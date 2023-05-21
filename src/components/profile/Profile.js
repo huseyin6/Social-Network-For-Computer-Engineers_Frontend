@@ -16,6 +16,7 @@ import Education from './Education';
 import ReactStars from 'react-rating-stars-component';
 import AnimatedSwitch from '../../AnimatedSwitch';
 import Modal from 'react-modal';
+import StarRatings from 'react-star-ratings';
 
 Modal.setAppElement('#root'); // replace '#root' with the id of your application's root element
 
@@ -68,18 +69,19 @@ const Profile = ({
         .then(() => {
           setHasRated(true);
           setUserRating(newRating); // Update userRating state
+          getProfileById(id); // fetch updated profile data
           setModalMessage('You have successfully rated this engineer!');
           setModalIsOpen(true);
           setTimeout(() => {
             setModalIsOpen(false);
           }, 2000);
         })
-
         .catch((error) => {
           console.error('Error rating engineer:', error);
         });
     }
   };
+  
 
   const closeModal = () => {
     clearTimeout(modalTimeout); // clear the timeout if the modal is manually closed
@@ -117,15 +119,19 @@ const Profile = ({
                 <div>
                   <div className='rating'>
                     {console.log(userRating)}
-                    <ReactStars
-                      count={5}
-                      value={userRating} // Use average score here
-                      size={28}
-                      activeColor='#ffd700'
-                      onChange={ratingChanged}
-                      edit={!hasRated}
-                      half={true} // allows half-star ratings
+                    {console.log("Type of userRating: ", typeof userRating)}
+                    <br></br>
+                    <StarRatings
+                      rating={userRating}
+                      starRatedColor="gold"
+                      changeRating={ratingChanged}
+                      numberOfStars={5}
+                      name='rating'
+                      starDimension="20px"
+                      starSpacing="2px"
+                      starHoverColor="gold"
                     />
+
                     <p>
                       {profile.scores.length} rated <br />
                       Average Score: {calculateAverageScore()}
