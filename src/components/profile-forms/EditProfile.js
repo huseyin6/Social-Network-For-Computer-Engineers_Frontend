@@ -72,7 +72,7 @@ const EditProfile = ({
 
   return (
     <section className='container'>
-      <Alert/>
+      <Alert />
       <h1 className='large text-primary'>Edit Profile</h1>
       <small>* Required field</small>
       <form className='form' onSubmit={(e) => onSubmit(e)}>
@@ -106,7 +106,6 @@ const EditProfile = ({
             value={website}
             onChange={(e) => onChange(e)}
           />
-
         </div>
         <div className='form-group'>
           <input
@@ -116,9 +115,7 @@ const EditProfile = ({
             value={location}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            City/state 
-          </small>
+          <small className='form-text'>City/state</small>
         </div>
         <div className='form-group'>
           <input
@@ -132,7 +129,7 @@ const EditProfile = ({
             Please seperate them with comma (eg. Java, HTML)
           </small>
         </div>
-        <div className='form-group'>
+        {/* <div className='form-group'>
           <input
             type='text'
             placeholder='Github Username'
@@ -140,7 +137,7 @@ const EditProfile = ({
             value={githubusername}
             onChange={(e) => onChange(e)}
           />
-        </div>
+        </div> */}
         <div className='form-group'>
           <textarea
             placeholder='A short bio of yourself'
@@ -219,7 +216,7 @@ const EditProfile = ({
           </Fragment>
         )}
 
-        <input type='submit' className='btn btn-primary my-1' value='Submit'/>
+        <input type='submit' className='btn btn-primary my-1' value='Submit' />
         <Link className='btn btn-light my-1' to='/dashboard'>
           Go Back
         </Link>

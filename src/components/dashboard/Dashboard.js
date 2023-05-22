@@ -110,7 +110,7 @@ const Dashboard = ({
                     )}
                   </div>
                 </div>
-                <div className='my-2'>
+                {/* <div className='my-2'>
                   <button
                     onClick={() => deleteAccount()}
                     className='btn btn-danger'
@@ -118,7 +118,7 @@ const Dashboard = ({
                     <i className='fas fa-trash-alt text-light'></i> Delete
                     Account
                   </button>
-                </div>
+                </div> */}
               </Fragment>
             ) : (
               <>

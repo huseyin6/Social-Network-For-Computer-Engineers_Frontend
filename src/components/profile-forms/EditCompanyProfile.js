@@ -5,57 +5,63 @@ import { connect } from 'react-redux';
 import { createProfile, getCurrentCompany } from '../../actions/companyProfile';
 import Alert from '../layout/Alert';
 
-const EditCompanyProfile = ({createProfile, 
-    getCurrentCompany, 
-    companyProfile: { companyProfile , loading }, 
-    navigate 
+const EditCompanyProfile = ({
+  createProfile,
+  getCurrentCompany,
+  companyProfile: { companyProfile, loading },
+  navigate,
 }) => {
-    const [formData, setFormData] = useState({
-        website: '',
-        location: '',
-        about: '',
-        twitter: '',
-        facebook: '',
-        linkedin: '',
-        youtube: '',
-        instagram: ''
-    });
+  const [formData, setFormData] = useState({
+    website: '',
+    location: '',
+    about: '',
+    twitter: '',
+    facebook: '',
+    linkedin: '',
+    youtube: '',
+    instagram: '',
+  });
 
-    const [displaySocialInputs, toggleSocialInputs] = useState(false);  
-    
-    const {
-        website,
-        location,
-        about,
-        twitter,
-        facebook,
-        linkedin,
-        youtube,
-        instagram 
-    } = formData;        
-    
-    const onChange = e => setFormData({...formData, [e.target.name]: e.target.value}); 
-    useEffect(()=> {
-        getCurrentCompany();
-        setFormData({
-            website:  loading || !companyProfile.website ? '' : companyProfile.website, 
-            location: loading || !companyProfile.location ? '' : companyProfile.location, 
-            about: loading || !companyProfile.about ? '' : companyProfile.about, 
-            twitter: loading || !companyProfile.twitter ? '' : companyProfile.twitter, 
-            facebook: loading || !companyProfile.facebook ? '' : companyProfile.facebook, 
-            linkedin: loading || !companyProfile.linkedin ? '' : companyProfile.linkedin,
-            youtube: loading || !companyProfile.youtube ? '' : companyProfile.youtube,  
-            instagram: loading || !companyProfile.instagram ? '' : companyProfile.instagram, 
-        });
-      },[loading, getCurrentCompany]);    
-    
-    const onSubmit = (e) => {
-        e.preventDefault();
-        createProfile(formData, navigate, true);
-    };
-return (
-<section className='container'>
-      <Alert/>
+  const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+  const {
+    website,
+    location,
+    about,
+    twitter,
+    facebook,
+    linkedin,
+    youtube,
+    instagram,
+  } = formData;
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  useEffect(() => {
+    getCurrentCompany();
+    setFormData({
+      website: loading || !companyProfile.website ? '' : companyProfile.website,
+      location:
+        loading || !companyProfile.location ? '' : companyProfile.location,
+      about: loading || !companyProfile.about ? '' : companyProfile.about,
+      twitter: loading || !companyProfile.twitter ? '' : companyProfile.twitter,
+      facebook:
+        loading || !companyProfile.facebook ? '' : companyProfile.facebook,
+      linkedin:
+        loading || !companyProfile.linkedin ? '' : companyProfile.linkedin,
+      youtube: loading || !companyProfile.youtube ? '' : companyProfile.youtube,
+      instagram:
+        loading || !companyProfile.instagram ? '' : companyProfile.instagram,
+    });
+  }, [loading, getCurrentCompany]);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    createProfile(formData, navigate, true);
+  };
+  return (
+    <section className='container'>
+      <Alert />
       <h1 className='large text-primary'>Edit Profile</h1>
       <small>* Required field</small>
       <form className='form' onSubmit={(e) => onSubmit(e)}>
@@ -79,7 +85,7 @@ return (
         </div>
         <div className='form-group'>
           <textarea
-            placeholder='A short bio of yourself'
+            placeholder='A short bio of company'
             name='about'
             value={about}
             onChange={(e) => onChange(e)}
@@ -154,25 +160,25 @@ return (
           </Fragment>
         )}
 
-        <input type='submit' className='btn btn-primary my-1' value='Submit'/>
+        <input type='submit' className='btn btn-primary my-1' value='Submit' />
         <Link className='btn btn-light my-1' to='/dashboardCompany'>
           Go Back
         </Link>
       </form>
     </section>
-); 
+  );
 };
 
 EditCompanyProfile.propTypes = {
-createProfile: PropTypes.func.isRequired,
-getCurrentCompany: PropTypes.func.isRequired,
-companyProfile: PropTypes.object.isRequired
+  createProfile: PropTypes.func.isRequired,
+  getCurrentCompany: PropTypes.func.isRequired,
+  companyProfile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-    companyProfile: state.companyProfile
+  companyProfile: state.companyProfile,
 });
 
 export default connect(mapStateToProps, { createProfile, getCurrentCompany })(
-    EditCompanyProfile
+  EditCompanyProfile
 );
