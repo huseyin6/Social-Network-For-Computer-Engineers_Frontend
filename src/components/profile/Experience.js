@@ -20,7 +20,7 @@ const Experience = ({ experience, deleteExperience, auth,
         {formatDate(experience.from)} - {experience.to ? formatDate(experience.to) : 'Now'}
       </p>
       <p>
-        <strong>Position: </strong> {experience.title}
+        <strong>Title: </strong> {experience.title}
       </p>
       {experience.location && (
         <p>

@@ -66,7 +66,7 @@ const AdvertisementItem = ({ auth, jobitem, deleteJob, getApplicants, job: { job
         </Fragment>
       </div>
       <div>
-        <p><strong>Job Status</strong>: {jobitem.status}</p>
+        <p><strong>Job Position</strong>: {jobitem.status}</p>
       </div>
       <div>
         <p><strong>Description</strong>: {jobitem.description}</p>

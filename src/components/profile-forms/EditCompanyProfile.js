@@ -1,14 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProfile, getCurrentCompany } from '../../actions/companyProfile';
+import { editProfile, getCurrentCompany } from '../../actions/companyProfile';
 import Alert from '../layout/Alert';
 
-const EditCompanyProfile = ({createProfile, 
+const EditCompanyProfile = ({editProfile, 
     getCurrentCompany, 
     companyProfile: { companyProfile , loading }, 
-    navigate 
 }) => {
     const [formData, setFormData] = useState({
         website: '',
@@ -20,7 +19,7 @@ const EditCompanyProfile = ({createProfile,
         youtube: '',
         instagram: ''
     });
-
+    const navigate = useNavigate();
     const [displaySocialInputs, toggleSocialInputs] = useState(false);  
     
     const {
@@ -51,35 +50,43 @@ const EditCompanyProfile = ({createProfile,
     
     const onSubmit = (e) => {
         e.preventDefault();
-        createProfile(formData, navigate, true);
+        editProfile(formData, navigate);
     };
 return (
 <section className='container'>
       <Alert/>
       <h1 className='large text-primary'>Edit Profile</h1>
-      <small>* Required field</small>
       <form className='form' onSubmit={(e) => onSubmit(e)}>
+        <small className='form-text smaller'>
+          Website
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='Website'
             name='website'
             value={website}
             onChange={(e) => onChange(e)}
           />
         </div>
+        <small className='form-text smaller'>
+          Location
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='Location'
+            placeholder='City/State'
             name='location'
             value={location}
             onChange={(e) => onChange(e)}
           />
         </div>
+        <small className='form-text smaller'>
+          About
+        </small>
         <div className='form-group'>
           <textarea
-            placeholder='A short bio of yourself'
+            cols='30'
+            rows='5'
             name='about'
             value={about}
             onChange={(e) => onChange(e)}
@@ -164,7 +171,7 @@ return (
 };
 
 EditCompanyProfile.propTypes = {
-createProfile: PropTypes.func.isRequired,
+editProfile: PropTypes.func.isRequired,
 getCurrentCompany: PropTypes.func.isRequired,
 companyProfile: PropTypes.object.isRequired
 };
@@ -173,6 +180,6 @@ const mapStateToProps = (state) => ({
     companyProfile: state.companyProfile
 });
 
-export default connect(mapStateToProps, { createProfile, getCurrentCompany })(
+export default connect(mapStateToProps, { editProfile, getCurrentCompany })(
     EditCompanyProfile
 );

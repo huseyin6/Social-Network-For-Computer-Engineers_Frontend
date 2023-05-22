@@ -29,7 +29,7 @@ const AddEducation = ({ addEducation }) => {
       <Alert />
       <h1 className='large text-primary'>Add Education</h1>
 
-      <small>* Required field</small>
+      <p>* Required field</p>
       <form
         className='form'
         onSubmit={(e) => {
@@ -37,37 +37,45 @@ const AddEducation = ({ addEducation }) => {
           addEducation(formData, navigate);
         }}
       >
+        <small className='form-text smaller'>
+          * School
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='* School'
             name='school'
             value={school}
             onChange={(e) => onChange(e)}
             required
           />
         </div>
+        <small className='form-text smaller'>
+          * Degree
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='* Degree'
             name='degree'
             value={degree}
             onChange={(e) => onChange(e)}
             required
           />
         </div>
+        <small className='form-text smaller'>
+          Field of Study
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='* Field of study'
             name='fieldofstudy'
             value={fieldofstudy}
             onChange={(e) => onChange(e)}
           />
         </div>
+        <small className='form-text smaller'>
+          Start Date
+        </small>
         <div className='form-group'>
-          <h4>* Start Date</h4>
           <input
             type='date'
             name='from'
@@ -90,8 +98,10 @@ const AddEducation = ({ addEducation }) => {
             {''} Current School
           </p>
         </div>
+        <small className='form-text smaller'>
+          End Date
+        </small>
         <div className='form-group'>
-          <h4>End Date</h4>
           <input
             type='date'
             name='to'
@@ -100,12 +110,14 @@ const AddEducation = ({ addEducation }) => {
             disabled={toDateDisabled ? 'disabled' : ''}
           />
         </div>
+        <small className='form-text smaller'>
+          Description
+        </small>
         <div className='form-group'>
           <textarea
             name='description'
             cols='30'
             rows='5'
-            placeholder='Description'
             value={description}
             onChange={(e) => onChange(e)}
           ></textarea>

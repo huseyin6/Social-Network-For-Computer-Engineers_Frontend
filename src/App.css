@@ -225,6 +225,11 @@ p.a {
   font-size: 1.1rem;
 }
 
+.smaller {
+  font-size: 1rem;
+}
+
+
 .text-center {
   text-align: center;
 }
@@ -682,12 +687,12 @@ p img {
 
 /* Forms */
 .form .form-group {
-  margin: 1.2rem 0;
+  margin-bottom: 1.2rem;
 }
 
 .form .form-text {
   display: block;
-  margin-top: 0.3rem;
+  margin-bottom: 0.1rem;
   color: #888;
 }
 
@@ -715,7 +720,7 @@ button {
 }
 
 .form .social-input i {
-  padding: 0.5rem;
+  padding: 0.3rem;
   width: 4rem;
 }
 
@@ -734,6 +739,10 @@ button {
 .form .social-input i.fa-linkedin {
   color: #0077b5;
 }
+.form .social-input i.fa-github {
+  color: #0d1117;
+}
+
 
 .profile-top .icons i.fa-twitter {
   color: #38a1f3;
@@ -749,6 +758,9 @@ button {
 }
 .profile-top .icons  i.fa-linkedin {
   color: #0077b5;
+}
+.profile-top .icons  i.fa-github {
+  color: #0d1117;
 }
 
 

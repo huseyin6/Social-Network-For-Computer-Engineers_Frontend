@@ -2,13 +2,12 @@ import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
+import PageNotFound from './components/layout/PageNotFound';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import RegisterComp from './components/auth/RegisterComp';
 import Dashboard from './components/dashboard/Dashboard';
 import DashboardCompany from './components/dashboard/DashboardCompany';
-import CreateProfile from './components/profile-forms/CreateProfile';
-import CreateCompanyProfile from './components/profile-forms/CreateCompanyProfile';
 import EditCompanyProfile from './components/profile-forms/EditCompanyProfile';
 import Profiles from './components/profiles/Profiles';
 import CompanyProfiles from './components/company-profiles/CompaniesProfiles';
@@ -68,6 +67,7 @@ const App = () => {
             <Route path='/company-profiles' element={<CompanyProfiles />} />
             <Route path='/questions/search/:key' element={<QuestionSearch />} />
             <Route path='/posts/search/:key' element={<PostSearch />} />
+            <Route path='*' element={<PageNotFound />} />
             <Route
               exact
               path='/dashboardCompany'
@@ -87,16 +87,6 @@ const App = () => {
               exact
               path='/dashboard'
               element={<PrivateRoute component={Dashboard} />}
-            />
-            <Route
-              exact
-              path='/create-profile'
-              element={<PrivateRoute component={CreateProfile} />}
-            />
-            <Route
-              exact
-              path='/create-company-profile'
-              element={<PrivateRoute component={CreateCompanyProfile} />}
             />
             <Route
               exact

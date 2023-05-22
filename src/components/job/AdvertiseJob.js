@@ -20,13 +20,23 @@ const AdvertiseJob = ({advertiseJob}) => {
         advertiseJob(formData);
         }}>
         <h1 className='large text-primary'>Advertise Job</h1>
-        <small>* Required field</small>
+        <p>* Required field</p>
+        <small className='form-text smaller'>
+         * Title
+        </small>
         <div className='form-group'>
-        <input type="text" placeholder='* Title' name='title' value={title} onChange={(e) => onChange(e)} required/>
+        <input type="text" 
+          name='title' 
+          value={title} 
+          onChange={(e) => onChange(e)} 
+          required/>
         </div>
+        <small className='form-text smaller'>
+          * Job Position
+        </small>
         <div className='form-group'>
         <select name='status' value={status} required onChange={(e) => onChange(e)}>
-            <option>* Select Professional Status</option>
+            <option>Select</option>
             <option value='Developer'>Developer</option>
             <option value='Junior Developer'>Junior Developer</option>
             <option value='Senior Developer'>Senior Developer</option>
@@ -37,11 +47,16 @@ const AdvertiseJob = ({advertiseJob}) => {
             <option value='Other'>Other</option>
           </select>
         </div>
+        <small className='form-text smaller'>
+          * Description
+        </small>
         <div className='form-group'>
-        <textarea placeholder='* Description' name='description' value={description} cols='30' rows='5' onChange={(e) => onChange(e)} required></textarea>
+        <textarea  name='description' value={description} cols='30' rows='5' onChange={(e) => onChange(e)} required></textarea>
         </div>
+        <small className='form-text smaller'>
+          * Closing Date
+        </small>
         <div className='form-group'>
-          <h4>Closing Date</h4>
           <input
             type='date'
             name='endDate'

@@ -16,13 +16,16 @@ const ProfileAbout = ({
         <br />
       </Fragment>
     )}
-    <h2 className='text-primary'>Skill Set</h2>
+    <h2 className='text-primary'>Skills</h2>
     <div className='skills'>
+      {skills ?
+      <Fragment>
       {skills.map((skill, index) => (
         <div key={index} className='pr1'>
          {skill}
-        </div>
+        </div>     
       ))}
+       </Fragment> : null}
     </div>
   </div>
 );

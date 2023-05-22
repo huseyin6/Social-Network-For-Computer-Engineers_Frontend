@@ -7,6 +7,7 @@ import {
   scoreEngineer,
   getEngineerScore,
   getProfileAndScore,
+  deleteAccount
 } from '../../actions/profile';
 import { Link, useParams } from 'react-router-dom';
 import ProfileTop from './ProfileTop';
@@ -25,6 +26,7 @@ const Profile = ({
   getEngineerScore,
   getProfileAndScore,
   scoreEngineer,
+  deleteAccount,
   profile: { profile, loading, engineerScore },
   auth,
 }) => {
@@ -109,8 +111,8 @@ const Profile = ({
             {auth.isAuthenticated &&
               auth.loading === false &&
               auth.user._id === profile.user._id && (
-                <Link to='/edit-profile' className='btn2 btn-dark'>
-                  Edit Profile
+                <Link to='/edit-profile' className='btn btn-white'>
+                  <i className='fas fa-edit text-primary'></i> Edit Profile
                 </Link>
               )}
             {auth.isAuthenticated &&
@@ -168,7 +170,16 @@ const Profile = ({
               <ProfileTop profile={profile} />
               <ProfileAbout profile={profile} />
               <div className='profile-exp bg-white p-2'>
-                <h2 className='text-primary'>Experience</h2>
+                <h2 className='text-primary'>
+                  Experience {''}
+                  {auth.isAuthenticated &&
+                  auth.loading === false &&
+                  auth.user._id === profile.user._id && (
+                    <Link to='/add-experience' className='btn btn-light'>
+                      <i className='fas fa-plus text-primary'></i>
+                    </Link>
+                  )}
+                </h2>
                 {profile.experience.length > 0 ? (
                   <Fragment>
                     {profile.experience.map((experience) => (
@@ -183,7 +194,16 @@ const Profile = ({
                 )}
               </div>
               <div className='profile-edu bg-white p-2'>
-                <h2 className='text-primary'>Education</h2>
+                <h2 className='text-primary'>
+                  Education {''}
+                  {auth.isAuthenticated &&
+                  auth.loading === false &&
+                  auth.user._id === profile.user._id && (
+                    <Link to='/add-education' className='btn btn-light'>
+                      <i className='fas fa-plus text-primary'></i>
+                    </Link>
+                  )}
+                </h2>
                 {profile.education.length > 0 ? (
                   <Fragment>
                     {profile.education.map((education) => (
@@ -194,6 +214,11 @@ const Profile = ({
                   <h4>No education credentials</h4>
                 )}
               </div>
+            </div>
+            <div className='my-2'>
+              <button onClick={() => deleteAccount()} className='btn btn-danger'>
+                <i className='fas fa-trash-alt text-light'></i> Delete Account
+              </button>
             </div>
           </Fragment>
         )}
@@ -209,6 +234,7 @@ Profile.propTypes = {
   scoreEngineer: PropTypes.func.isRequired,
   getEngineerScore: PropTypes.func.isRequired,
   getProfileAndScore: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -221,4 +247,5 @@ export default connect(mapStateToProps, {
   scoreEngineer,
   getEngineerScore,
   getProfileAndScore,
+  deleteAccount,
 })(Profile);

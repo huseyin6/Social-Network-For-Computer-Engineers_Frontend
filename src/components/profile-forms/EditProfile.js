@@ -1,14 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProfile, getCurrentProfile } from '../../actions/profile';
+import { editProfile, getCurrentProfile } from '../../actions/profile';
 import Alert from '../layout/Alert';
 const EditProfile = ({
   profile: { profile, loading },
-  createProfile,
+  editProfile,
   getCurrentProfile,
-  navigate,
 }) => {
   const [formData, setFormData] = useState({
     company: '',
@@ -16,15 +15,15 @@ const EditProfile = ({
     location: '',
     status: '',
     skills: '',
-    githubusername: '',
     bio: '',
     twitter: '',
     facebook: '',
     linkedin: '',
     youtube: '',
     instagram: '',
+    github: '',
   });
-
+  const navigate = useNavigate();
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
   useEffect(() => {
@@ -36,14 +35,13 @@ const EditProfile = ({
       location: loading || !profile.location ? '' : profile.location,
       status: loading || !profile.status ? '' : profile.status,
       skills: loading || !profile.skills ? '' : profile.skills.join(','),
-      githubusername:
-        loading || !profile.githubusername ? '' : profile.githubusername,
       bio: loading || !profile.bio ? '' : profile.bio,
       twitter: loading || !profile.social ? '' : profile.social.twitter,
       facebook: loading || !profile.social ? '' : profile.social.facebook,
       linkedin: loading || !profile.social ? '' : profile.social.linkedin,
       youtube: loading || !profile.social ? '' : profile.social.youtube,
       instagram: loading || !profile.social ? '' : profile.social.instagram,
+      github: loading || !profile.social ? '' : profile.social.github,
     });
   }, [loading, getCurrentProfile]);
 
@@ -53,13 +51,13 @@ const EditProfile = ({
     location,
     status,
     skills,
-    githubusername,
     bio,
     twitter,
     facebook,
     linkedin,
     youtube,
     instagram,
+    github,
   } = formData;
 
   const onChange = (e) =>
@@ -67,18 +65,20 @@ const EditProfile = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData, navigate, true);
+    editProfile(formData, navigate);
   };
 
   return (
     <section className='container'>
       <Alert/>
       <h1 className='large text-primary'>Edit Profile</h1>
-      <small>* Required field</small>
       <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
+        <small className='form-text smaller'>
+          Current Status
+        </small>
           <select name='status' value={status} onChange={(e) => onChange(e)}>
-            <option>* Select Professional Status</option>
+            <option value=''>Select</option>
             <option value='Developer'>Developer</option>
             <option value='Junior Developer'>Junior Developer</option>
             <option value='Senior Developer'>Senior Developer</option>
@@ -89,61 +89,59 @@ const EditProfile = ({
             <option value='Other'>Other</option>
           </select>
         </div>
+        <small className='form-text smaller'>
+          Company/School
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='Company/School'
             name='company'
             value={company}
             onChange={(e) => onChange(e)}
           />
         </div>
+        <small className='form-text smaller'>
+          Website
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='Website'
             name='website'
             value={website}
             onChange={(e) => onChange(e)}
           />
-
         </div>
+        <small className='form-text smaller'>
+          Location
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='Location'
+            placeholder='City/State'
             name='location'
             value={location}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            City/state 
-          </small>
         </div>
+        <small className='form-text smaller'>
+          Skills
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='* Skills'
+            placeholder='Please seperate them with comma (eg. Java, HTML)'
             name='skills'
             value={skills}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            Please seperate them with comma (eg. Java, HTML)
-          </small>
         </div>
-        <div className='form-group'>
-          <input
-            type='text'
-            placeholder='Github Username'
-            name='githubusername'
-            value={githubusername}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
+        <small className='form-text smaller'>
+          Bio
+        </small>
         <div className='form-group'>
           <textarea
-            placeholder='A short bio of yourself'
+            cols='30'
+            rows='5'
             name='bio'
             value={bio}
             onChange={(e) => onChange(e)}
@@ -156,7 +154,7 @@ const EditProfile = ({
             type='button'
             className='btn btn-light'
           >
-            Add Social Network Links
+            Add Social Media Links
           </button>
         </div>
 
@@ -216,6 +214,16 @@ const EditProfile = ({
                 onChange={(e) => onChange(e)}
               />
             </div>
+            <div className='form-group social-input'>
+              <i className='fab fa-github fa-2x' />
+              <input
+                type='text'
+                placeholder='Github URL'
+                name='github'
+                value={github}
+                onChange={(e) => onChange(e)}
+              />
+            </div>
           </Fragment>
         )}
 
@@ -229,7 +237,7 @@ const EditProfile = ({
 };
 
 EditProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired,
+  editProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
 };
@@ -238,6 +246,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+export default connect(mapStateToProps, { editProfile, getCurrentProfile })(
   EditProfile
 );

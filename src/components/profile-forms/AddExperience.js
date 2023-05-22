@@ -28,7 +28,7 @@ const AddExperience = ({ addExperience }) => {
     <section className='container'>
       <Alert />
       <h1 className='large text-primary'>Add Experience</h1>
-      <small>* Required field</small>
+      <p>* Required field</p>
       <form
         className='form'
         onSubmit={(e) => {
@@ -36,37 +36,46 @@ const AddExperience = ({ addExperience }) => {
           addExperience(formData, navigate);
         }}
       >
+        <small className='form-text smaller'>
+          * Title
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='* Job Title'
+            placeholder='eg. Developer'
             name='title'
             value={title}
             onChange={(e) => onChange(e)}
             required
           />
         </div>
+        <small className='form-text smaller'>
+          * Company
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='* Company'
             name='company'
             value={company}
             onChange={(e) => onChange(e)}
             required
           />
         </div>
+        <small className='form-text smaller'>
+          Location
+        </small>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='Location'
             name='location'
             value={location}
             onChange={(e) => onChange(e)}
           />
         </div>
+        <small className='form-text smaller'>
+          Start Date
+        </small>
         <div className='form-group'>
-          <h4>Start Date</h4>
           <input
             type='date'
             name='from'
@@ -89,8 +98,10 @@ const AddExperience = ({ addExperience }) => {
             {''} Current Job
           </p>
         </div>
+        <small className='form-text smaller'>
+          End Date
+        </small>
         <div className='form-group'>
-          <h4>End Date</h4>
           <input
             type='date'
             name='to'
@@ -99,12 +110,14 @@ const AddExperience = ({ addExperience }) => {
             disabled={toDateDisabled ? 'disabled' : ''}
           />
         </div>
+        <small className='form-text smaller'>
+          Description
+        </small>
         <div className='form-group'>
           <textarea
             name='description'
             cols='30'
             rows='5'
-            placeholder='Description'
             value={description}
             onChange={(e) => onChange(e)}
           ></textarea>

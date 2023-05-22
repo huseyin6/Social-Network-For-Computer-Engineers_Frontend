@@ -15,9 +15,8 @@ const ProfileTop = ({
     <div className='profile-top bg-white p-2'>
       <img className='round-img my-1' src={avatar} alt='' />
       <h2 className='larger text-primary'>{name}</h2>
-      <p>
-        {status} {company ? <span> at {company}</span> : null}
-      </p>
+      <p>{status ? <span>{status}</span> : null}</p> 
+      <p>{company ? <span>{company}</span> : null}</p>
       <p>{location ? <span>{location}</span> : null}</p>
       <div className='icons my-1'>
         {website ? (

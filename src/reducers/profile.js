@@ -4,7 +4,6 @@ import {
   PROFILE_ERROR,
   UPDATE_PROFILE,
   GET_PROFILES,
-  GET_REPOS,
   GET_SCORE,
   GET_PROFILE_AND_SCORE,
 } from '../actions/types';
@@ -12,7 +11,6 @@ import {
 const initialState = {
   profile: null,
   profiles: [],
-  repos: [],
   loading: true,
   error: {},
   engineerScore: null,
@@ -58,13 +56,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: null,
-        loading: false,
-        repos: [],
-      };
-    case GET_REPOS:
-      return {
-        ...state,
-        repos: payload,
         loading: false,
       };
     default:

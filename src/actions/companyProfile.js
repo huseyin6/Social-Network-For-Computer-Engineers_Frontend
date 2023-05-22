@@ -42,8 +42,8 @@ export const getCurrentCompany = () => async (dispatch) => {
     });
   }
 };
-export const createProfile =
-  (formData, navigate, edit = false) =>
+export const editProfile =
+  (formData, navigate) =>
   async (dispatch) => {
     try {
       const config = {
@@ -59,11 +59,11 @@ export const createProfile =
       });
 
       dispatch(
-        setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success')
+        setAlert('Profile Updated', 'success')
       );
-      if (!edit) {
-        navigate('/dashboardCompany');
-      }
+
+      navigate('/dashboardCompany');
+      
     } catch (err) {
       const errors = err.response.data.errors;
 
@@ -78,7 +78,7 @@ export const createProfile =
     }
   };
 
-export const deleteAccount = (id) => async (dispatch) => {
+export const deleteAccount = () => async (dispatch) => {
   if (
     window.confirm(
       'Are you sure you want to delete your account? This can not be undone!'

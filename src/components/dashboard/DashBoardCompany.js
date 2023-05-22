@@ -45,11 +45,10 @@ const DashboardCompany = ({
           <Spinner />
         ) : (
           <Fragment>
-            {companyProfile !== null ? (
+            {companyProfile !== null && (
               <Fragment>
                 {auth.isAuthenticated &&
                   auth.loading === false &&
-                  loading === false &&
                   auth.user._id === companyProfile.company._id && (
                     <Link to='/edit-company-profile' className='btn btn-white'>
                       <i className='fas fa-edit text-primary'></i> Edit Profile
@@ -77,17 +76,7 @@ const DashboardCompany = ({
                   </button>
                 </div>
               </Fragment>
-            ) : (
-              <>
-                <p>You have not yet setup a profile, please add some info</p>
-                <Link
-                  to='/create-company-profile'
-                  className='btn btn-primary my-1'
-                >
-                  Create Profile
-                </Link>
-              </>
-            )}
+            ) }
           </Fragment>
         )}
       </section>

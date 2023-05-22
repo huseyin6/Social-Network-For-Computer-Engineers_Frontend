@@ -48,7 +48,7 @@ const Dashboard = ({
           <Spinner />
         ) : (
           <Fragment>
-            {profile !== null ? (
+            {profile !== null && (
               <Fragment>
                 {auth.isAuthenticated &&
                   auth.loading === false &&
@@ -111,22 +111,11 @@ const Dashboard = ({
                   </div>
                 </div>
                 <div className='my-2'>
-                  <button
-                    onClick={() => deleteAccount()}
-                    className='btn btn-danger'
-                  >
-                    <i className='fas fa-trash-alt text-light'></i> Delete
-                    Account
+                  <button onClick={() => deleteAccount()} className='btn btn-danger'>
+                    <i className='fas fa-trash-alt text-light'></i> Delete Account
                   </button>
                 </div>
               </Fragment>
-            ) : (
-              <>
-                <p>You have not yet setup a profile, please add some info</p>
-                <Link to='/create-profile' className='btn btn-primary my-1'>
-                  Create Profile
-                </Link>
-              </>
             )}
           </Fragment>
         )}
