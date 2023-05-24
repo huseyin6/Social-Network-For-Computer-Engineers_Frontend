@@ -9,7 +9,7 @@ const Verification = ({ isAuthenticated, role }) => {
   const [storedCode, setStoredCode] = useState(null); // Store the verification code
   const [error, setError] = useState(''); // Error state for invalid code
   const [navigateTo, setNavigateTo] = useState(null); // State to manage navigation
-
+  const [dummy, setDummy] = useState(false); // add this state
   useEffect(() => {
     const generateCode = Math.floor(100000 + Math.random() * 900000).toString();
     setStoredCode(generateCode);
@@ -21,8 +21,9 @@ const Verification = ({ isAuthenticated, role }) => {
       return () => clearTimeout(timer);
     } else {
       setNavigateTo('/login');
+      setDummy(!dummy); // manually trigger a rerender
     }
-  }, [timeRemaining]);
+  }, [timeRemaining, dummy]);
 
   const onChange = (el) => setVerificationCode(el.target.value);
 
@@ -65,7 +66,7 @@ const Verification = ({ isAuthenticated, role }) => {
             required
             />
         </div>
-        <button onClick={onVerify} className='btn btn-primary' value='Verify' />
+        <input type="submit" onClick={onVerify} className='btn btn-primary' value='Verify' />
         </form>
         {error && <div className="alert alert-danger">{error}</div>} {/* Display error when the code is invalid */}
         <p className='my-1'>

@@ -3,8 +3,14 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
+import { useLocation } from 'react-router-dom';
 
 const Navbar = ({ auth: { isAuthenticated, loading, role }, logout }) => {
+  const location = useLocation();
+  if (location.pathname === '/verification') {
+    return null; // or return a minimal version of the Navbar
+  }
+
   const engineerLinks = (
     <ul>
       <li>
