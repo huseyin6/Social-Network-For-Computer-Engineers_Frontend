@@ -8,9 +8,9 @@ const Verification = ({ isAuthenticated, role }) => {
   const [verificationCode, setVerificationCode] = useState('');
   const [storedCode, setStoredCode] = useState(null); // Store the verification code
   const [error, setError] = useState(''); // Error state for invalid code
+  const [navigateTo, setNavigateTo] = useState(null); // State to manage navigation
 
   useEffect(() => {
-    // Generate a random 6-digit code when component mounts
     const generateCode = Math.floor(100000 + Math.random() * 900000).toString();
     setStoredCode(generateCode);
 
@@ -20,7 +20,7 @@ const Verification = ({ isAuthenticated, role }) => {
       }, 1000);
       return () => clearTimeout(timer);
     } else {
-      return <Navigate to='/login' />;
+      setNavigateTo('/login');
     }
   }, [timeRemaining]);
 
@@ -36,22 +36,17 @@ const Verification = ({ isAuthenticated, role }) => {
     e.preventDefault();
     if (verificationCode === storedCode) {
       if (role === 'engineer') {
-        return <Navigate to='/dashboard' />;
+        setNavigateTo('/dashboard');
       } else if (role === 'company') {
-        return <Navigate to='/dashboardCompany' />;
+        setNavigateTo('/dashboardCompany');
       }
     } else {
-      // Show an error message
       setError('Invalid verification code');
     }
   };
 
-  if (isAuthenticated && role === 'engineer') {
-    return <Navigate to='/dashboard' />;
-  }
-
-  if (isAuthenticated && role === 'company') {
-    return <Navigate to='/dashboardCompany' />;
+  if (navigateTo) {
+    return <Navigate to={navigateTo} />;
   }
 
   return (
