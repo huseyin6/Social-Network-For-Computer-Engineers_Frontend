@@ -5,6 +5,7 @@ import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import Alert from '../layout/Alert';
+import { useNavigate } from 'react-router-dom';
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [data, setData] = useState({
     name: '',
@@ -14,18 +15,29 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   });
 
   const { name, email, password, password2 } = data;
-
+  const navigate = useNavigate();
   const onChange = (el) =>
     setData({ ...data, [el.target.name]: el.target.value });
 
-  const clickSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== password2) {
-      setAlert('Passwords do not match', 'danger');
-    } else {
-      register({ name, email, password });
-    }
-  };
+    const clickSubmit = async (e) => {
+      e.preventDefault();
+      if (password !== password2) {
+        setAlert('Passwords do not match', 'danger');
+      } else {
+        // As register() returns a Promise, we use then() to navigate after registration success
+        register({ name, email, password })
+          .then((response) => {
+            if(response){
+              // Programmatic navigation to verification page
+              navigate('/verification');
+            }
+          })
+          .catch((error) => {
+            // Handle any error here
+            console.error(error);
+          });
+      }
+    };
 
   if (isAuthenticated) {
     return <Navigate to='/dashboard' />;

@@ -92,6 +92,8 @@ export const register =
         payload: response.data,
       });
       dispatch(loadUser());
+
+      return Promise.resolve(response.data); // added line
     } catch (error) {
       const errors = error.response.data.errors;
 
@@ -103,10 +105,12 @@ export const register =
       dispatch({
         type: REGISTER_FAIL,
       });
+      return Promise.reject(error); // added line
     }
   };
 
-export const registerComp =
+
+  export const registerComp =
   ({ name, email, password }) =>
   async (dispatch) => {
     const config = {
@@ -131,6 +135,8 @@ export const registerComp =
         payload: response.data,
       });
       dispatch(loadUser());
+
+      return Promise.resolve(response.data); // added line
     } catch (error) {
       const errors = error.response.data.errors;
 
@@ -142,6 +148,7 @@ export const registerComp =
       dispatch({
         type: REGISTER_FAIL,
       });
+      return Promise.reject(error);
     }
   };
 

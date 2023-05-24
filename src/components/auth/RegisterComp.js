@@ -5,6 +5,7 @@ import { setAlert } from '../../actions/alert';
 import { registerComp } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import Alert from '../layout/Alert';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterComp = ({ setAlert, registerComp, isAuthenticated }) => {
     const [data, setData] = useState({
@@ -15,18 +16,26 @@ const RegisterComp = ({ setAlert, registerComp, isAuthenticated }) => {
     });
   
     const { name, email, password, password2 } = data;
-  
+    const navigate = useNavigate();
     const onChange = (el) =>
       setData({ ...data, [el.target.name]: el.target.value });
   
-    const clickSubmit = async (e) => {
-      e.preventDefault();
-      if (password !== password2) {
-        setAlert('Passwords do not match', 'danger');
-      } else {
-        registerComp({ name, email, password });
-      }
-    };
+      const clickSubmit = async (e) => {
+        e.preventDefault();
+        if (password !== password2) {
+          setAlert('Passwords do not match', 'danger');
+        } else {
+          registerComp({ name, email, password })
+            .then((response) => {
+              if(response){
+                navigate('/verification');
+              }
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      };
   
     if (isAuthenticated) {
       return <Navigate to='/dashboardCompany' />;
