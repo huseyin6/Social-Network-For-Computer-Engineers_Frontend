@@ -75,6 +75,7 @@ const Verification = ({ isAuthenticated, role }) => {
       </div>
     </section>
   );
+
 };
 
 Verification.propTypes = {

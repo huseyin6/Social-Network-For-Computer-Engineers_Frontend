@@ -499,6 +499,17 @@ p img {
     }
 }
 
+.verification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Make it full height */
+}
+
+.verification-container {
+  text-align: center; /* Center the text */
+}
+
 .my-input {
   padding: 10px;
   border-radius: 5px;
