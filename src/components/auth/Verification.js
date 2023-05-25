@@ -85,7 +85,7 @@ Verification.propTypes = {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  role: state.auth.user.role, // Updated path to role
+  role: state.auth?.user?.role, // Updated path to role with optional chaining
 });
 
 export default connect(mapStateToProps, {})(Verification);
