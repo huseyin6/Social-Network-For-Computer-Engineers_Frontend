@@ -10,21 +10,21 @@ const Verification = ({ isAuthenticated, role }) => {
   const [error, setError] = useState(''); // Error state for invalid code
   const [navigateTo, setNavigateTo] = useState(null); // State to manage navigation
   const [dummy, setDummy] = useState(false); // add this state
+  const [forceUpdate, setForceUpdate] = useState(false);
   useEffect(() => {
     const generateCode = Math.floor(100000 + Math.random() * 900000).toString();
     setStoredCode(generateCode);
   
     if (timeRemaining > 0) {
       const timer = setTimeout(() => {
-        setTimeRemaining(timeRemaining - 1);
+        setTimeRemaining(prevTime => prevTime - 1);
       }, 1000);
       return () => clearTimeout(timer);
     } else {
       setNavigateTo('/login');
-      setDummy(!dummy); // manually trigger a rerender
+      setForceUpdate(prev => !prev); // forces a rerender
     }
-  }, [timeRemaining, dummy]);
-  
+  }, [timeRemaining, forceUpdate]);
   
   useEffect(() => {
     if (error) {
@@ -34,7 +34,7 @@ const Verification = ({ isAuthenticated, role }) => {
       return () => clearTimeout(timer);
     }
   }, [error]);
-  
+
   const onChange = (el) => setVerificationCode(el.target.value);
 
   const formatTime = (time) => {
@@ -45,7 +45,7 @@ const Verification = ({ isAuthenticated, role }) => {
 
   const onVerify = (e) => {
     e.preventDefault();
-    if (verificationCode === storedCode) {
+    if (verificationCode === storedCode && timeRemaining > 0) {
       if (role === 'engineer') {
         setNavigateTo('/dashboard');
       } else if (role === 'company') {
@@ -60,31 +60,34 @@ const Verification = ({ isAuthenticated, role }) => {
     return <Navigate to={navigateTo} />;
   }
 
-  return (
-    <section className='verification'>
-      <div className='verification-container'>
-        <h1 className='x-large text-primary'>Verification</h1>
-        <p className='lead'>Please enter the verification code sent to your email.</p>
-        <form className='form' onSubmit={(e) => e.preventDefault()}>
-        <div className='form-group'>
-            <input
-            type='text'
-            placeholder='Verification Code'
-            name='verificationCode'
-            value={verificationCode}
-            onChange={onChange}
-            required
-            />
-        </div>
-        <input type="submit" onClick={onVerify} className='btn btn-primary' value='Verify' />
-        </form>
-        {error && <div className="alert alert-danger">{error}</div>} {/* Display error when the code is invalid */}
-        <p className='my-1'>
-          Verification code expires in {formatTime(timeRemaining)}
-        </p>
+return (
+  <section className='verification'>
+    <div className='verification-container'>
+      <h1 className='x-large text-primary'>Verification</h1>
+      <p className='lead'>Please enter the verification code sent to your email.</p>
+      
+      {error && <div className="alert alert-danger" style={{fontSize: '0.8em', marginBottom: '1em'}}>{error}</div>} 
+      {/* Moved error display to the top and added inline styles to make it smaller and add space below */}
+
+      <form className='form' onSubmit={(e) => e.preventDefault()}>
+      <div className='form-group'>
+          <input
+          type='text'
+          placeholder='Verification Code'
+          name='verificationCode'
+          value={verificationCode}
+          onChange={onChange}
+          required
+          />
       </div>
-    </section>
-  );
+      <input type="submit" onClick={onVerify} className='btn btn-primary' value='Verify' />
+      </form>
+      <p className='my-1'>
+        Verification code expires in {formatTime(timeRemaining)}
+      </p>
+    </div>
+  </section>
+);
 
 };
 
