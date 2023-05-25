@@ -74,34 +74,37 @@ const Videos = () => {
       </div>
       
         <div className={styles['videos-grid']}>
-          {videos &&
-            videos.map((video) => (
-              <div key={video.id.videoId} className='videos'>
-                <div className={styles['videos-container']}>
-                  <InView triggerOnce>
+        {videos &&
+    videos.map((video) => (
+        <div key={video.id.videoId} className='videos'>
+            <div className={styles['videos-container']}>
+                <InView triggerOnce>
                     {({ inView, ref }) => (
-                      <div ref={ref}>
-                        {inView && (
-                          <iframe
-                            src={`https://www.youtube.com/embed/${video.id.videoId}`}
-                            title={video.snippet.title}
-                            frameBorder="0"
-                            allowFullScreen
-                          ></iframe>
-                        )}
-                        {!inView && (
-                          <img
-                            src={video.snippet.thumbnails.medium.url}
-                            alt={video.snippet.title}
-                            className={styles['video-thumbnail']}
-                          />
-                        )}
-                      </div>
+                        <div ref={ref}>
+                            {inView && (
+                                <iframe
+                                    src={`https://www.youtube.com/embed/${video.id.videoId}`}
+                                    title={video.snippet.title}
+                                    frameBorder="0"
+                                    allow="autoplay; encrypted-media" 
+                                    allowFullScreen
+                                    width="100%"  // Added this
+                                    height="100%" // and this
+                                ></iframe>
+                            )}
+                            {!inView && (
+                                <img
+                                    src={video.snippet.thumbnails.medium.url}
+                                    alt={video.snippet.title}
+                                    className={styles['video-thumbnail']}
+                                />
+                            )}
+                        </div>
                     )}
-                  </InView>
-                </div>
-              </div>
-            ))}
+                </InView>
+            </div>
+        </div>
+    ))}
         </div>
     </div>
   );

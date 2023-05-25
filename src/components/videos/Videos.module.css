@@ -30,9 +30,8 @@ h1 {
 
 .videos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 0px;
-  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 1rem;
 }
 .video-wrapper {
   position: fixed;
@@ -52,6 +51,15 @@ h1 {
   to {
     opacity: 1;
   }
+}
+
+.videos {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 .video-wrapper iframe {
@@ -84,16 +92,13 @@ h1 {
 .videos iframe {
   width: 100%;
   height: 0;
-  padding-bottom: 56.25%; /* Maintain a 16:9 aspect ratio */
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-}
-
-.videos iframe {
+  padding-bottom: 56.25%;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
 }
+
+.videos:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
