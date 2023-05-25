@@ -13,7 +13,7 @@ const Verification = ({ isAuthenticated, role }) => {
   useEffect(() => {
     const generateCode = Math.floor(100000 + Math.random() * 900000).toString();
     setStoredCode(generateCode);
-
+  
     if (timeRemaining > 0) {
       const timer = setTimeout(() => {
         setTimeRemaining(timeRemaining - 1);
@@ -24,7 +24,17 @@ const Verification = ({ isAuthenticated, role }) => {
       setDummy(!dummy); // manually trigger a rerender
     }
   }, [timeRemaining, dummy]);
-
+  
+  
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(''); // Clear the error
+      }, 2000); // After 2 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+  
   const onChange = (el) => setVerificationCode(el.target.value);
 
   const formatTime = (time) => {
