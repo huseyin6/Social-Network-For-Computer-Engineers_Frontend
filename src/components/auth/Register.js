@@ -19,25 +19,22 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const onChange = (el) =>
     setData({ ...data, [el.target.name]: el.target.value });
 
-    const clickSubmit = async (e) => {
+    const clickSubmit = (e) => {
       e.preventDefault();
       if (password !== password2) {
         setAlert('Passwords do not match', 'danger');
       } else {
-        // As register() returns a Promise, we use then() to navigate after registration success
         register({ name, email, password })
-          .then((response) => {
-            if(response){
-              // Programmatic navigation to verification page
-              navigate('/verification');
-            }
+          .then(() => {
+            navigate('/verification');
           })
           .catch((error) => {
-            // Handle any error here
+            // You might want to dispatch an action here to show the error message
             console.error(error);
           });
       }
     };
+    
 
   if (isAuthenticated) {
     return <Navigate to='/dashboard' />;
