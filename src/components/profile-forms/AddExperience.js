@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
 import { addExperience } from '../../actions/profile';
+import { setAlert } from '../../actions/alert';
 import Alert from '../layout/Alert';
 
-const AddExperience = ({ addExperience }) => {
+const AddExperience = ({ addExperience, setAlert}) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     company: '',
@@ -33,7 +34,13 @@ const AddExperience = ({ addExperience }) => {
         className='form'
         onSubmit={(e) => {
           e.preventDefault();
-          addExperience(formData, navigate);
+          var startDate = new Date(from);
+          var endDate   = new Date(to);
+          if ( endDate.getTime() < startDate.getTime()) {
+            setAlert('End date can not be less than start date','danger');
+          }
+          else {
+          addExperience(formData, navigate);}
         }}
       >
         <div className='form-group'>
@@ -119,6 +126,7 @@ const AddExperience = ({ addExperience }) => {
 };
 AddExperience.propTypes = {
   addExperience: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(null, { addExperience })(AddExperience);
+export default connect(null, { addExperience, setAlert })(AddExperience);

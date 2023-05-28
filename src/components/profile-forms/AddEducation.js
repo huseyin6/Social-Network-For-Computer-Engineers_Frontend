@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
 import { addEducation } from '../../actions/profile';
 import Alert from '../layout/Alert';
-const AddEducation = ({ addEducation }) => {
+import { setAlert } from '../../actions/alert';
+const AddEducation = ({ addEducation, setAlert }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     school: '',
@@ -34,7 +35,13 @@ const AddEducation = ({ addEducation }) => {
         className='form'
         onSubmit={(e) => {
           e.preventDefault();
-          addEducation(formData, navigate);
+          var startDate = new Date(from);
+          var endDate   = new Date(to);
+          if ( endDate.getTime() < startDate.getTime()) {
+            setAlert('End date can not be less than start date','danger');
+          }
+          else {
+          addEducation(formData, navigate);}
         }}
       >
         <div className='form-group'>
@@ -121,6 +128,7 @@ const AddEducation = ({ addEducation }) => {
 
 AddEducation.propTypes = {
   addEducation: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(null, { addEducation })(AddEducation);
+export default connect(null, { addEducation, setAlert })(AddEducation);
