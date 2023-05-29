@@ -36,7 +36,11 @@ const AddExperience = ({ addExperience, setAlert}) => {
           e.preventDefault();
           var startDate = new Date(from);
           var endDate   = new Date(to);
-          if ( endDate.getTime() < startDate.getTime()) {
+          var currentDate = new Date();
+          if ( currentDate.getTime() < startDate.getTime() ){
+            setAlert('Start date can not be in the future','danger');
+          }
+          else if ( endDate.getTime() < startDate.getTime()) {
             setAlert('End date can not be less than start date','danger');
           }
           else {

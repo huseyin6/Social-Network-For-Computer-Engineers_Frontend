@@ -21,7 +21,6 @@ const QuestionSearch = ({ searchQA, question: { searchqa } }) => {
         onSubmit={(e) => {
           e.preventDefault();
           navigate(`/questions/search/${text}`);
-          setText('');
         }}
       >
         <input

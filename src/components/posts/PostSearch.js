@@ -20,7 +20,6 @@ const PostSearch = ({searchPost, post: {searchposts}}) => {
         onSubmit={(e) => {
           e.preventDefault();
           navigate(`/posts/search/${text}`);
-          setText('');
         }}
       >
         <input
