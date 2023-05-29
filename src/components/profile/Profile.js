@@ -222,7 +222,7 @@ const Profile = ({
                 )}
               </div>
             </div>
-            <div className='my-2'>
+            {/*<div className='my-2'>
               {auth.isAuthenticated &&
                 auth.loading === false &&
                 auth.user._id === profile.user._id && (
@@ -234,7 +234,7 @@ const Profile = ({
                     Account
                   </button>
                 )}
-            </div>
+                </div>*/}
           </Fragment>
         )}
       </section>
