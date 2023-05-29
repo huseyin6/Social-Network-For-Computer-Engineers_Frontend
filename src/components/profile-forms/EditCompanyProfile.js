@@ -44,14 +44,14 @@ const EditCompanyProfile = ({
       location:
         loading || !companyProfile.location ? '' : companyProfile.location,
       about: loading || !companyProfile.about ? '' : companyProfile.about,
-      twitter: loading || !companyProfile.social.twitter ? '' : companyProfile.social.twitter,
+      twitter: loading || !companyProfile.twitter ? '' : companyProfile.twitter,
       facebook:
-        loading || !companyProfile.social.facebook ? '' : companyProfile.social.facebook,
+        loading || !companyProfile.facebook ? '' : companyProfile.facebook,
       linkedin:
-        loading || !companyProfile.social.linkedin ? '' : companyProfile.social.linkedin,
-      youtube: loading || !companyProfile.social.youtube ? '' : companyProfile.social.youtube,
+        loading || !companyProfile.linkedin ? '' : companyProfile.linkedin,
+      youtube: loading || !companyProfile.youtube ? '' : companyProfile.youtube,
       instagram:
-        loading || !companyProfile.social.instagram ? '' : companyProfile.social.instagram,
+        loading || !companyProfile.instagram ? '' : companyProfile.instagram,
     });
   }, [loading, getCurrentCompany]);
 
