@@ -66,79 +66,106 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
+// Add this somewhere at the top of your file.
+// You'll have to replace '/api/send-email' with your actual endpoint.
+const sendVerificationEmail = async (email, verificationCode) => {
+  try {
+    const response = await axios.post('/api/send-email', {
+      email,
+      verificationCode,
+    });
+    console.log('Email sent successfully: ', response.data);
+  } catch (error) {
+    console.error('Failed to send verification email: ', error);
+  }
+};
 
+// Then in your register function, you could define formData like this:
 export const register = ({ name, email, password }) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const newUser = { name, email, password };
+    const formData = newUser; // define formData here
+
+    const body = JSON.stringify(newUser);
+
+    try {
+      const response = await axios.post('/users', body, config);
+      console.log(response);
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: response.data,
+      });
+      dispatch(loadUser());
+      // Generate verification code and send via email
+      const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+      sendVerificationEmail(formData.email, verificationCode);
+      return Promise.resolve(response.data); // added line
+    } catch (error) {
+      const errors = error.response.data.errors;
+
+      if (errors) {
+        errors.forEach((element) => {
+          dispatch(setAlert(element.msg, 'danger'));
+        });
+      }
+      dispatch({
+        type: REGISTER_FAIL
+      });
+      return Promise.reject(error); // added line
+    }
   };
 
-  const body = JSON.stringify({ name, email, password });
 
-  try {
-    const response = await axios.post('/api/auth/register', body, config);
-
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: response.data,
-    });
-
-    dispatch(loadUser());
-  } catch (error) {
-    const errors = error.response.data.errors;
-
-    if (errors) {
-      errors.forEach((element) => {
-        dispatch(setAlert(element.msg, 'danger'));
+  export const registerComp =
+  ({ name, email, password }) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+  
+    const newComp = {
+      name,
+      email,
+      password,
+    };
+  
+    const body = JSON.stringify(newComp);
+  
+    try {
+      const response = await axios.post('/users/company', body, config);
+      console.log(response);
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: response.data,
       });
+      dispatch(loadUser());
+  
+      // Generate verification code and send via email
+      const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+      sendVerificationEmail(newComp.email, verificationCode);
+  
+      return Promise.resolve(response.data);
+    } catch (error) {
+      const errors = error.response.data.errors;
+  
+      if (errors) {
+        errors.forEach((element) => {
+          dispatch(setAlert(element.msg, 'danger'));
+        });
+      }
+      dispatch({
+        type: REGISTER_FAIL,
+      });
+      return Promise.reject(error);
     }
-
-    dispatch({
-      type: REGISTER_FAIL,
-    });
-  }
-};
-
-export const registerComp =
-({ name, email, password }) =>
-async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
   };
-
-  const body = JSON.stringify({
-    name,
-    email,
-    password,
-  });
-
-  try {
-    const response = await axios.post('/api/auth/register', body, config);
-
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: response.data,
-    });
-
-    dispatch(loadUser());
-  } catch (error) {
-    const errors = error.response.data.errors;
-
-    if (errors) {
-      errors.forEach((element) => {
-        dispatch(setAlert(element.msg, 'danger'));
-      });
-    }
-
-    dispatch({
-      type: REGISTER_FAIL,
-    });
-  }
-};
-
   
 
 export const logout = () => (dispatch) => {
