@@ -12,7 +12,9 @@ import CreateCompanyProfile from './components/profile-forms/CreateCompanyProfil
 import EditCompanyProfile from './components/profile-forms/EditCompanyProfile';
 import Profiles from './components/profiles/Profiles';
 import CompanyProfiles from './components/company-profiles/CompaniesProfiles';
+import CompanySearch from './components/company-profiles/CompanySearch';
 import Profile from './components/profile/Profile';
+import ProfileSearch from './components/profiles/ProfileSearch';
 import CompanyProfile from './components/profile/CompanyProfile';
 import Questions from './components/questions/Questions';
 import QuestionSearch from './components/questions/QuestionSearch';
@@ -70,6 +72,8 @@ const App = () => {
             <Route path='/company-profiles' element={<CompanyProfiles />} />
             <Route path='/questions/search/:key' element={<QuestionSearch />} />
             <Route path='/posts/search/:key' element={<PostSearch />} />
+            <Route path='/profiles/search/:key' element={<ProfileSearch />} />
+            <Route path='/company-profiles/search/:key' element={<CompanySearch />} />
             <Route
               exact
               path='/dashboardCompany'

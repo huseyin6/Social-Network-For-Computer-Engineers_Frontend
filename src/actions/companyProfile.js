@@ -7,6 +7,7 @@ import {
   GET_COMPANY_PROFILES,
   GET_COMPANY_PROFILE,
   COMPANY_ACCOUNT_DELETED,
+  SEARCH_COMPANY_PROFILES,
 } from './types';
 
 export const getCompanyProfiles = () => async (dispatch) => {
@@ -108,6 +109,21 @@ export const getCompanyById = (id) => async (dispatch) => {
     const res = await axios.get(`/companyprofile/company/${id}`);
     dispatch({
       type: GET_COMPANY_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: COMPANY_PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+export const searchCompanies = (key) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/companyprofile/search/${key}`);
+    console.log(res.data);
+    dispatch({
+      type: SEARCH_COMPANY_PROFILES,
       payload: res.data,
     });
   } catch (err) {

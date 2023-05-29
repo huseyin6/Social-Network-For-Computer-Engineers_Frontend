@@ -3,6 +3,7 @@ import {
   COMPANY_PROFILE_ERROR,
   GET_COMPANY_PROFILES,
   GET_COMPANY_PROFILE,
+  SEARCH_COMPANY_PROFILES,
 } from '../actions/types';
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   companyProfiles: [],
   loading: true,
   error: {},
+  searchResults: [],
 };
 
 export default function (state = initialState, action) {
@@ -20,6 +22,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         companyProfiles: payload,
+        loading: false,
+      };
+      case SEARCH_COMPANY_PROFILES:
+      return {
+        ...state,
+        searchResults: payload,
         loading: false,
       };
     case COMPANY_PROFILE_ERROR:

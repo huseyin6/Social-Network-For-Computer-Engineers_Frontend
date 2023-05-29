@@ -11,6 +11,7 @@ import {
   GET_REPOS,
   GET_SCORE,
   GET_PROFILE_AND_SCORE,
+  SEARCH_PROFILE,
 } from './types';
 
 export const getCurrentProfile = () => async (dispatch) => {
@@ -269,7 +270,21 @@ export const deleteAccount = (id) => async (dispatch) => {
     }
   }
 };
-
+export const searchProfiles = (key) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/profile/search/${key}`);
+    console.log(res.data);
+    dispatch({
+      type: SEARCH_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 export const getGithubRepos = (username) => async (dispatch) => {
   try {
     const res = await axios.get(`/profile/github/${username}`);
