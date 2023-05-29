@@ -7,7 +7,7 @@ import {
   scoreEngineer,
   getEngineerScore,
   getProfileAndScore,
-  deleteAccount
+  deleteAccount,
 } from '../../actions/profile';
 import { Link, useParams } from 'react-router-dom';
 import ProfileTop from './ProfileTop';
@@ -39,16 +39,16 @@ const Profile = ({
   }, [getProfileById, id]);
 
   useEffect(() => {
-    console.log('Profile:', profile); // Debug line
-    console.log('Auth User ID:', auth.user?._id); // Debug line
+    // console.log('Profile:', profile); // Debug line
+    // console.log('Auth User ID:', auth.user?._id); // Debug line
     if (profile) {
       const userScore = profile.scores.find(
         (score) => score.user === auth.user?._id
       );
-      console.log('User Score:', userScore); // Debug line
+      // console.log('User Score:', userScore); // Debug line
       if (userScore) {
         setHasRated(true);
-        console.log('User Score Value:', userScore.score); // Debug line
+        // console.log('User Score Value:', userScore.score); // Debug line
         setUserRating(userScore.score);
       }
     }
@@ -61,11 +61,19 @@ const Profile = ({
 
   const ratingChanged = (newRating) => {
     if (hasRated) {
-      setModalMessage('Engineer already rated');
-      setModalIsOpen(true);
-      setTimeout(() => {
-        setModalIsOpen(false);
-      }, 2000);
+      scoreEngineer(profile._id, newRating)
+        .then(() => {
+          setUserRating(newRating); // Update userRating state
+          getProfileById(id); // fetch updated profile data
+          setModalMessage('You have successfully updated your rate!');
+          setModalIsOpen(true);
+          setTimeout(() => {
+            setModalIsOpen(false);
+          }, 2000);
+        })
+        .catch((error) => {
+          console.error('Error rating engineer:', error);
+        });
     } else {
       scoreEngineer(profile._id, newRating)
         .then(() => {
@@ -83,7 +91,6 @@ const Profile = ({
         });
     }
   };
-  
 
   const closeModal = () => {
     clearTimeout(modalTimeout); // clear the timeout if the modal is manually closed
@@ -121,17 +128,17 @@ const Profile = ({
                 <div>
                   <div className='rating'>
                     {console.log(userRating)}
-                    {console.log("Type of userRating: ", typeof userRating)}
+                    {console.log('Type of userRating: ', typeof userRating)}
                     <br></br>
                     <StarRatings
                       rating={userRating}
-                      starRatedColor="gold"
+                      starRatedColor='gold'
                       changeRating={ratingChanged}
                       numberOfStars={5}
                       name='rating'
-                      starDimension="20px"
-                      starSpacing="2px"
-                      starHoverColor="gold"
+                      starDimension='20px'
+                      starSpacing='2px'
+                      starHoverColor='gold'
                     />
 
                     <p>
@@ -173,12 +180,12 @@ const Profile = ({
                 <h2 className='text-primary'>
                   Experience {''}
                   {auth.isAuthenticated &&
-                  auth.loading === false &&
-                  auth.user._id === profile.user._id && (
-                    <Link to='/add-experience' className='btn btn-light'>
-                      <i className='fas fa-plus text-primary'></i>
-                    </Link>
-                  )}
+                    auth.loading === false &&
+                    auth.user._id === profile.user._id && (
+                      <Link to='/add-experience' className='btn btn-light'>
+                        <i className='fas fa-plus text-primary'></i>
+                      </Link>
+                    )}
                 </h2>
                 {profile.experience.length > 0 ? (
                   <Fragment>
@@ -197,12 +204,12 @@ const Profile = ({
                 <h2 className='text-primary'>
                   Education {''}
                   {auth.isAuthenticated &&
-                  auth.loading === false &&
-                  auth.user._id === profile.user._id && (
-                    <Link to='/add-education' className='btn btn-light'>
-                      <i className='fas fa-plus text-primary'></i>
-                    </Link>
-                  )}
+                    auth.loading === false &&
+                    auth.user._id === profile.user._id && (
+                      <Link to='/add-education' className='btn btn-light'>
+                        <i className='fas fa-plus text-primary'></i>
+                      </Link>
+                    )}
                 </h2>
                 {profile.education.length > 0 ? (
                   <Fragment>
@@ -216,14 +223,17 @@ const Profile = ({
               </div>
             </div>
             <div className='my-2'>
-            {auth.isAuthenticated &&
-              auth.loading === false &&
-              auth.user._id === profile.user._id && (
-                <button onClick={() => deleteAccount()} className='btn btn-danger'>
-                <i className='fas fa-trash-alt text-light'></i> Delete Account
-              </button>
-              )}
-              
+              {auth.isAuthenticated &&
+                auth.loading === false &&
+                auth.user._id === profile.user._id && (
+                  <button
+                    onClick={() => deleteAccount()}
+                    className='btn btn-danger'
+                  >
+                    <i className='fas fa-trash-alt text-light'></i> Delete
+                    Account
+                  </button>
+                )}
             </div>
           </Fragment>
         )}
