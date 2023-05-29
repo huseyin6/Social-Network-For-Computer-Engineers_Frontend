@@ -129,15 +129,15 @@ export const register = ({ name, email, password }) => async (dispatch) => {
         'Content-Type': 'application/json',
       },
     };
-
+  
     const newComp = {
       name,
       email,
       password,
     };
-
+  
     const body = JSON.stringify(newComp);
-
+  
     try {
       const response = await axios.post('/users/company', body, config);
       console.log(response);
@@ -146,11 +146,15 @@ export const register = ({ name, email, password }) => async (dispatch) => {
         payload: response.data,
       });
       dispatch(loadUser());
-
-      return Promise.resolve(response.data); // added line
+  
+      // Generate verification code and send via email
+      const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+      sendVerificationEmail(newComp.email, verificationCode);
+  
+      return Promise.resolve(response.data);
     } catch (error) {
       const errors = error.response.data.errors;
-
+  
       if (errors) {
         errors.forEach((element) => {
           dispatch(setAlert(element.msg, 'danger'));
@@ -162,6 +166,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
       return Promise.reject(error);
     }
   };
+  
 
 export const logout = () => (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
