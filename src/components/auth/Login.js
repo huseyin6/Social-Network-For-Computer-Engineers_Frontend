@@ -5,7 +5,7 @@ import { login } from '../../actions/auth';
 import { Link, Navigate } from 'react-router-dom';
 import Alert from '../layout/Alert';
 /*import axios from 'axios';*/
-const Login = ({ login, isAuthenticated, role }) => {
+const Login = ({ login, isAuthenticated, role, isVerified }) => {
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -21,16 +21,19 @@ const Login = ({ login, isAuthenticated, role }) => {
     login(email, password);
   };
 
-  if (isAuthenticated && role === 'engineer') {
+  if (isAuthenticated && role === 'engineer' && isVerified) {
     // console.log('LOG: Role:', role);
     return <Navigate to='/dashboard' />;
   }
 
-  if (isAuthenticated && role === 'company') {
+  if (isAuthenticated && role === 'company' && isVerified) {
     // console.log('LOG: Role:', role);
     return <Navigate to='/dashboardCompany' />;
   }
 
+  if (isAuthenticated && !isVerified) {
+    return <Navigate to='/LoginVerification' />;
+  }
   return (
     <section className='landing'>
       <div className='form-container'>
@@ -75,11 +78,13 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   role: PropTypes.string,
+  isVerified: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   role: state.auth.role,
+  isVerified: state.auth.isVerified,
 });
 
 export default connect(mapStateToProps, { login })(Login);

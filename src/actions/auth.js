@@ -9,7 +9,10 @@ import {
   LOGOUT,
   CLEAR_PROFILE,
   CLEAR_COMPANY_PROFILE,
+  VERIFICATION_FAIL,
+  VERIFICATION_SUCCESS,
 } from './types';
+
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
 
@@ -32,6 +35,44 @@ export const loadUser = () => async (dispatch) => {
     });
   }
 };
+
+// Verification Code
+export const verifyCode = (email, code) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const body = JSON.stringify({ email, code });
+
+  try {
+    const response = await axios.post('/auth/verify', body, config);
+
+    // Dispatch a success action if the verification was successful
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token);
+      setAuthToken(response.data.token);
+      dispatch({
+        type: VERIFICATION_SUCCESS,
+        payload: response.data,
+      });
+
+      // Re-load the user after successful verification
+      dispatch(loadUser());
+    } else {
+      dispatch({
+        type: VERIFICATION_FAIL,
+      });
+    }
+  } catch (error) {
+    // Handle any errors here
+    dispatch({
+      type: VERIFICATION_FAIL,
+    });
+  }
+};
+
 
 // Login User
 export const login = (email, password) => async (dispatch) => {

@@ -8,6 +8,8 @@ import {
   LOGOUT,
   ACCOUNT_DELETED,
   COMPANY_ACCOUNT_DELETED,
+  VERIFICATION_SUCCESS,
+  VERIFICATION_FAIL,
 } from '../actions/types';
 
 const initalState = {
@@ -16,6 +18,7 @@ const initalState = {
   loading: true,
   user: null,
   role: '',
+  isVerified: false,  
 };
 
 export default function (state = initalState, action) {
@@ -63,9 +66,23 @@ export default function (state = initalState, action) {
         loading: false,
         user: payload,
         role: payload.role,
+        isVerified: payload.isVerified, // Update 'isVerified' when a user is loaded
+      };
+
+    case VERIFICATION_SUCCESS:
+      return {
+        ...state,
+        isVerified: true,  // Set 'isVerified' to true when verification is successful
+      };
+
+    case VERIFICATION_FAIL:
+      return {
+        ...state,
+        isVerified: false,  // Set 'isVerified' to false when verification fails
       };
 
     default:
       return state;
   }
 }
+

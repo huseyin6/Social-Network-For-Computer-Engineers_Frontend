@@ -32,6 +32,7 @@ import AdvertiseJob from './components/job/AdvertiseJob';
 import MyAdvertisements from './components/job/MyAdvertisements';
 import AnimatedBackground from './AnimatedBackground';
 import Verification from './components/auth/Verification';
+import LoginVerification from './components/auth/LoginVerification';
 import './App.css';
 // import Alert from './components/layout/Alert';
 import { loadUser } from './actions/auth';
@@ -66,6 +67,7 @@ const App = () => {
             <Route path='/register' element={<Register />} />
             <Route path='/registerComp' element={<RegisterComp />} />
             <Route path='/Verification' element={<Verification />} />
+            <Route path='/LoginVerification' element={<LoginVerification />} />
             <Route path='/profile/:id' element={<Profile />} />
             <Route path='/profiles' element={<Profiles />} />
             <Route path='/company-profile/:id' element={<CompanyProfile />} />
