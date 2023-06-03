@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { verifyCode } from '../../actions/auth';
-import { Link,Navigate } from 'react-router-dom';
+import { verifyCode, getVerificationCode } from '../../actions/auth';
+import { Link, Navigate } from 'react-router-dom';
 
-const LoginVerification = ({ role, isVerified, verifyCode }) => {
+const LoginVerification = ({ role, isVerified, verifyCode, getVerificationCode }) => {
   const [code, setCode] = useState('');
+
+  useEffect(() => {
+    getVerificationCode();
+  }, [getVerificationCode]);
 
   const onChange = (e) => {
     setCode(e.target.value);
@@ -15,6 +19,14 @@ const LoginVerification = ({ role, isVerified, verifyCode }) => {
     e.preventDefault();
     verifyCode(code);
   };
+
+  if (isVerified && role === 'engineer') {
+    return <Navigate to='/dashboard' />;
+  }
+
+  if (isVerified && role === 'company') {
+    return <Navigate to='/dashboardCompany' />;
+  }
 
   if (isVerified && role === 'engineer') {
     return <Navigate to='/dashboard' />;
@@ -57,6 +69,7 @@ LoginVerification.propTypes = {
   role: PropTypes.string,
   isVerified: PropTypes.bool,
   verifyCode: PropTypes.func.isRequired,
+  getVerificationCode: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -64,4 +77,4 @@ const mapStateToProps = (state) => ({
   isVerified: state.auth.isVerified,
 });
 
-export default connect(mapStateToProps, { verifyCode })(LoginVerification);
+export default connect(mapStateToProps, { verifyCode, getVerificationCode })(LoginVerification);

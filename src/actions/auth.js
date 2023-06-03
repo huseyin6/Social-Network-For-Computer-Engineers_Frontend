@@ -37,7 +37,8 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Verification Code
-export const verifyCode = (email, code) => async (dispatch) => {
+export const verifyCode = (code) => async (dispatch) => {
+  const email = localStorage.getItem('userEmail');
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -49,7 +50,6 @@ export const verifyCode = (email, code) => async (dispatch) => {
   try {
     const response = await axios.post('/auth/verify', body, config);
 
-    // Dispatch a success action if the verification was successful
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
       setAuthToken(response.data.token);
@@ -58,7 +58,6 @@ export const verifyCode = (email, code) => async (dispatch) => {
         payload: response.data,
       });
 
-      // Re-load the user after successful verification
       dispatch(loadUser());
     } else {
       dispatch({
@@ -66,7 +65,27 @@ export const verifyCode = (email, code) => async (dispatch) => {
       });
     }
   } catch (error) {
-    // Handle any errors here
+    dispatch({
+      type: VERIFICATION_FAIL,
+    });
+  }
+};
+
+
+// Get Verification Code
+export const getVerificationCode = () => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  try {
+    const response = await axios.get('/auth/verificationcode');
+
+    dispatch({
+      type: VERIFICATION_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
     dispatch({
       type: VERIFICATION_FAIL,
     });
