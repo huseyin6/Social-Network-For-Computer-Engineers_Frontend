@@ -65,3 +65,7 @@ export const DECLINE_JOB_ERROR = 'DECLINE-JOB_ERROR';
 export const GET_JOB = 'GET_JOB';
 export const VERIFICATION_SUCCESS = 'VERIFICATION_SUCCESS';
 export const VERIFICATION_FAIL = 'VERIFICATION_FAIL';
+export const SET_CURRENT_EMAIL = 'SET_CURRENT_EMAIL';
+export const LOGIN = 'LOGIN';
+export const GO_BACK = 'GO_BACK';
+export const GO_BACK_FAIL = 'GO_BACK_FAIL';

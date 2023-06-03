@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { logout } from '../../actions/auth';
+import { goBack, logout } from '../../actions/auth';
 import { useLocation } from 'react-router-dom';
 
 const Navbar = ({ auth: { isAuthenticated, loading, role }, logout }) => {
@@ -82,7 +82,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, role }, logout }) => {
   const guestsLinks = (
     <ul>
       <li>
-        <Link to='/login'>Login</Link>
+        <Link to='/login' onClick={goBack()} >Login</Link>
       </li>
       <li>
         <Link to='/register'>Register</Link>
@@ -98,7 +98,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, role }, logout }) => {
   return (
     <nav className='navbar bg-dark'>
       <h1>
-        <Link to='/'>C^3</Link>
+        <Link to='/' onClick={goBack()}>C^3</Link>
       </h1>
       {!loading && (
         <Fragment>

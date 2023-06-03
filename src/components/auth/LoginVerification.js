@@ -3,24 +3,27 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { verifyCode } from '../../actions/auth';
 import { Link,Navigate } from 'react-router-dom';
+import Alert from '../layout/Alert';
 
-const LoginVerification = ({ role, isVerified, verifyCode }) => {
+
+const LoginVerification = ({ auth,role, isAuthenticated, verifyCode,currentEmail }) => {
   const [code, setCode] = useState('');
 
   const onChange = (e) => {
     setCode(e.target.value);
   };
-
+  
   const onSubmit = (e) => {
     e.preventDefault();
-    verifyCode(code);
+    console.log("Current email from state: ", currentEmail); 
+    verifyCode(currentEmail, code);
   };
 
-  if (isVerified && role === 'engineer') {
+  if (isAuthenticated && role === 'engineer') {
     return <Navigate to='/dashboard' />;
   }
 
-  if (isVerified && role === 'company') {
+  if (isAuthenticated && role === 'company') {
     return <Navigate to='/dashboardCompany' />;
   }
 
@@ -49,6 +52,7 @@ const LoginVerification = ({ role, isVerified, verifyCode }) => {
           Can't find the code? Click <Link to='/resend'>here</Link> to resend the verification email.
         </p>
       </div>
+      <Alert/>
     </section>
   );
 };
@@ -57,11 +61,14 @@ LoginVerification.propTypes = {
   role: PropTypes.string,
   isVerified: PropTypes.bool,
   verifyCode: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   role: state.auth.role,
   isVerified: state.auth.isVerified,
+  currentEmail: state.auth.currentEmail,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { verifyCode })(LoginVerification);

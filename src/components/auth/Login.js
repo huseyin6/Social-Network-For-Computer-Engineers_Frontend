@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 import { Link, Navigate } from 'react-router-dom';
 import Alert from '../layout/Alert';
-/*import axios from 'axios';*/
-const Login = ({ login, isAuthenticated, role, isVerified }) => {
+import { setCurrentEmail } from '../../actions/auth';
+
+const Login = ({ login, setCurrentEmail, isAuthenticated, role, isVerified,isCodeSent }) => {
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -16,24 +17,29 @@ const Login = ({ login, isAuthenticated, role, isVerified }) => {
   const onChange = (el) =>
     setData({ ...data, [el.target.name]: el.target.value });
 
-  const clickSubmit = async (e) => {
-    e.preventDefault();
-    login(email, password);
-  };
-
+    const clickSubmit = async (e) => {
+      e.preventDefault();
+      console.log("Setting current email: ", email); 
+      setCurrentEmail(email);  
+      login(email, password);
+    };
+    
   if (isAuthenticated && role === 'engineer' && isVerified) {
-    // console.log('LOG: Role:', role);
+  
     return <Navigate to='/dashboard' />;
   }
 
   if (isAuthenticated && role === 'company' && isVerified) {
-    // console.log('LOG: Role:', role);
+    
     return <Navigate to='/dashboardCompany' />;
   }
 
-  if (isAuthenticated && !isVerified) {
+
+  console.log(isCodeSent);
+  if (isCodeSent && !isAuthenticated) {
     return <Navigate to='/LoginVerification' />;
   }
+  
   return (
     <section className='landing'>
       <div className='form-container'>
@@ -76,15 +82,24 @@ const Login = ({ login, isAuthenticated, role, isVerified }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  setCurrentEmail: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   role: PropTypes.string,
   isVerified: PropTypes.bool,
+  isCodeSent: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   role: state.auth.role,
   isVerified: state.auth.isVerified,
+  isCodeSent: state.auth.isCodeSent,
+  
 });
 
-export default connect(mapStateToProps, { login })(Login);
+const mapDispatchToProps = dispatch => ({
+  login: (email, password) => dispatch(login(email, password)),
+  setCurrentEmail: email => dispatch(setCurrentEmail(email))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

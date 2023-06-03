@@ -6,28 +6,40 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
+  LOGIN,
   ACCOUNT_DELETED,
   COMPANY_ACCOUNT_DELETED,
   VERIFICATION_SUCCESS,
   VERIFICATION_FAIL,
+  SET_CURRENT_EMAIL,
+  GO_BACK,
+  GO_BACK_FAIL,
 } from '../actions/types';
 
-const initalState = {
-  token: localStorage.getItem('token'),
+const initialState = {
   isAuthenticated: null,
   loading: true,
   user: null,
   role: '',
   isVerified: false,  
+  currentEmail: '',
+  isCodeSent:false,
 };
 
-export default function (state = initalState, action) {
+export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
     case REGISTER_SUCCESS:
+    case LOGIN:
+      return {
+      ...state,
+      isCodeSent: true,
+      isAuthenticated: false,
+      
+      ...payload,
+    };
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', payload.token);
       return {
         ...state,
         ...payload,
@@ -35,20 +47,18 @@ export default function (state = initalState, action) {
         loading: false,
         role: payload.role,
       };
+      case GO_BACK:
+        return {
+          ...state,
+         isCodeSent:false,
+        };
+      case GO_BACK:
+  
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
     case ACCOUNT_DELETED:
-      localStorage.removeItem('token');
-      return {
-        ...state,
-        token: null,
-        isAuthenticated: false,
-        loading: false,
-        role: '',
-      };
-
     case COMPANY_ACCOUNT_DELETED:
       localStorage.removeItem('token');
       return {
@@ -58,31 +68,34 @@ export default function (state = initalState, action) {
         loading: false,
         role: '',
       };
-
-    case USER_LOADED:
-      return {
-        ...state,
-        isAuthenticated: true,
-        loading: false,
-        user: payload,
-        role: payload.role,
-        isVerified: payload.isVerified, // Update 'isVerified' when a user is loaded
-      };
-
+      case USER_LOADED:
+        return {
+          ...state,
+          isAuthenticated: true,
+          loading: false,
+          user: payload,
+          role: payload.role,
+          isVerified: payload.isVerified,
+          currentEmail: payload.currentEmail, 
+        };
     case VERIFICATION_SUCCESS:
       return {
         ...state,
-        isVerified: true,  // Set 'isVerified' to true when verification is successful
+        isVerified: true, 
       };
-
+ 
     case VERIFICATION_FAIL:
       return {
         ...state,
-        isVerified: false,  // Set 'isVerified' to false when verification fails
+        isVerified: false, 
       };
-
+    case SET_CURRENT_EMAIL:
+      console.log("Reducer received SET_CURRENT_EMAIL with payload: ", payload); // Debugging line
+      return {
+        ...state,
+        currentEmail: payload,
+      };
     default:
       return state;
   }
 }
-

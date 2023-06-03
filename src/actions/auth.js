@@ -6,15 +6,24 @@ import {
   AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
+  LOGIN,
   LOGOUT,
   CLEAR_PROFILE,
   CLEAR_COMPANY_PROFILE,
   VERIFICATION_FAIL,
   VERIFICATION_SUCCESS,
+  GO_BACK,
+  GO_BACK_FAIL,
+  SET_CURRENT_EMAIL,
 } from './types';
 
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
+
+export const setCurrentEmail = email => ({
+  type: SET_CURRENT_EMAIL,
+  payload: email,
+});
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -24,19 +33,22 @@ export const loadUser = () => async (dispatch) => {
 
   try {
     const response = await axios.get('/auth');
-
+  
     dispatch({
       type: USER_LOADED,
       payload: response.data,
     });
   } catch (error) {
+    console.log(error); 
     dispatch({
       type: AUTH_ERROR,
     });
   }
 };
 
-// Verification Code
+
+
+
 export const verifyCode = (email, code) => async (dispatch) => {
   const config = {
     headers: {
@@ -45,28 +57,24 @@ export const verifyCode = (email, code) => async (dispatch) => {
   };
 
   const body = JSON.stringify({ email, code });
-
+  
   try {
     const response = await axios.post('/auth/verify', body, config);
 
-    // Dispatch a success action if the verification was successful
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
       setAuthToken(response.data.token);
       dispatch({
-        type: VERIFICATION_SUCCESS,
+        type: LOGIN_SUCCESS,
         payload: response.data,
       });
 
-      // Re-load the user after successful verification
       dispatch(loadUser());
-    } else {
-      dispatch({
-        type: VERIFICATION_FAIL,
-      });
-    }
+    } 
   } catch (error) {
-    // Handle any errors here
+    // Call setAlert function here
+    dispatch(setAlert("Invalid Verification Code", 'danger'));
+    
     dispatch({
       type: VERIFICATION_FAIL,
     });
@@ -74,7 +82,8 @@ export const verifyCode = (email, code) => async (dispatch) => {
 };
 
 
-// Login User
+
+
 export const login = (email, password) => async (dispatch) => {
   const config = {
     headers: {
@@ -86,13 +95,12 @@ export const login = (email, password) => async (dispatch) => {
 
   try {
     const response = await axios.post('/auth', body, config);
-    // console.log('LOGIN RES:', response.data);
+  
     dispatch({
-      type: LOGIN_SUCCESS,
-      payload: response.data,
+      type: LOGIN,
+      payload: response.status,
     });
-
-    dispatch(loadUser());
+    
   } catch (error) {
     const errors = error.response.data.errors;
 
@@ -137,6 +145,27 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 
     dispatch({
       type: REGISTER_FAIL,
+    });
+  }
+};
+
+export const goBack = async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+
+    dispatch({
+      type: GO_BACK,
+    });
+
+  } catch (error) {
+
+    dispatch({
+      type: GO_BACK_FAIL,
     });
   }
 };
@@ -186,4 +215,5 @@ export const logout = () => (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: CLEAR_COMPANY_PROFILE });
   dispatch({ type: LOGOUT });
+  dispatch({ type: GO_BACK});
 };
