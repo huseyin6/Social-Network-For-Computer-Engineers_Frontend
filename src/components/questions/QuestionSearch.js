@@ -8,12 +8,29 @@ import { searchQA } from '../../actions/question';
 
 const QuestionSearch = ({ searchQA, question: { searchqa } }) => {
   const { key } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    searchQA(key);
+    const fetchData = async () => {
+      setIsLoading(true);
+      await searchQA(key);
+      setIsLoading(false);
+    };
+    fetchData();
   }, [searchQA, key]);
-  console.log(searchqa);
+
   const [text, setText] = useState(key);
   const navigate = useNavigate();
+
+  if (isLoading) {
+    return (
+      <div className='container'>
+        <h1 className='large text-primary'>Q&A</h1>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <section className='container'>
       <h1 className='large text-primary'>Q&A</h1>
@@ -30,7 +47,9 @@ const QuestionSearch = ({ searchQA, question: { searchqa } }) => {
           placeholder='Search Question'
           onChange={(e) => setText(e.target.value)}
         />
-        <button type='submit' className='btn btn-primary my-1' ><i class="fa fa-search" aria-hidden="true"></i></button>
+        <button type='submit' className='btn btn-primary my-1'>
+          <i class='fa fa-search' aria-hidden='true'></i>
+        </button>
       </form>
       <br />
       <hr />
