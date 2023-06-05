@@ -74,6 +74,7 @@ export default function (state = initialState, action) {
           ...state,
           isCodeSent: true,
           isAuthenticated: false,
+          isVerified: false,
           role:'company',
           ...payload,
         };

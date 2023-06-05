@@ -6,9 +6,9 @@ import { registerComp } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import Alert from '../layout/Alert';
 import { useNavigate } from 'react-router-dom';
-import { setCurrentEmail } from '../../actions/auth';
+import { setCurrentEmail,setCurrentName,setCurrentPassword } from '../../actions/auth';
 
-const RegisterComp = ({ setAlert, registerComp, isAuthenticated ,setCurrentEmail, role, isVerified,isCodeSent }) => {
+const RegisterComp = ({ setAlert, registerComp, isAuthenticated ,setCurrentEmail,setCurrentName,setCurrentPassword, role, isVerified,isCodeSent }) => {
     const [data, setData] = useState({
       name: '',
       email: '',
@@ -17,24 +17,22 @@ const RegisterComp = ({ setAlert, registerComp, isAuthenticated ,setCurrentEmail
     });
   
     const { name, email, password, password2 } = data;
-    const navigate = useNavigate();
     const onChange = (el) =>
       setData({ ...data, [el.target.name]: el.target.value });
   
       const clickSubmit = async (e) => {
         e.preventDefault();
         setCurrentEmail(email);
+        setCurrentPassword(password);
+        setCurrentName(name);
         if (password !== password2) {
           setAlert('Passwords do not match', 'danger');
         } else {
           registerComp({ name, email, password })
-            .catch((error) => {
-              console.error(error);
-            });
         }
       };
   
-      if (isAuthenticated && isCodeSent) {
+      if (!isAuthenticated && isCodeSent) {
         return <Navigate to='/Verification' />;
       }
   
@@ -104,6 +102,8 @@ const RegisterComp = ({ setAlert, registerComp, isAuthenticated ,setCurrentEmail
     registerComp: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
     setCurrentEmail: PropTypes.func.isRequired,
+    setCurrentName: PropTypes.func.isRequired,
+    setCurrentPassword: PropTypes.func.isRequired,
     role: PropTypes.string,
     isVerified: PropTypes.bool,
     isCodeSent: PropTypes.bool,
@@ -120,7 +120,9 @@ const RegisterComp = ({ setAlert, registerComp, isAuthenticated ,setCurrentEmail
 
   const mapDispatchToProps = dispatch => ({
     registerComp: (name, email, password) => dispatch(registerComp( name, email, password)),
-    setCurrentEmail: email => dispatch(setCurrentEmail(email))
+    setCurrentEmail: email => dispatch(setCurrentEmail(email)),
+    setCurrentName: name => dispatch(setCurrentName(name)),
+    setCurrentPassword: password => dispatch(setCurrentPassword(password))
   });
 
-  export default connect(mapStateToProps, { setAlert, registerComp,setCurrentEmail })(RegisterComp);
+  export default connect(mapStateToProps, { setAlert, registerComp,setCurrentEmail,setCurrentName,setCurrentPassword })(RegisterComp);

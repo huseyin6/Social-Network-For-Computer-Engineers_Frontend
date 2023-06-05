@@ -258,10 +258,17 @@ export const verifyUser = (name,email,password, code) => async (dispatch) => {
 };
 
 // Verify Company
-export const verifyCompany = (email, code) => async (dispatch) => {
-  const body = { email, code };
+export const verifyCompany = (name,email,password ,code) => async (dispatch) => {
+  const body = { name,email,password, code };
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
   try {
-    const res = await axios.post('/users/verify-company', body);
+    const res = await axios.post('/users/verify-company', body,config);
+    localStorage.setItem('token', res.data.token);
+    setAuthToken(res.data.token);
     dispatch({
       type: REGISTER_COMPANY_SUCCESS,
       payload: res.data,
