@@ -6,7 +6,11 @@ import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import Alert from '../layout/Alert';
 import { useNavigate } from 'react-router-dom';
-const Register = ({ setAlert, register, isAuthenticated }) => {
+import { setCurrentEmail,setCurrentName,setCurrentPassword } from '../../actions/auth';
+
+const Register = ({ setAlert, register, isAuthenticated ,setCurrentEmail,setCurrentName,setCurrentPassword, role, isVerified,isCodeSent}) => {
+
+  
   const [data, setData] = useState({
     name: '',
     email: '',
@@ -15,29 +19,27 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   });
 
   const { name, email, password, password2 } = data;
-  const navigate = useNavigate();
   const onChange = (el) =>
     setData({ ...data, [el.target.name]: el.target.value });
 
     const clickSubmit = (e) => {
       e.preventDefault();
+      setCurrentEmail(email);
+      setCurrentPassword(password);
+      setCurrentName(name);
       if (password !== password2) {
         setAlert('Passwords do not match', 'danger');
       } else {
+        console.log(name);
+        console.log(email);
+        console.log(password);
         register({ name, email, password })
-          .then(() => {
-            navigate('/verification');
-          })
-          .catch((error) => {
-            // You might want to dispatch an action here to show the error message
-            console.error(error);
-          });
       }
     };
     
-
-  if (isAuthenticated) {
-    return <Navigate to='/dashboard' />;
+  
+  if (!isAuthenticated && isCodeSent) {
+    return <Navigate to='/Verification' />;
   }
 
   return (
@@ -107,11 +109,27 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  setCurrentEmail: PropTypes.func.isRequired,
+  setCurrentName: PropTypes.func.isRequired,
+  setCurrentPassword: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
+  role: PropTypes.string,
+  isVerified: PropTypes.bool,
+  isCodeSent: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  role: state.auth.role,
+  isVerified: state.auth.isVerified,
+  isCodeSent: state.auth.isCodeSent,
 });
 
-export default connect(mapStateToProps, { setAlert, register })(Register);
+const mapDispatchToProps = dispatch => ({
+  register: (name, email, password) => dispatch(register( name, email, password)),
+  setCurrentEmail: email => dispatch(setCurrentEmail(email)),
+  setCurrentName: name => dispatch(setCurrentName(name)),
+  setCurrentPassword: password => dispatch(setCurrentPassword(password))
+});
+
+export default connect(mapStateToProps, { setAlert, register,setCurrentEmail,setCurrentName,setCurrentPassword})(Register);

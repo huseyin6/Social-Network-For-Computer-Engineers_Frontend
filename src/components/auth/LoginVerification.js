@@ -48,9 +48,6 @@ const LoginVerification = ({ auth,role, isAuthenticated, verifyCode,currentEmail
           />
           <button type='submit'>Submit</button>
         </form>
-        <p>
-          Can't find the code? Click <Link to='/resend'>here</Link> to resend the verification email.
-        </p>
       </div>
       <Alert/>
     </section>

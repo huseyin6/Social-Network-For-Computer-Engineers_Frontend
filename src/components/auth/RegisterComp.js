@@ -6,8 +6,9 @@ import { registerComp } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import Alert from '../layout/Alert';
 import { useNavigate } from 'react-router-dom';
+import { setCurrentEmail } from '../../actions/auth';
 
-const RegisterComp = ({ setAlert, registerComp, isAuthenticated }) => {
+const RegisterComp = ({ setAlert, registerComp, isAuthenticated ,setCurrentEmail, role, isVerified,isCodeSent }) => {
     const [data, setData] = useState({
       name: '',
       email: '',
@@ -22,24 +23,20 @@ const RegisterComp = ({ setAlert, registerComp, isAuthenticated }) => {
   
       const clickSubmit = async (e) => {
         e.preventDefault();
+        setCurrentEmail(email);
         if (password !== password2) {
           setAlert('Passwords do not match', 'danger');
         } else {
           registerComp({ name, email, password })
-            .then((response) => {
-              if(response){
-                navigate('/verification');
-              }
-            })
             .catch((error) => {
               console.error(error);
             });
         }
       };
   
-    if (isAuthenticated) {
-      return <Navigate to='/dashboardCompany' />;
-    }
+      if (isAuthenticated && isCodeSent) {
+        return <Navigate to='/Verification' />;
+      }
   
     return (
       <section className='landing'>
@@ -106,10 +103,24 @@ const RegisterComp = ({ setAlert, registerComp, isAuthenticated }) => {
     setAlert: PropTypes.func.isRequired,
     registerComp: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
+    setCurrentEmail: PropTypes.func.isRequired,
+    role: PropTypes.string,
+    isVerified: PropTypes.bool,
+    isCodeSent: PropTypes.bool,
+    
   };
   
   const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
+    role: state.auth.role,
+    isVerified: state.auth.isVerified,
+    isCodeSent: state.auth.isCodeSent,
   });
   
-  export default connect(mapStateToProps, { setAlert, registerComp })(RegisterComp);
+
+  const mapDispatchToProps = dispatch => ({
+    registerComp: (name, email, password) => dispatch(registerComp( name, email, password)),
+    setCurrentEmail: email => dispatch(setCurrentEmail(email))
+  });
+
+  export default connect(mapStateToProps, { setAlert, registerComp,setCurrentEmail })(RegisterComp);

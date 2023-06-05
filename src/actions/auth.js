@@ -2,6 +2,14 @@ import axios from '../axios';
 import {
   REGISTER_FAIL,
   REGISTER_SUCCESS,
+  REGISTER_USER,
+  REGISTER_USER_FAIL,
+  REGISTER_USER_SUCCESS,
+  REGISTER_FAIL_USER,
+  REGISTER_COMPANY,
+  REGISTER_COMPANY_FAIL,
+  REGISTER_COMPANY_SUCCESS,
+  REGISTER_FAIL_COMPANY,
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_FAIL,
@@ -14,6 +22,8 @@ import {
   VERIFICATION_SUCCESS,
   GO_BACK,
   GO_BACK_FAIL,
+  SET_CURRENT_NAME,
+  SET_CURRENT_PASSWORD,
   SET_CURRENT_EMAIL,
 } from './types';
 
@@ -23,6 +33,16 @@ import { setAlert } from './alert';
 export const setCurrentEmail = email => ({
   type: SET_CURRENT_EMAIL,
   payload: email,
+});
+
+export const setCurrentName= name => ({
+  type: SET_CURRENT_NAME,
+  payload: name,
+});
+
+export const setCurrentPassword = password => ({
+  type: SET_CURRENT_PASSWORD,
+  payload: password,
 });
 
 // Load User
@@ -126,14 +146,13 @@ export const register = ({ name, email, password }) => async (dispatch) => {
   const body = JSON.stringify({ name, email, password });
 
   try {
-    const response = await axios.post('/api/auth/register', body, config);
+    const response = await axios.post('/users', body, config);
 
     dispatch({
-      type: REGISTER_SUCCESS,
+      type: REGISTER_USER,
       payload: response.data,
     });
 
-    dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.errors;
 
@@ -144,7 +163,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     }
 
     dispatch({
-      type: REGISTER_FAIL,
+      type: REGISTER_USER_FAIL,
     });
   }
 };
@@ -186,14 +205,13 @@ async (dispatch) => {
   });
 
   try {
-    const response = await axios.post('/api/auth/register', body, config);
+    const response = await axios.post('/users/company', body);
 
     dispatch({
-      type: REGISTER_SUCCESS,
+      type: REGISTER_COMPANY,
       payload: response.data,
     });
 
-    dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.errors;
 
@@ -204,7 +222,55 @@ async (dispatch) => {
     }
 
     dispatch({
-      type: REGISTER_FAIL,
+      type: REGISTER_COMPANY_FAIL,
+    });
+  }
+};
+
+// Verify User
+export const verifyUser = (name,email,password, code) => async (dispatch) => {
+  const body = { name,email,password, code };
+  console.log(email)
+  console.log(code)
+  console.log(name)
+  console.log(password)
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.post('/users/verify-user', body,config);
+    localStorage.setItem('token', res.data.token);
+      setAuthToken(res.data.token);
+    dispatch({
+      type: REGISTER_USER_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(loadUser());
+  } catch (err) {
+    dispatch({
+      type: REGISTER_FAIL_USER,
+      payload: err.response.data,
+    });
+  }
+};
+
+// Verify Company
+export const verifyCompany = (email, code) => async (dispatch) => {
+  const body = { email, code };
+  try {
+    const res = await axios.post('/users/verify-company', body);
+    dispatch({
+      type: REGISTER_COMPANY_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(loadUser());
+  } catch (err) {
+    dispatch({
+      type: REGISTER_FAIL_COMPANY,
+      payload: err.response.data,
     });
   }
 };

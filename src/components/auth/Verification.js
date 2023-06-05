@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
+import { verifyCompany,verifyUser } from '../../actions/auth';
+import { Link} from 'react-router-dom';
+import Alert from '../layout/Alert';
+import { code } from 'react-code-blocks';
 
-const Verification = ({ isAuthenticated, role }) => {
+const Verification = ({ auth,role, isAuthenticated,currentName,currentPassword, verifyUser,verifyCompany,currentEmail,isVerified }) => {
   const [timeRemaining, setTimeRemaining] = useState(180); // 3 minutes in seconds
-  const [verificationCode, setVerificationCode] = useState('');
-  const [storedCode, setStoredCode] = useState(null); // Store the verification code
   const [error, setError] = useState(''); // Error state for invalid code
   const [navigateTo, setNavigateTo] = useState(null); // State to manage navigation
-  const [dummy, setDummy] = useState(false); // add this state
   const [forceUpdate, setForceUpdate] = useState(false);
+  const [code, setCode] = useState('');
+
   useEffect(() => {
-    const generateCode = Math.floor(100000 + Math.random() * 900000).toString();
-    setStoredCode(generateCode);
-  
     if (timeRemaining > 0) {
       const timer = setTimeout(() => {
         setTimeRemaining(prevTime => prevTime - 1);
@@ -35,7 +35,9 @@ const Verification = ({ isAuthenticated, role }) => {
     }
   }, [error]);
 
-  const onChange = (el) => setVerificationCode(el.target.value);
+  const onChange = (e) => {
+    setCode(e.target.value);
+  };
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
@@ -43,18 +45,53 @@ const Verification = ({ isAuthenticated, role }) => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  const onVerify = (e) => {
+  const onSubmit = (e) => {
+    
+    console.log(role);
     e.preventDefault();
-    if (verificationCode === storedCode && timeRemaining > 0) {
-      if (role === 'engineer') {
-        setNavigateTo('/dashboard');
-      } else if (role === 'company') {
-        setNavigateTo('/dashboardCompany');
-      }
-    } else {
-      setError('Invalid verification code');
+    if (role === 'engineer'){
+      console.log(currentEmail)
+      console.log(code)
+      console.log(currentName)
+      console.log(currentPassword)
+      verifyUser(currentName,currentEmail,currentPassword,code);
+      if(isAuthenticated&&isVerified){
+
+        if (role === 'engineer') {
+  
+          return <Navigate to='/dashboard' />;
+        } 
+        else if (role === 'company') {
+          return <Navigate to='/dashboardCompany' />;
+        }
     }
+    }
+    if (role === 'company'){
+      verifyCompany(currentEmail, code);
+    }
+    
   };
+
+
+  if (timeRemaining > 0) {
+
+    console.log(isAuthenticated)
+    console.log(isVerified)
+    if(isAuthenticated&&isVerified){
+
+      if (role === 'engineer') {
+
+        return <Navigate to='/dashboard' />;
+      } 
+      else if (role === 'company') {
+        return <Navigate to='/dashboardCompany' />;
+      }
+  }
+  }   
+  
+  else {
+    setError('Invalid verification code');
+  }
 
   if (navigateTo) {
     return <Navigate to={navigateTo} />;
@@ -75,30 +112,38 @@ return (
           type='text'
           placeholder='Verification Code'
           name='verificationCode'
-          value={verificationCode}
+          value={code}
           onChange={onChange}
           required
           />
       </div>
-      <input type="submit" onClick={onVerify} className='btn btn-primary' value='Verify' />
+      <input type="submit" onClick={onSubmit} className='btn btn-primary' value='Verify' />
       </form>
       <p className='my-1'>
         Verification code expires in {formatTime(timeRemaining)}
       </p>
     </div>
+    <Alert/>
   </section>
 );
 
 };
 
 Verification.propTypes = {
-  isAuthenticated: PropTypes.bool,
   role: PropTypes.string,
+  isVerified: PropTypes.bool,
+  verifyUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+  verifyCompany: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  role: state.auth?.user?.role, // Updated path to role with optional chaining
+  role: state.auth.role, // Updated path to role with optional chaining
+  currentEmail: state.auth.currentEmail,
+  isVerified: state.auth.isVerified,
+  currentName: state.auth.currentName,
+  currentPassword: state.auth.currentPassword,
 });
 
-export default connect(mapStateToProps, {})(Verification);
+export default connect(mapStateToProps, {verifyUser,verifyCompany})(Verification);
