@@ -205,7 +205,7 @@ async (dispatch) => {
   });
 
   try {
-    const response = await axios.post('/users/company', body);
+    const response = await axios.post('/users/company', body,config);
 
     dispatch({
       type: REGISTER_COMPANY,

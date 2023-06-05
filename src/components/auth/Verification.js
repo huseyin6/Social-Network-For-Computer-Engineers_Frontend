@@ -55,19 +55,10 @@ const Verification = ({ auth,role, isAuthenticated,currentName,currentPassword, 
       console.log(currentName)
       console.log(currentPassword)
       verifyUser(currentName,currentEmail,currentPassword,code);
-      if(isAuthenticated&&isVerified){
 
-        if (role === 'engineer') {
-  
-          return <Navigate to='/dashboard' />;
-        } 
-        else if (role === 'company') {
-          return <Navigate to='/dashboardCompany' />;
-        }
-    }
     }
     if (role === 'company'){
-      verifyCompany(currentEmail, code);
+      verifyCompany(currentName,currentEmail,currentPassword, code);
     }
     
   };
