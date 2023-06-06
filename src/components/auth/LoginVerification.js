@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { verifyCode } from '../../actions/auth';
-import { Link,Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Alert from '../layout/Alert';
 
-
-const LoginVerification = ({ auth,role, isAuthenticated, verifyCode,currentEmail }) => {
+const LoginVerification = ({
+  auth,
+  role,
+  isAuthenticated,
+  verifyCode,
+  currentEmail,
+}) => {
   const [code, setCode] = useState('');
 
   const onChange = (e) => {
     setCode(e.target.value);
   };
-  
+
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("Current email from state: ", currentEmail); 
+    console.log('Current email from state: ', currentEmail);
     verifyCode(currentEmail, code);
   };
 
@@ -35,21 +40,31 @@ const LoginVerification = ({ auth,role, isAuthenticated, verifyCode,currentEmail
           <i className='fas fa-user-check'></i> Verify Your Account
         </p>
         <p>
-          It looks like your account hasn't been verified yet. Please check your email for a verification code.
+          To continue, enter the 6-digit code sent to your e-mail address.
+          Please check your e-mail for a verification code.
         </p>
-        <form onSubmit={onSubmit}>
-          <input 
-            type='text' 
-            name='code' 
-            value={code} 
-            onChange={onChange} 
-            placeholder='Enter verification code' 
-            required 
+        <br />
+        <br />
+        <form
+          onSubmit={onSubmit}
+          style={{ radius: '10px', width: '300px', margin: '0 auto' }}
+        >
+          <input
+            type='text'
+            name='code'
+            value={code}
+            onChange={onChange}
+            placeholder='Enter verification code'
+            style={{ width: '100%', padding: '10px', borderRadius: '5px' }}
+            required
           />
-          <button type='submit'>Submit</button>
+          <br />
+          <br />
+          <br />
+          <input type='submit' className='btn btn-primary' value='Submit' />
         </form>
       </div>
-      <Alert/>
+      <Alert />
     </section>
   );
 };
