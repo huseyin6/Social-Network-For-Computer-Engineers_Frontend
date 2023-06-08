@@ -29,8 +29,7 @@ const ProfileSearch = ({
   if (isLoading) {
     return (
       <div className='container'>
-        <h1 className='large text-primary'>Engineers</h1>
-        <p>Loading...</p>
+        <Spinner/>
       </div>
     );
   }
@@ -38,10 +37,6 @@ const ProfileSearch = ({
   return (
     <AnimatedSwitch>
       <section className='container'>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <Fragment>
             <h1 className='large text-primary'>Engineers</h1>
             <form
               onSubmit={(e) => {
@@ -72,8 +67,6 @@ const ProfileSearch = ({
                 <div>No results found</div>
               )}
             </div>
-          </Fragment>
-        )}
       </section>
     </AnimatedSwitch>
   );

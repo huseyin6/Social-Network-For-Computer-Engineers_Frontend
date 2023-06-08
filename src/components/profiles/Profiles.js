@@ -7,18 +7,31 @@ import ProfileItem from './ProfileItem';
 import AnimatedSwitch from '../../AnimatedSwitch';
 import { useNavigate } from 'react-router-dom';
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
-  useEffect(() => {
-    getProfiles();
-  }, [getProfiles]);
+
   const navigate = useNavigate();
   const [text, setText] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getProfiles();
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [getProfiles]);
+
+  if (isLoading) {
+    return (
+      <AnimatedSwitch>
+        <div className='container'>
+          <Spinner/>
+        </div>
+      </AnimatedSwitch>
+    );
+  }
   return (
     <AnimatedSwitch>
     <section className='container'>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <Fragment>
           <h1 className='large text-primary'>Engineers</h1>
           <form
             onSubmit={(e) => {
@@ -45,11 +58,10 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                 <ProfileItem key={profile._id} profile={profile} />
               ))
             ) : (
-              <Spinner />
+              <div>No results found</div>
             )}
           </div>
-        </Fragment>
-      )}
+
     </section>
     </AnimatedSwitch>
   );

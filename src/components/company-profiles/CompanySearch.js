@@ -29,8 +29,7 @@ const CompanySearch = ({
   if (isLoading) {
     return (
       <div className='container'>
-        <h1 className='large text-primary'>Companies</h1>
-        <p>Loading...</p>
+        <Spinner/>
       </div>
     );
   }
@@ -38,10 +37,7 @@ const CompanySearch = ({
   return (
     <AnimatedSwitch>
       <section className='container'>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <Fragment>
+
             <h1 className='large text-primary'>Companies</h1>
             <form
               onSubmit={(e) => {
@@ -75,8 +71,7 @@ const CompanySearch = ({
                 <div>No results found</div>
               )}
             </div>
-          </Fragment>
-        )}
+
       </section>
     </AnimatedSwitch>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PostItem from './PostItem';
@@ -6,13 +6,30 @@ import PostForm from './PostForm';
 import { getPosts } from '../../actions/post';
 import { useNavigate } from 'react-router-dom';
 import AnimatedSwitch from '../../AnimatedSwitch';
+import Spinner from '../layout/Spinner';
 
 const Posts = ({ getPosts, post: { posts } }) => {
-  useEffect(() => {
-    getPosts();
-  }, [getPosts]);
   const navigate = useNavigate();
   const [text, setText] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getPosts();
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [getPosts]);
+
+  if (isLoading) {
+    return (
+      <AnimatedSwitch>
+        <div className='container'>
+          <Spinner/>
+        </div>
+      </AnimatedSwitch>
+    );
+  }
   return (
     <AnimatedSwitch>
     <section className='container'>
@@ -38,9 +55,15 @@ const Posts = ({ getPosts, post: { posts } }) => {
       <br />
       <PostForm />
       <div className='posts'>
+      {posts.length > 0 ? (
+        <Fragment>        
         {posts.map((post) => (
           <PostItem key={post._id} post={post} />
         ))}
+         </Fragment>
+        ) : (
+          <div>No results found</div>
+        )}
       </div>
     </section>
     </AnimatedSwitch>

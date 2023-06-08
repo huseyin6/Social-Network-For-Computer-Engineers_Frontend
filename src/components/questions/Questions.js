@@ -6,13 +6,31 @@ import QuestionForm from './QuestionForm';
 import { getQuestions } from '../../actions/question';
 import { useNavigate } from 'react-router-dom';
 import AnimatedSwitch from '../../AnimatedSwitch';
+import Spinner from '../layout/Spinner';
 
 const Questions = ({ getQuestions, question: { questions } }) => {
-  useEffect(() => {
-    getQuestions();
-  }, [getQuestions]);
+
   const [text, setText] = useState('');
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getQuestions();
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [getQuestions]);
+
+  if (isLoading) {
+    return (
+      <AnimatedSwitch>
+        <div className='container'>
+          <Spinner/>
+        </div>
+      </AnimatedSwitch>
+    );
+  }
   return (
     <AnimatedSwitch>
     <section className='container'>
@@ -38,9 +56,13 @@ const Questions = ({ getQuestions, question: { questions } }) => {
       <br />
       <QuestionForm />
       <div className='posts'>
-        {questions.map((question) => (
+      {questions.length > 0 ? (
+        questions.map((question) => (
           <QuestionItem key={question._id} question={question} />
-        ))}
+        ))
+        ) : (
+          <div>No results found</div>
+        )}
       </div>
     </section>
     </AnimatedSwitch>

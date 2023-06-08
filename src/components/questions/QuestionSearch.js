@@ -5,6 +5,7 @@ import QuestionItem from './QuestionItem';
 import QuestionForm from './QuestionForm';
 import { useNavigate, useParams } from 'react-router-dom';
 import { searchQA } from '../../actions/question';
+import Spinner from '../layout/Spinner';
 
 const QuestionSearch = ({ searchQA, question: { searchqa } }) => {
   const { key } = useParams();
@@ -25,8 +26,7 @@ const QuestionSearch = ({ searchQA, question: { searchqa } }) => {
   if (isLoading) {
     return (
       <div className='container'>
-        <h1 className='large text-primary'>Q&A</h1>
-        <p>Loading...</p>
+        <Spinner/>
       </div>
     );
   }

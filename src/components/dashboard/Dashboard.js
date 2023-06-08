@@ -33,8 +33,7 @@ const Dashboard = ({
     return (
       <AnimatedSwitch>
         <div className='container'>
-          <h1 className='large text-primary'>Profile</h1>
-          <p>Loading...</p>
+        <Spinner/>
         </div>
       </AnimatedSwitch>
     );

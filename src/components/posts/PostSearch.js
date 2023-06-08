@@ -5,6 +5,7 @@ import PostItem from './PostItem';
 import PostForm from './PostForm';
 import { searchPost } from '../../actions/post';
 import { useNavigate, useParams } from 'react-router-dom';
+import Spinner from '../layout/Spinner';
 
 const PostSearch = ({ searchPost, post: { searchposts } }) => {
   const { key } = useParams();
@@ -25,8 +26,7 @@ const PostSearch = ({ searchPost, post: { searchposts } }) => {
   if (isLoading) {
     return (
       <div className='container'>
-        <h1 className='large text-primary'>Posts</h1>
-        <p>Loading...</p>
+        <Spinner/>
       </div>
     );
   }

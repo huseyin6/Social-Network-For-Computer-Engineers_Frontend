@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getRecommendedJobs } from '../../actions/job';
 import JobItem from '../job/JobItem';
 import AnimatedSwitch from '../../AnimatedSwitch';
+import Spinner from '../layout/Spinner';
 
 const Recommendations = ({ getRecommendedJobs, recommendations }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,8 +22,7 @@ const Recommendations = ({ getRecommendedJobs, recommendations }) => {
     return (
       <AnimatedSwitch>
         <div className='container'>
-          <h1 className='large text-primary'>Recommended Jobs</h1>
-          <p>Loading...</p>
+          <Spinner/>
         </div>
       </AnimatedSwitch>
     );

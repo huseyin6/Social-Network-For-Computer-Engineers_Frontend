@@ -18,6 +18,7 @@ import ReactStars from 'react-rating-stars-component';
 import AnimatedSwitch from '../../AnimatedSwitch';
 import Modal from 'react-modal';
 import StarRatings from 'react-star-ratings';
+import PageNotFound from '../layout/PageNotFound';
 
 Modal.setAppElement('#root'); // replace '#root' with the id of your application's root element
 
@@ -33,9 +34,14 @@ const Profile = ({
   const { id } = useParams();
   const [hasRated, setHasRated] = useState(false);
   const [userRating, setUserRating] = useState(0); // Add this line to keep track of user's rating
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getProfileById(id);
+    const fetchData = async () => {
+      await getProfileById(id);
+      setIsLoading(false);
+    };
+    fetchData();
   }, [getProfileById, id]);
 
   useEffect(() => {
@@ -107,12 +113,21 @@ const Profile = ({
     }
     return 0; // default score
   };
-
+  
+  if (isLoading) {
+    return (
+      <AnimatedSwitch>
+        <div className='container2'>
+          <Spinner/>
+        </div>
+      </AnimatedSwitch>
+    );
+  }
   return (
     <AnimatedSwitch>
       <section className='container2'>
-        {profile === null || loading ? (
-          <Spinner />
+        {profile === null ? (
+          <PageNotFound/>
         ) : (
           <Fragment>
             {auth.isAuthenticated &&

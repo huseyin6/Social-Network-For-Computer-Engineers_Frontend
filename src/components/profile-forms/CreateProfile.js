@@ -50,11 +50,7 @@ const CreateProfile = ({ createProfile }) => {
     <section className='container'>
       <Alert />
       <h1 className='large text-primary'>Create Your Profile</h1>
-      <p className='lead'>
-        <i className='fas fa-user'></i> Let's get some information to make your
-        profile stand out
-      </p>
-      <small>* = required field</small>
+      <small>* Required field</small>
       <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <select name='status' value={status} onChange={(e) => onChange(e)}>
@@ -68,21 +64,15 @@ const CreateProfile = ({ createProfile }) => {
             <option value='Intern'>Intern</option>
             <option value='Other'>Other</option>
           </select>
-          <small className='form-text'>
-            Give us an idea of where you are at in your career
-          </small>
         </div>
         <div className='form-group'>
           <input
             type='text'
-            placeholder='Company'
+            placeholder='Company/School'
             name='company'
             value={company}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            Could be your own company or one you work for
-          </small>
         </div>
         <div className='form-group'>
           <input
@@ -92,9 +82,6 @@ const CreateProfile = ({ createProfile }) => {
             value={website}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            Could be your own or a company website
-          </small>
         </div>
         <div className='form-group'>
           <input
@@ -104,9 +91,7 @@ const CreateProfile = ({ createProfile }) => {
             value={location}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            City & state suggested (eg. Boston, MA)
-          </small>
+          <small className='form-text'>City/state</small>
         </div>
         <div className='form-group'>
           <input
@@ -117,7 +102,7 @@ const CreateProfile = ({ createProfile }) => {
             onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
-            Please use comma separated values (eg. HTML,PHP,CSS,JavaScript)
+            Please seperate them with comma (eg. Java, HTML)
           </small>
         </div>
         {/* <div className='form-group'>
@@ -140,7 +125,6 @@ const CreateProfile = ({ createProfile }) => {
             value={bio}
             onChange={(e) => onChange(e)}
           ></textarea>
-          <small className='form-text'>Tell us a little about yourself</small>
         </div>
 
         <div className='my-2'>
@@ -151,7 +135,7 @@ const CreateProfile = ({ createProfile }) => {
           >
             Add Social Network Links
           </button>
-          <span>Optional</span>
+
         </div>
 
         {displaySocialInputs && (

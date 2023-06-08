@@ -5,17 +5,35 @@ import Spinner from '../layout/Spinner';
 import { getCompanyById } from '../../actions/companyProfile';
 import { Link, useParams } from 'react-router-dom';
 import CompanyProfileTop from '../profile/CompanyProfileTop';
+import PageNotFound from '../layout/PageNotFound';
+import AnimatedSwitch from '../../AnimatedSwitch';
 
 const CompanyProfile = ({ getCompanyById,  companyProfile: { companyProfile, loading}, auth }) => {
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    getCompanyById(id);
-    }, [getCompanyById, id]);
+    const fetchData = async () => {
+      await getCompanyById(id);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [getCompanyById, id]);
+
   console.log(companyProfile);
+  if (isLoading) {
+    return (
+      <AnimatedSwitch>
+        <div className='container2'>
+          <Spinner/>
+        </div>
+      </AnimatedSwitch>
+    );
+  }
   return (
     <section className='container2'>
       {companyProfile === null ? (
-        <Spinner />
+        <PageNotFound/>
       ) : (
         <Fragment>
           {auth.isAuthenticated &&

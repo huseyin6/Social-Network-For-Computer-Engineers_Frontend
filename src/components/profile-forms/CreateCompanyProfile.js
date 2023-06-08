@@ -42,11 +42,7 @@ const CreateCompanyProfile = ({ createProfile }) => {
     <section className='container'>
       <Alert />
       <h1 className='large text-primary'>Create Your Profile</h1>
-      <p className='lead'>
-        <i className='fas fa-user'></i> Let's get some information to make your
-        profile stand out
-      </p>
-      <small>* = required field</small>
+      <small>* Required field</small>
       <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <input
@@ -65,9 +61,7 @@ const CreateCompanyProfile = ({ createProfile }) => {
             value={location}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            City & state suggested (eg. Boston, MA)
-          </small>
+          <small className='form-text'>City/state</small>
         </div>
         <div className='form-group'>
           <textarea
@@ -76,9 +70,6 @@ const CreateCompanyProfile = ({ createProfile }) => {
             value={about}
             onChange={(e) => onChange(e)}
           ></textarea>
-          <small className='form-text'>
-            Tell us a little about your company
-          </small>
         </div>
 
         <div className='my-2'>

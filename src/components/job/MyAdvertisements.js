@@ -8,9 +8,24 @@ import Spinner from '../layout/Spinner';
 import AdvertisementItem from './AdvertisementItem';
 
 const MyAdvertisements = ({getAds,  job: {jobs, loading}}) => {
-    useEffect(() => {
-        getAds();
-      }, [getAds]);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAds();
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [getAds]);
+
+  if (isLoading) {
+    return (  
+        <div className='container'>
+          <Spinner/>
+        </div>    
+    );
+  }
     return (
         <section className='container'>
           <Alert/>

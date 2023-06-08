@@ -10,18 +10,30 @@ const CompaniesProfiles = ({
   getCompanyProfiles,
   companyProfile: { companyProfiles, loading },
 }) => {
-  useEffect(() => {
-    getCompanyProfiles();
-  }, [getCompanyProfiles]);
   const [text, setText] = useState('');
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getCompanyProfiles();
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [getCompanyProfiles]);
+
+  if (isLoading) {
+    return (
+      <AnimatedSwitch>
+        <div className='container'>
+          <Spinner/>
+        </div>
+      </AnimatedSwitch>
+    );
+  }
   return (
     <AnimatedSwitch>
     <section className='container'>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <Fragment>
           <h1 className='large text-primary'>Companies</h1>
             <form
             onSubmit={(e) => {
@@ -51,11 +63,9 @@ const CompaniesProfiles = ({
                 />
               ))
             ) : (
-              <Spinner />
+              <div>No results found</div>
             )}
           </div>
-        </Fragment>
-      )}
     </section>
     </AnimatedSwitch>
   );

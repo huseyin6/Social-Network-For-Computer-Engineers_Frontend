@@ -2,6 +2,7 @@ import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
+import PageNotFound from './components/layout/PageNotFound';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import RegisterComp from './components/auth/RegisterComp';
@@ -76,6 +77,7 @@ const App = () => {
             <Route path='/posts/search/:key' element={<PostSearch />} />
             <Route path='/profiles/search/:key' element={<ProfileSearch />} />
             <Route path='/company-profiles/search/:key' element={<CompanySearch />} />
+            <Route path='*' element={<PageNotFound />} />
             <Route
               exact
               path='/dashboardCompany'
