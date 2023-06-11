@@ -746,6 +746,9 @@ button {
 .form .social-input i.fa-linkedin {
   color: #0077b5;
 }
+.form .social-input i.fa-github {
+  color: #0d1117;
+}
 
 .profile-top .icons i.fa-twitter {
   color: #38a1f3;
@@ -762,7 +765,9 @@ button {
 .profile-top .icons  i.fa-linkedin {
   color: #0077b5;
 }
-
+.profile-top .icons  i.fa-github {
+  color: #0d1117;
+}
 
 .table th,
 .table td {

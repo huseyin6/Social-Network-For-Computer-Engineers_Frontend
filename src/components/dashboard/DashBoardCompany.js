@@ -66,7 +66,7 @@ const DashboardCompany = ({
                     )}
                   </div>
                 </div>
-                {/* <div className='my-2'>
+                 <div className='my-2'>
                   <button
                     onClick={() => deleteAccount()}
                     className='btn btn-danger'
@@ -74,18 +74,20 @@ const DashboardCompany = ({
                     <i className='fas fa-trash-alt text-light'></i> Delete
                     Account
                   </button>
-                </div> */}
+                </div> 
               </Fragment>
             ) : (
-              <>
-                <p>You have not yet setup a profile, please add some info</p>
+              <div className='container'>
+              <div className='text-center'>
+              <p className='larger'>Please create a profile first</p>
                 <Link
                   to='/create-company-profile'
                   className='btn btn-primary my-1'
                 >
                   Create Profile
                 </Link>
-              </>
+                </div>
+              </div>
             )}
           </Fragment>
         )}

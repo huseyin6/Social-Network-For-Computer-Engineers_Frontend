@@ -12,13 +12,13 @@ const CreateProfile = ({ createProfile }) => {
     location: '',
     status: '',
     skills: '',
-    githubusername: '',
     bio: '',
     twitter: '',
     facebook: '',
     linkedin: '',
     youtube: '',
     instagram: '',
+    github:'',
   });
   const navigate = useNavigate();
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
@@ -29,13 +29,13 @@ const CreateProfile = ({ createProfile }) => {
     location,
     status,
     skills,
-    githubusername,
     bio,
     twitter,
     facebook,
     linkedin,
     youtube,
     instagram,
+    github,
   } = formData;
 
   const onChange = (e) =>
@@ -58,6 +58,9 @@ const CreateProfile = ({ createProfile }) => {
             <option value='Developer'>Developer</option>
             <option value='Junior Developer'>Junior Developer</option>
             <option value='Senior Developer'>Senior Developer</option>
+            <option value='Front-End Developer'>Front-End Developer</option>
+            <option value='Back-End Developer'>Back-End Developer</option>
+            <option value='Full-Stack Developer'>Full-Stack Developer</option>
             <option value='Manager'>Manager</option>
             <option value='Student or Learning'>Student or Learning</option>
             <option value='Instructor'>Instructor or Teacher</option>
@@ -105,19 +108,6 @@ const CreateProfile = ({ createProfile }) => {
             Please seperate them with comma (eg. Java, HTML)
           </small>
         </div>
-        {/* <div className='form-group'>
-          <input
-            type='text'
-            placeholder='Github Username'
-            name='githubusername'
-            value={githubusername}
-            onChange={(e) => onChange(e)}
-          />
-          <small className='form-text'>
-            If you want your latest repos and a Github link, include your
-            username
-          </small>
-        </div> */}
         <div className='form-group'>
           <textarea
             placeholder='A short bio of yourself'
@@ -127,7 +117,7 @@ const CreateProfile = ({ createProfile }) => {
           ></textarea>
         </div>
 
-        <div className='my-2'>
+        <div className='my-1'>
           <button
             onClick={() => toggleSocialInputs(!displaySocialInputs)}
             type='button'
@@ -135,7 +125,6 @@ const CreateProfile = ({ createProfile }) => {
           >
             Add Social Network Links
           </button>
-
         </div>
 
         {displaySocialInputs && (
@@ -191,6 +180,16 @@ const CreateProfile = ({ createProfile }) => {
                 placeholder='Instagram URL'
                 name='instagram'
                 value={instagram}
+                onChange={(e) => onChange(e)}
+              />
+            </div>
+            <div className='form-group social-input'>
+              <i className='fab fa-github fa-2x'></i>
+              <input
+                type='text'
+                placeholder='Github URL'
+                name='github'
+                value={github}
                 onChange={(e) => onChange(e)}
               />
             </div>

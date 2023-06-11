@@ -72,7 +72,7 @@ const CreateCompanyProfile = ({ createProfile }) => {
           ></textarea>
         </div>
 
-        <div className='my-2'>
+        <div className='my-1'>
           <button
             onClick={() => toggleSocialInputs(!displaySocialInputs)}
             type='button'
@@ -80,7 +80,6 @@ const CreateCompanyProfile = ({ createProfile }) => {
           >
             Add Social Network Links
           </button>
-          <span>Optional</span>
         </div>
 
         {displaySocialInputs && (

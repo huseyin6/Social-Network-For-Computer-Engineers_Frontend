@@ -68,7 +68,7 @@ export const applyJob = (id) => async (dispatch) => {
       type: APPLY_JOB,
       payload: { id, applicants: res.data },
     });
-    dispatch(setAlert('Attended Job', 'success'));
+    dispatch(setAlert('Applied Job', 'success'));
   } catch (err) {
     console.error('Error:', err.response);
     // Check the error message and dispatch the setAlert action accordingly

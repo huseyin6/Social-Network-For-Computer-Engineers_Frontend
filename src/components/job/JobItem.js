@@ -59,7 +59,7 @@ const JobItem = ({ job, applyJob, declineJob, getJob, auth }) => {
         {endDate ? formatDate(endDate) : formatDate(date)}
       </p>
       <p>
-        <strong>Status: </strong>
+        <strong>Position: </strong>
         {status}
       </p>
       <p>

@@ -16,13 +16,13 @@ const EditProfile = ({
     location: '',
     status: '',
     skills: '',
-    githubusername: '',
     bio: '',
     twitter: '',
     facebook: '',
     linkedin: '',
     youtube: '',
     instagram: '',
+    github: '',
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
@@ -36,14 +36,13 @@ const EditProfile = ({
       location: loading || !profile.location ? '' : profile.location,
       status: loading || !profile.status ? '' : profile.status,
       skills: loading || !profile.skills ? '' : profile.skills.join(','),
-      githubusername:
-        loading || !profile.githubusername ? '' : profile.githubusername,
       bio: loading || !profile.bio ? '' : profile.bio,
       twitter: loading || !profile.social ? '' : profile.social.twitter,
       facebook: loading || !profile.social ? '' : profile.social.facebook,
       linkedin: loading || !profile.social ? '' : profile.social.linkedin,
       youtube: loading || !profile.social ? '' : profile.social.youtube,
       instagram: loading || !profile.social ? '' : profile.social.instagram,
+      github: loading || !profile.social ? '' : profile.social.github,
     });
   }, [loading, getCurrentProfile]);
 
@@ -53,13 +52,13 @@ const EditProfile = ({
     location,
     status,
     skills,
-    githubusername,
     bio,
     twitter,
     facebook,
     linkedin,
     youtube,
     instagram,
+    github,
   } = formData;
 
   const onChange = (e) =>
@@ -78,10 +77,13 @@ const EditProfile = ({
       <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <select name='status' value={status} onChange={(e) => onChange(e)}>
-            <option>* Select Professional Status</option>
+            <option value=''>* Select Professional Status</option>
             <option value='Developer'>Developer</option>
             <option value='Junior Developer'>Junior Developer</option>
             <option value='Senior Developer'>Senior Developer</option>
+            <option value='Front-End Developer'>Front-End Developer</option>
+            <option value='Back-End Developer'>Back-End Developer</option>
+            <option value='Full-Stack Developer'>Full-Stack Developer</option>
             <option value='Manager'>Manager</option>
             <option value='Student or Learning'>Student or Learning</option>
             <option value='Instructor'>Instructor or Teacher</option>
@@ -129,15 +131,6 @@ const EditProfile = ({
             Please seperate them with comma (eg. Java, HTML)
           </small>
         </div>
-        {/* <div className='form-group'>
-          <input
-            type='text'
-            placeholder='Github Username'
-            name='githubusername'
-            value={githubusername}
-            onChange={(e) => onChange(e)}
-          />
-        </div> */}
         <div className='form-group'>
           <textarea
             placeholder='A short bio of yourself'
@@ -210,6 +203,16 @@ const EditProfile = ({
                 placeholder='Instagram URL'
                 name='instagram'
                 value={instagram}
+                onChange={(e) => onChange(e)}
+              />
+            </div>
+            <div className='form-group social-input'>
+              <i className='fab fa-github fa-2x' />
+              <input
+                type='text'
+                placeholder='Github URL'
+                name='github'
+                value={github}
                 onChange={(e) => onChange(e)}
               />
             </div>
