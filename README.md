@@ -55,12 +55,14 @@ This project is a ReactJS frontend application designed to provide a user interf
 To run tests for the application, use the following command:
 ```bash
 npm test
+```
 
 ## Building for Production
 
 To create a production build of the application, use the following command:
 ```bash
 npm run build
+```
 
 ## License
 
