@@ -26,7 +26,7 @@ This project is a ReactJS frontend application designed to provide a user interf
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/username/repository-name.git
+    git clone https://github.com/huseyin6/Social-Network-For-Computer-Engineers_Frontend.git
     cd repository-name
     ```
 
